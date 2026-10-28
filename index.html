@@ -249,7 +249,8 @@ details summary::after{content:" ▾"}
 
 
 <script>
-const KEY='flower-planner-preview-2026-v1', PAGE=20;
+const DEMO=new URLSearchParams(location.search).has('demo');
+const KEY=DEMO?'flower-planner-demo-v1':'flower-planner-preview-2026-v1', PAGE=20;
 let SCHOOL_DATA=[],RAW_EVENTS={},REVIEW_DATES={},BY=new Map(),DATA_UPDATED='';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -282,7 +283,7 @@ const find=(sid,d)=>saved.find(r=>r.schoolId===sid&&r.date===d);
 function suspect(s){
   if(!isOk(s))return '';
   const d=s.dates[0];
-  if(d<'20261210')return '12월 10일 이전 졸업식은 드물어요. 나이스 입력이 틀렸을 수 있으니 학교 공지로 꼭 확인해 주세요.';
+  if(d<'20261205')return '12월 5일 이전 졸업식은 매우 드물어요. 나이스 입력이 틀렸을 수 있으니 학교 공지로 꼭 확인해 주세요.';
   if(s.winter){const diff=Math.round((toDate(s.winter)-toDate(d))/864e5);
     if(diff>=10)return `나이스에 등록된 겨울방학 시작(${fmt(s.winter)})보다 ${diff}일 앞서요. 학교 공지로 꼭 확인해 주세요.`}
   return '';
@@ -565,6 +566,7 @@ async function boot(){
     if(!d||!Array.isArray(d.schools))throw Error('bad data');
     SCHOOL_DATA=d.schools;RAW_EVENTS=d.rawEvents||{};REVIEW_DATES=d.reviewDates||{};DATA_UPDATED=d.updatedAt||'';
   }catch(err){console.error(err);showLoadError();return}
+  if(DEMO)setupDemo();
   BY=new Map(SCHOOL_DATA.map(s=>[s.id,s]));
   const regs=[...new Set(SCHOOL_DATA.map(s=>s.region))].sort((a,b)=>a.localeCompare(b,'ko'));
   $('region').innerHTML='<option value="">전국</option>'+regs.map(r=>`<option${r===st.region?' selected':''}>${esc(r)}</option>`).join('');
@@ -573,6 +575,21 @@ async function boot(){
   if(st.tab==='plan')renderPlan();
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
+}
+/* 체험 모드(?demo=1): 가상의 '테스트중학교'로 날짜 변경 알림을 미리 볼 수 있어요. 실제 일정과 섞이지 않아요. */
+const DEMO_OLD='20261211',DEMO_NEW='20261218';
+function setupDemo(){
+  SCHOOL_DATA.unshift({id:'TEST:0001',name:'테스트중학교 (체험용)',kind:'중학교',region:'경기',address:'가상의 학교예요 · 체험용',coedu:'남여공학',website:'',status:'Graduation found in NEIS',dates:[DEMO_OLD],checked:new Date().toISOString().slice(0,10),lat:null,lon:null});
+  $('q').value='테스트중학교';
+  const box=document.createElement('div');box.className='warnbox';box.style.cssText='background:#e8f2ec;color:#174634;margin:0 0 6px';
+  box.innerHTML='<b>🧪 체험 모드 (실제 일정과 따로 저장돼요)</b>① 아래 <strong>테스트중학교</strong>를 <strong>＋ 담기</strong><br>② <button class="btn sm" id="demoFlip" style="margin:6px 0;width:100%">나이스가 졸업일을 12/18로 바꾼 것처럼 하기</button>③ <strong>내 일정</strong> 탭에서 알림 확인 <button class="linkbtn" id="demoReset" style="float:right">처음부터 다시</button>';
+  $('p-find').querySelector('.top').appendChild(box);
+  $('demoFlip').onclick=()=>{
+    const s=BY.get('TEST:0001');s.prevDates=[s.dates[0]];s.dates=[DEMO_NEW];s.changedAt=new Date().toISOString().slice(0,10);
+    updateCount();st.list=filtered();render();
+    const n=alertCount();toast(n?`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`:'바뀌었어요. 먼저 테스트중학교를 담아야 알림이 와요',n?'확인하기':'',n?()=>setTab('plan'):null);
+  };
+  $('demoReset').onclick=()=>{try{localStorage.removeItem(KEY)}catch{}location.reload()};
 }
 boot();
 </script>
