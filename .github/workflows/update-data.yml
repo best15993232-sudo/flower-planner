@@ -1,14 +1,22 @@
 name: 학사일정 갱신
 on:
   schedule:
-    - cron: "0 18 * * 0"      # 매주 월요일 03:00 (한국시간)
-  workflow_dispatch:           # 수동 실행 버튼
+    - cron: "0 18 * * *"      # 매일 03:00 (한국시간). 월요일에는 전체 조회, 나머지 요일은 임박 학교 위주
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "전체 학교 조회 (끄면 임박·미등록 학교만)"
+        type: boolean
+        default: true
 permissions:
   contents: write
+concurrency:
+  group: update-data
+  cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,13 +26,20 @@ jobs:
       - name: 학사일정 조회
         env:
           NEIS_KEY: ${{ secrets.NEIS_KEY }}     # 저장소 Settings > Secrets 에 등록
+          MANUAL_FULL: ${{ github.event.inputs.full }}
+          EVENT: ${{ github.event_name }}
         run: |
           EXTRA=""
           [ "$(date +%d)" -le 7 ] && EXTRA="--refresh-directory"   # 매달 첫 주에는 신설 학교·주소도 갱신
-          python3 scripts/update_schools.py --max 13000 $EXTRA
+          # 전체 조회: 수동 실행(기본값) 또는 매주 월요일(UTC 일요일 18시). 그 외에는 임박·미등록 학교만.
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            [ "$MANUAL_FULL" = "true" ] && MODE="--max 13000" || MODE="--priority --max 13000"
+          elif [ "$(date -u +%u)" = "7" ]; then MODE="--max 13000"
+          else MODE="--priority --max 13000"; fi
+          python3 scripts/update_schools.py $MODE $EXTRA
       - name: 변경분 커밋
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
           git add data/schools.json
-          git diff --cached --quiet || (git commit -m "data: 학사일정 갱신 $(date +%F)" && git push)
+          git diff --cached --quiet || (git commit -m "data: 학사일정 갱신 $(date +%F)" && git pull --rebase -q && git push)

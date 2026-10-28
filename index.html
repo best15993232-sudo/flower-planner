@@ -175,6 +175,16 @@ details summary::after{content:" ▾"}
 .sheet .btn[disabled]{opacity:.48;cursor:not-allowed}
 .raw-note{font-size:12px;color:#7c8d82;line-height:1.6;margin-top:8px}
 .card.sk{cursor:default;pointer-events:none}.sk i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,#eceee8 25%,#f5f6f2 50%,#eceee8 75%);background-size:200% 100%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200% 0}}
+.sus{display:inline-block;margin-top:3px;font-size:11.5px;font-weight:800;color:var(--amber);background:var(--amber-soft);padding:2px 8px;border-radius:9px}
+.warnbox{margin:14px 0 4px;padding:12px 14px;border-radius:12px;background:var(--amber-soft);color:#7a5410;font-size:13px;line-height:1.6}
+.warnbox b{display:block;margin-bottom:2px}
+.chg{margin:12px 0 4px;padding:14px;border-radius:14px;background:#fdecea;border:1.5px solid #f3b9b2;color:#8a2a1f}
+.chg b{display:block;font-size:14px;margin-bottom:4px}
+.chg p{margin:0 0 4px;font-size:13px;line-height:1.6}
+.chg .sactions{margin-top:10px}
+.dot{position:absolute;top:8px;left:calc(50% - 16px);width:10px;height:10px;border-radius:50%;background:#d93025;border:2px solid #fff;display:none}
+.dot.on{display:block}
+.scard.changed{border-color:#f3b9b2}
 </style>
 </head>
 <body>
@@ -229,7 +239,7 @@ details summary::after{content:" ▾"}
 
 <nav class="tabbar" aria-label="메뉴"><div class="tabbar-in">
   <button id="t-find" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>학교 찾기</button>
-  <button id="t-plan" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>내 일정<span class="cnt" id="cnt">0</span></button>
+  <button id="t-plan" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>내 일정<span class="dot" id="dot"></span><span class="cnt" id="cnt">0</span></button>
 </div></nav>
 
 <div class="scrim" id="scrim"></div>
@@ -266,8 +276,35 @@ const safeUrl=u=>{u=String(u||'').trim();if(!u)return '';if(!/^https?:\/\//i.tes
 
 let saved=(()=>{try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch{return[]}})();
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved))}catch{toast('저장하지 못했어요. 백업 파일로 보관해 주세요')}updateCount()}
-function updateCount(pop){const c=$('cnt');c.textContent=saved.length;c.classList.toggle('on',saved.length>0);if(pop){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}}
+function updateCount(pop){$('dot').classList.toggle('on',alertCount()>0);const c=$('cnt');c.textContent=saved.length;c.classList.toggle('on',saved.length>0);if(pop){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}}
 const find=(sid,d)=>saved.find(r=>r.schoolId===sid&&r.date===d);
+/* 의심 표시: 나이스 날짜가 평소와 달라 보일 때 사유를 돌려줘요 (오류라고 단정하지 않아요) */
+function suspect(s){
+  if(!isOk(s))return '';
+  const d=s.dates[0];
+  if(d<'20261210')return '12월 10일 이전 졸업식은 드물어요. 나이스 입력이 틀렸을 수 있으니 학교 공지로 꼭 확인해 주세요.';
+  if(s.winter){const diff=Math.round((toDate(s.winter)-toDate(d))/864e5);
+    if(diff>=10)return `나이스에 등록된 겨울방학 시작(${fmt(s.winter)})보다 ${diff}일 앞서요. 학교 공지로 꼭 확인해 주세요.`}
+  return '';
+}
+/* 날짜 변경 알림: 담을 때의 날짜와 지금 나이스 날짜를 비교해요 */
+function changeOf(r){
+  if(r.source==='직접 입력')return null;
+  const s=BY.get(r.schoolId);if(!s||isNQ(s))return null;
+  let to=null,gone=false;
+  if(r.source==='학사일정 후보 선택'){
+    if(candidateDates(s).includes(r.date))return null;
+    to=isOk(s)?s.dates[0]:null;gone=!to;
+  }else{
+    if(isOk(s)&&s.dates[0]===r.date)return null;
+    to=isOk(s)?s.dates[0]:null;gone=!to;
+  }
+  const key=to||'none';
+  if(r.ack===key)return null;
+  const when=(s.changedAt&&s.prevDates&&s.prevDates[0]===r.date)?s.changedAt:'';
+  return {to,gone,key,when};
+}
+const alertCount=()=>saved.filter(r=>changeOf(r)).length;
 const anySaved=sid=>saved.filter(r=>r.schoolId===sid);
 
 /* state */
@@ -297,7 +334,7 @@ function cardHtml(s){
   let dateHtml,btn;
   if(ok){
     const d=s.dates[0],[dd,far]=dday(d);
-    dateHtml=`<div class="date"><b>${fmt(d)}</b><small class="${far?'far':''}">${dd}</small></div>`;
+    dateHtml=`<div class="date"><b>${fmt(d)}</b><small class="${far?'far':''}">${dd}</small>${suspect(s)?'<br><span class="sus">⚠ 날짜 확인 필요</span>':''}</div>`;
     const on=!!find(s.id,d);
     btn=`<button class="add ${on?'done':''}" data-add="${esc(s.id)}" aria-pressed="${on}">${on?'✓ 담김':'＋ 담기'}</button>`;
   }else{
@@ -357,7 +394,9 @@ function openSheet(id,keep){
   let body='';
   if(ok){
     const d=s.dates[0],on=!!find(s.id,d),[dd]=dday(d);
+    const sus=suspect(s);
     body=`<div class="bigdate">${fmt(d)}</div><div class="hint">${fmtY(d)} · ${dd} · 나이스에 등록된 일정이에요. 시간은 학교에 확인하세요.</div>
+    ${sus?`<div class="warnbox"><b>⚠ 날짜 확인이 필요해요</b>${esc(sus)}</div>`:''}
     <div style="margin-top:18px"><button class="btn ${on?'soft':''}" data-sheet-toggle>${on?'✓ 담았어요 (누르면 빼기)':'＋ 이 날짜 내 일정에 담기'}</button></div>
     <details class="sec" style="padding-top:4px"><summary>다른 날짜로 담기</summary>${manualBlock()}</details>`;
   }else{
@@ -424,8 +463,9 @@ function renderPlan(){
   const first=keys.find(k=>dday(k)[0]!=='지남')||keys[0];
   el.innerHTML=`<div class="sum"><div><b>${saved.length}곳</b><span>담은 학교</span></div><div><b>${total.toLocaleString('ko-KR')}개</b><span>예상 준비 수량</span></div></div>`+
   keys.map(d=>{const [dd]=dday(d);return `<section class="group"><h3>${fmt(d)}<small>${dd} · ${g[d].length}곳</small></h3>${g[d].map(r=>{
-    const s=BY.get(r.schoolId);
-    return `<article class="scard"><div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
+    const s=BY.get(r.schoolId);const ch=changeOf(r);
+    const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
+    return `<article class="scard ${ch?'changed':''}">${chHtml}<div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
     <div class="qty"><label for="q-${esc(r.id)}">예상 수량</label><div class="stepper"><button data-q="-1" data-id="${esc(r.id)}" aria-label="수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}"><button data-q="1" data-id="${esc(r.id)}" aria-label="수량 늘리기">＋</button></div></div>
     <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea>
     <div class="sactions"><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button><button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div></article>`}).join('')}</section>`}).join('')+backupHtml();
@@ -436,6 +476,13 @@ function updateTotal(){const t=saved.reduce((a,r)=>a+(+r.qty||0),0);const b=docu
 $('plan').addEventListener('click',e=>{
   const q=e.target.closest('[data-q]');
   if(q){const r=saved.find(x=>x.id===q.dataset.id);const v=setQty(q.dataset.id,(+r.qty||0)+ +q.dataset.q);document.querySelector(`[data-qty="${CSS.escape(q.dataset.id)}"]`).value=v;updateTotal();return}
+  const mv=e.target.closest('[data-move]');
+  if(mv){const r=saved.find(x=>x.id===mv.dataset.move),ch=r&&changeOf(r);if(ch&&ch.to){
+      const nid=r.schoolId+'@'+ch.to;saved=saved.filter(x=>x.id!==r.id);
+      if(!saved.find(x=>x.id===nid))saved.push({...r,id:nid,date:ch.to,source:'학사일정 등록',ack:undefined});
+      persist();renderPlan();toast(`${fmt(ch.to)}로 옮겼어요`)}return}
+  const ak=e.target.closest('[data-ack]');
+  if(ak){const r=saved.find(x=>x.id===ak.dataset.ack),ch=r&&changeOf(r);if(ch){r.ack=ch.key;persist();renderPlan();toast('알겠어요. 다시 바뀌면 알려드릴게요')}return}
   const d=e.target.closest('[data-del]');
   if(d){const r=saved.find(x=>x.id===d.dataset.del);const bak=r;saved=saved.filter(x=>x.id!==d.dataset.del);persist();renderPlan();toast('일정을 삭제했어요','되돌리기',()=>{saved.push(bak);persist();renderPlan()});return}
   const o=e.target.closest('[data-detail]');if(o){lastFocus=null;openSheet(o.dataset.detail);return}
@@ -456,7 +503,7 @@ $('file').addEventListener('change',e=>{
   rd.onload=()=>{try{
     const o=JSON.parse(rd.result);if(o.app!=='flower-planner-preview'||!Array.isArray(o.items))throw Error('다른 형식의 파일이에요');
     const clean=[];for(const r of o.items){if(typeof r.schoolId!=='string'||!BY.has(r.schoolId)||!/^\d{8}$/.test(r.date))continue;
-      clean.push({id:r.schoolId+'@'+r.date,schoolId:r.schoolId,date:r.date,source:r.source==='직접 입력'?'직접 입력':'학사일정 등록',note:String(r.note||'').slice(0,10000),qty:Math.max(0,Math.min(9999,Math.floor(+r.qty||0))),savedAt:r.savedAt||''})}
+      clean.push({id:r.schoolId+'@'+r.date,schoolId:r.schoolId,date:r.date,source:['직접 입력','학사일정 후보 선택'].includes(r.source)?r.source:'학사일정 등록',note:String(r.note||'').slice(0,10000),qty:Math.max(0,Math.min(9999,Math.floor(+r.qty||0))),ack:typeof r.ack==='string'?r.ack:undefined,savedAt:r.savedAt||''})}
     saved=[...new Map([...saved,...clean].map(r=>[r.id,r])).values()];persist();renderPlan();toast(clean.length+'개 일정을 불러왔어요');
   }catch(err){toast('파일을 읽지 못했어요: '+err.message)}finally{e.target.value=''}};
   rd.readAsText(f,'utf-8');
@@ -524,6 +571,8 @@ async function boot(){
   $('upd').textContent=DATA_UPDATED?DATA_UPDATED.replace(/-/g,'.'):'—';
   updateCount();render();
   if(st.tab==='plan')renderPlan();
+  const n=alertCount();
+  if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
 }
 boot();
 </script>

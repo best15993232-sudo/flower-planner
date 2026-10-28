@@ -19,3 +19,7 @@ scripts/test_classify.py  : 분류 규칙 테스트
 처음 한 번 (인터넷·키 없이 가능): 기존 수집 결과와 분류가 같은지 대조
   python3 scripts/verify_against_audit.py school_summary.csv event_audit.csv   → 불일치 0곳이면 정상
 scripts/update_schools.py --refresh-directory : 신설 학교 추가, 주소·홈페이지 갱신 (한 달에 한 번)
+
+[갱신 주기]
+- 매일 03:00(한국시간) 자동 실행. 월요일은 전체 학교, 그 외 요일은 임박·미등록 학교만(--priority).
+- 임박 규칙: 졸업식 14일 안=매번, 15~42일=3일에 한 번, 그보다 먼 일정=7일에 한 번, 졸업식이 지난 학교=조회 안 함.

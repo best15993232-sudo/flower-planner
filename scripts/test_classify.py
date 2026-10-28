@@ -1,6 +1,6 @@
 import json, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
-from update_schools import classify
+from update_schools import classify, winter_start
 R = lambda d, n: {"AA_YMD": d, "EVENT_NM": n}
 d = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "schools.json"), encoding="utf-8"))
 B = {s["id"]: s for s in d["schools"]}
@@ -24,4 +24,7 @@ for rows, st_, dt_ in cases:
     st, dates, *_ = classify(rows, no_data=(not rows))
     ok = (st, dates) == (st_, dt_); fails += not ok
     print("OK " if ok else "FAIL", st, dates)
+w = winter_start([R("20261216", "겨울방학"), R("20261217", "겨울 방학"), R("20270105", "개학")])
+ok = w == "20261216"; fails += not ok
+print("OK " if ok else "FAIL", "winter_start", w)
 sys.exit(1 if fails else 0)

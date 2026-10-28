@@ -61,6 +61,13 @@ def classify(rows, no_data=False):
     return status, dates, review, raw
 
 
+def winter_start(rows):
+    """학교가 나이스에 등록한 '겨울방학' 중 가장 이른 날짜. 졸업식 날짜가 이상한지 판단할 때 참고해요."""
+    ds = [str(r.get("AA_YMD", "")) for r in rows or []
+          if "겨울방학" in re.sub(r"\s+", "", r.get("EVENT_NM") or "")]
+    return min(ds) if ds else None
+
+
 class ApiError(Exception):
     pass
 
@@ -92,6 +99,41 @@ def fetch_rows(key, office, code, retries=4):
             last = e
             time.sleep(1.5 * (i + 1))
     raise ApiError(str(last))
+
+
+PAST_GRACE = 3     # 졸업식이 지난 지 3일이 넘은 학교는 더 이상 조회하지 않아요
+
+
+def pick_priority(schools, today):
+    """우선 조회 대상 선택. 졸업식이 가까울수록 자주 확인해요.
+      · 아직 조회 안 한 학교 / 날짜 미등록·후보 여러 개·행사명 확인 필요 → 실행할 때마다
+      · 졸업식이 14일 안 → 실행할 때마다 (날짜 변경이 가장 치명적인 시기)
+      · 졸업식이 15~42일 뒤 → 3일에 한 번
+      · 그보다 먼 일정, 학사일정 자료 없음 → 7일에 한 번"""
+    t = datetime.strptime(today, "%Y-%m-%d").date()
+    ymd = lambda n: (t + timedelta(days=n)).strftime("%Y%m%d")
+    iso = lambda n: (t - timedelta(days=n)).strftime("%Y-%m-%d")
+    lo, d14, d42 = ymd(-PAST_GRACE), ymd(14), ymd(42)
+    picked = []
+    for s in schools:
+        chk = s.get("checked") or ""
+        if s["status"] == ST_NQ:
+            picked.append((0, chk, s)); continue
+        if chk == today:
+            continue
+        d = s["dates"][0] if s["dates"] else None
+        if s["status"] == ST_OK and d:
+            if d < lo: continue                                    # 이미 지난 졸업식
+            gap = 0 if d <= d14 else 3 if d <= d42 else 7
+            tier = 1 if d <= d42 else 2
+        elif s["status"] in (ST_NONE, ST_MULTI, ST_AMBIG):
+            gap, tier = 0, 1
+        else:
+            gap, tier = 7, 2
+        if chk <= iso(gap) if gap else True:
+            picked.append((tier, chk, s))
+    picked.sort(key=lambda x: (x[0], x[1]))
+    return [x[2] for x in picked], sum(1 for x in picked if x[0] < 2), sum(1 for x in picked if x[0] == 2)
 
 
 OFFICES = [("B10","서울"),("C10","부산"),("D10","대구"),("E10","인천"),("F10","광주"),("G10","대전"),("H10","울산"),
@@ -154,6 +196,7 @@ def main():
     ap.add_argument("--out", default=None, help="기본값: --base 와 같은 파일")
     ap.add_argument("--max", type=int, default=3000, help="이번 실행에서 조회할 학교 수 (오래된/미조회 우선)")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--priority", action="store_true", help="졸업식 임박·미등록 학교 위주로만 조회 (평일 자동 실행용)")
     ap.add_argument("--refresh-directory", action="store_true", help="학교기본정보로 신설 학교 추가·주소 갱신 (한 달에 한 번 정도)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--csv-check", help="기존 수집 CSV와 분류 결과를 대조 (대조 대상 학교만 조회)")
@@ -173,8 +216,11 @@ def main():
         for r in csv.DictReader(open(a.csv_check, encoding="utf-8-sig")):
             expected[f'{r["OfficeCode"]}:{r["SchoolCode"]}'] = (r["Result"], r["GraduationDates"].split(";") if r["GraduationDates"] else [])
         targets = [by[i] for i in expected if i in by]
+    elif a.priority:
+        targets, na, nb = pick_priority(schools, datetime.now(KST).strftime("%Y-%m-%d"))
+        print(f"우선 조회: 임박·미등록 {na}개교 + 오래된 일반 {nb}개교")
     else:
-        # 미조회 먼저, 그다음 마지막 조회가 오래된 순
+        # 전체 조회: 미조회 먼저, 그다음 마지막 조회가 오래된 순
         targets = sorted(schools, key=lambda s: (s["status"] != ST_NQ, s.get("checked") or ""))
     targets = targets[: a.max]
     print(f"조회 대상 {len(targets)}개교", flush=True)
@@ -216,6 +262,9 @@ def main():
             s["prevDates"], s["changedAt"] = s["dates"], today
             changed += 1
         s["status"], s["dates"], s["checked"] = status, dates, today
+        w = winter_start(rows)
+        if w: s["winter"] = w
+        else: s.pop("winter", None)
         raw.pop(sid, None); rev.pop(sid, None)
         if rawev: raw[sid] = rawev
         if review and status == ST_AMBIG: rev[sid] = review   # 날짜가 비어 있는 '행사명 확인 필요' 학교만
