@@ -218,7 +218,7 @@ def main():
         s["status"], s["dates"], s["checked"] = status, dates, today
         raw.pop(sid, None); rev.pop(sid, None)
         if rawev: raw[sid] = rawev
-        if review: rev[sid] = review
+        if review and status == ST_AMBIG: rev[sid] = review   # 날짜가 비어 있는 '행사명 확인 필요' 학교만
 
     print(f"갱신 {len(results)}개교 · 날짜 변경 {changed}개교 · 실패 {len(fails)}개교")
     for sid, why in fails[:10]:
