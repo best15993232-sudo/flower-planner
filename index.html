@@ -389,12 +389,13 @@ const alertCount=()=>saved.filter(r=>changeOf(r)).length;
 const anySaved=sid=>saved.filter(r=>r.schoolId===sid);
 
 /* state */
-const st={status:'confirmed',kind:'',region:'',sort:'date',shown:PAGE,list:[],tab:'find',open:null};
+const ALL_KINDS=['초등학교','중학교','고등학교','대학'];
+const st={status:'confirmed',kinds:new Set(ALL_KINDS),region:'',sort:'date',shown:PAGE,list:[],tab:'find',open:null};
 
 function filtered(){
   const q=norm($('q').value);
   let m=SCHOOL_DATA.filter(s=>{
-    if(st.kind==='대학'){if(!UNIV_KINDS.includes(s.kind))return false}else if(st.kind&&s.kind!==st.kind)return false;
+    if(!st.kinds.has(UNIV_KINDS.includes(s.kind)?'대학':s.kind))return false;   // 여러 학교급을 같이 고를 수 있어요
     if(st.region&&s.region!==st.region)return false;
     if(!passCoedu(s))return false;
     if(st.status==='confirmed'&&!isOk(s))return false;
@@ -622,10 +623,19 @@ function toast(msg,label,fn){
 /* filters */
 let deb;$('q').addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>render(),120)});
 $('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.status=b.dataset.v;[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
-$('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;st.kind=b.dataset.k;
-  document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));
-  if(st.kind==='대학'&&st.status!=='all'){st.status='all';[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v==='all'))}   // 대학은 나이스 날짜가 없어서 '전체'로 보여줘요
+/* 학교급 알약: 여러 개 선택. '전체'는 모두 선택, 모두 선택된 상태에서 하나를 누르면 그것만 빠져요 */
+function paintKinds(){
+  const all=ALL_KINDS.every(k=>st.kinds.has(k));
+  document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===''?all:st.kinds.has(x.dataset.k)));
+}
+$('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  const k=b.dataset.k;
+  if(k===''){st.kinds=new Set(ALL_KINDS)}
+  else{st.kinds.has(k)?st.kinds.delete(k):st.kinds.add(k);if(!st.kinds.size)st.kinds=new Set(ALL_KINDS)}   // 다 빼면 전체로
+  paintKinds();
+  if(st.kinds.size===1&&st.kinds.has('대학')&&st.status!=='all'){st.status='all';[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v==='all'))}   // 대학만 볼 때는 날짜 없는 곳이 많아 '전체'로
   render()});
+paintKinds();
 document.querySelectorAll('.coedu-sel').forEach(sel=>sel.addEventListener('change',e=>{
   COEDU=e.target.value;
   document.querySelectorAll('.coedu-sel').forEach(x=>{x.value=COEDU;x.classList.toggle('on',!!COEDU)});
