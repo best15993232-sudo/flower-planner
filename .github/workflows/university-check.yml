@@ -1,0 +1,25 @@
+name: 대학 학위수여식 점검
+on:
+  schedule:
+    - cron: "30 19 * * 0"     # 매주 월요일 04:30 (한국시간)
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 추출기 테스트
+        run: python3 scripts/test_extract.py
+      - name: 학사일정 페이지 점검 (사이트 데이터는 바꾸지 않고 보고서만 만들어요)
+        run: python3 scripts/extract_university_dates.py | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: 보고서 커밋
+        run: |
+          git config user.name "data-bot"
+          git config user.email "data-bot@users.noreply.github.com"
+          git add docs/reports
+          git diff --cached --quiet || (git commit -m "report: 대학 학위수여식 점검 $(date +%F)" && git pull --rebase -q && git push)
