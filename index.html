@@ -196,6 +196,7 @@ details summary::after{content:" ▾"}
 .ktabs button[aria-pressed=true]{background:#fff;color:var(--brand);box-shadow:0 1px 4px #0000001a}
 .kview{height:280px;border-radius:14px;overflow:hidden;margin-top:8px;background:#eef0ea;position:relative}
 .kmsg{padding:90px 20px;text-align:center;font-size:13px;color:var(--ink2);line-height:1.6}
+.links.two{grid-template-columns:1fr 1fr}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -439,9 +440,6 @@ function openSheet(id,keep){
   const loc=Number.isFinite(s.lat)&&Number.isFinite(s.lon);
   const q=encodeURIComponent(s.name+' '+s.address);
   const search='https://map.kakao.com/link/search/'+q;
-  const map=loc?`https://map.kakao.com/link/map/${encodeURIComponent(s.name)},${s.lat},${s.lon}`:search;
-  const rv=loc?`https://map.kakao.com/link/roadview/${s.lat},${s.lon}`:search;
-  const way=loc?`https://map.kakao.com/link/to/${encodeURIComponent(s.name)},${s.lat},${s.lon}`:search;
   const site=safeUrl(s.website);
   let body='';
   if(ok){
@@ -479,11 +477,10 @@ function openSheet(id,keep){
     ${body}${mineHtml}
     <div class="sec"><h4>학교 위치 · 정보</h4>
       ${loc&&KAKAO_KEY?`<div class="kbox"><button class="btn soft" data-kopen>🗺️ 지도·로드뷰 펼치기</button><div id="kwrap" hidden><div class="ktabs"><button data-kv="map" aria-pressed="true">지도</button><button data-kv="rv" aria-pressed="false">로드뷰</button></div><div id="kview" class="kview"></div><p class="hint" style="margin-top:6px">로드뷰는 화면을 끌거나 바닥의 화살표를 눌러 주변을 둘러볼 수 있어요.</p></div></div>`:''}
-      <div class="links">
-      <a href="${esc(map)}" target="_blank" rel="noopener noreferrer">🗺️<br>지도</a>
-      <a href="${esc(rv)}" target="_blank" rel="noopener noreferrer">📍<br>로드뷰</a>
-      ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>검색</a>`}
-    </div>${loc?`<div style="margin-top:8px"><a class="btn line sm" style="width:100%" href="${esc(way)}" target="_blank" rel="noopener noreferrer">길찾기 ↗</a></div>`:''}
+      <div class="links two">
+      <a href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗<br>길찾기</a>
+      ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>학교 홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>학교 검색</a>`}
+    </div>
     <p class="notice">※ 목록에 있다고 해서 판매가 허용되는 장소는 아니에요. 판매 가능 여부는 직접 확인해 주세요. 지도 좌표는 출입구와 다를 수 있어요.</p></div>`;
   $('toast').classList.remove('on');$('sheet').classList.add('on');$('scrim').classList.add('on');document.body.style.overflow='hidden';
   if(!keep)$('sheet').scrollTop=0;
@@ -646,6 +643,15 @@ async function boot(){
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
 }
+/* 길찾기: 카카오맵 자동차 길찾기로 연결. 출발지는 내 위치(알면) 또는 카카오맵이 현재 위치로 잡아요 */
+function wayUrl(s){
+  const nm=encodeURIComponent(s.name);
+  if(!Number.isFinite(s.lat))return 'https://map.kakao.com/link/search/'+encodeURIComponent(s.name+' '+(s.address||''));
+  const c=near.center;
+  if(c&&c.isMe)return `https://map.kakao.com/link/from/${encodeURIComponent('내 위치')},${c.lat},${c.lon}/to/${nm},${s.lat},${s.lon}`;
+  return `https://map.kakao.com/link/to/${nm},${s.lat},${s.lon}`;
+}
+
 /* ===== 카카오 지도·로드뷰 (상세 화면) ===== */
 const KAKAO_KEY=String(window.KAKAO_JS_KEY||'').trim();   // config.js 에서 읽어요 (GitHub Actions가 시크릿으로 만들어요)
 let kakaoReady=null;
@@ -670,11 +676,11 @@ function showKakao(s,mode){
     }else{
       const rv=new kakao.maps.Roadview(box);
       new kakao.maps.RoadviewClient().getNearestPanoId(pos,150,id=>{
-        if(id===null){box.innerHTML='<div class="kmsg">학교 근처 150m 안에 로드뷰가 없어요.<br>아래 카카오맵 로드뷰 링크로 주변을 찾아보세요.</div>';return}
+        if(id===null){box.innerHTML='<div class="kmsg">학교 근처 150m 안에 로드뷰가 없어요.<br>지도 탭에서 주변을 확인해 주세요.</div>';return}
         rv.setPanoId(id,pos);
       });
     }
-  }).catch(()=>{box.innerHTML='<div class="kmsg">카카오 지도를 불러오지 못했어요.<br>아래 카카오맵 링크를 이용해 주세요.</div>'});
+  }).catch(()=>{box.innerHTML='<div class="kmsg">카카오 지도를 불러오지 못했어요.<br>잠시 뒤 다시 열어 주세요.</div>'});
 }
 
 /* ===== 내 주변 ===== */

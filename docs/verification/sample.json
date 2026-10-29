@@ -1,0 +1,452 @@
+[
+{
+"n": 1,
+"id": "P10:8352094",
+"name": "이리부천초등학교",
+"kind": "초등학교",
+"region": "전북",
+"neis": "20261231",
+"web": "ibc.es.kr"
+},
+{
+"n": 2,
+"id": "T10:9296043",
+"name": "제주중앙초등학교",
+"kind": "초등학교",
+"region": "제주",
+"neis": "20270107",
+"web": "http://jejujungang.jje.es.kr"
+},
+{
+"n": 3,
+"id": "D10:7271105",
+"name": "대구유천초등학교",
+"kind": "초등학교",
+"region": "대구",
+"neis": "20270212",
+"web": "http://yucheon.dge.es.kr"
+},
+{
+"n": 4,
+"id": "J10:7781016",
+"name": "도창초등학교",
+"kind": "초등학교",
+"region": "경기",
+"neis": "20261231",
+"web": "https://dochang-e.goesh.kr"
+},
+{
+"n": 5,
+"id": "B10:7130116",
+"name": "서울남천초등학교",
+"kind": "초등학교",
+"region": "서울",
+"neis": "20270113",
+"web": "http://s-namcheon.sen.es.kr"
+},
+{
+"n": 6,
+"id": "B10:7134118",
+"name": "한양초등학교",
+"kind": "초등학교",
+"region": "서울",
+"neis": "20270212",
+"web": "http://www.hye.or.kr"
+},
+{
+"n": 7,
+"id": "P10:8412016",
+"name": "무풍초등학교",
+"kind": "초등학교",
+"region": "전북",
+"neis": "20261230",
+"web": "https://school.jbedu.kr/mupung"
+},
+{
+"n": 8,
+"id": "N10:8181030",
+"name": "선장초등학교",
+"kind": "초등학교",
+"region": "충남",
+"neis": "20270107",
+"web": "http://www.sjsd.cnems.kr"
+},
+{
+"n": 9,
+"id": "D10:7251105",
+"name": "대구매호초등학교",
+"kind": "초등학교",
+"region": "대구",
+"neis": "20270212",
+"web": "http://maeho.dge.es.kr"
+},
+{
+"n": 10,
+"id": "P10:8342077",
+"name": "군산나운초등학교",
+"kind": "초등학교",
+"region": "전북",
+"neis": "20261231",
+"web": "http://ksnaun.es.kr/"
+},
+{
+"n": 11,
+"id": "R10:8791050",
+"name": "남후초등학교",
+"kind": "초등학교",
+"region": "경북",
+"neis": "20270106",
+"web": "https://school.gyo6.net/namhoo"
+},
+{
+"n": 12,
+"id": "H10:7491132",
+"name": "울산양정초등학교",
+"kind": "초등학교",
+"region": "울산",
+"neis": "20270215",
+"web": "http://uyj.es.kr"
+},
+{
+"n": 13,
+"id": "J10:7591029",
+"name": "온신초등학교",
+"kind": "초등학교",
+"region": "경기",
+"neis": "20261231",
+"web": "https://onshin-e.goegm.kr/onshin-e/main.do"
+},
+{
+"n": 14,
+"id": "S10:9201011",
+"name": "수동초등학교",
+"kind": "초등학교",
+"region": "경남",
+"neis": "20270107",
+"web": "http://sudong-p.gne.go.kr"
+},
+{
+"n": 15,
+"id": "B10:7081424",
+"name": "서울개화초등학교",
+"kind": "초등학교",
+"region": "서울",
+"neis": "20270205",
+"web": "http://gaehwa.sen.es.kr"
+},
+{
+"n": 16,
+"id": "P10:8382051",
+"name": "월촌초등학교",
+"kind": "초등학교",
+"region": "전북",
+"neis": "20261231",
+"web": "http://jb-wolchon.es.kr"
+},
+{
+"n": 17,
+"id": "B10:7081468",
+"name": "서울염창초등학교",
+"kind": "초등학교",
+"region": "서울",
+"neis": "20270106",
+"web": "http://yeomchang.sen.es.kr"
+},
+{
+"n": 18,
+"id": "R10:8821037",
+"name": "대창초등학교",
+"kind": "초등학교",
+"region": "경북",
+"neis": "20270205",
+"web": "https://school.gyo6.net/dces"
+},
+{
+"n": 19,
+"id": "K10:7863028",
+"name": "교동초등학교",
+"kind": "초등학교",
+"region": "강원",
+"neis": "20261231",
+"web": "http://gyodong.gwe.es.kr"
+},
+{
+"n": 20,
+"id": "R10:8761154",
+"name": "포항대흥초등학교",
+"kind": "초등학교",
+"region": "경북",
+"neis": "20270105",
+"web": "https://school.gyo6.net/phdh"
+},
+{
+"n": 21,
+"id": "K10:7812103",
+"name": "창촌중학교",
+"kind": "중학교",
+"region": "강원",
+"neis": "20261231",
+"web": "http://ccms.gwe.ms.kr/"
+},
+{
+"n": 22,
+"id": "B10:7031211",
+"name": "이화여자대학교사범대학부속이화・금란중학교",
+"kind": "중학교",
+"region": "서울",
+"neis": "20270108",
+"web": "ewha.sen.ms.kr"
+},
+{
+"n": 23,
+"id": "C10:7211036",
+"name": "장안중학교",
+"kind": "중학교",
+"region": "부산",
+"neis": "20270203",
+"web": "jang-an.ms.kr"
+},
+{
+"n": 24,
+"id": "J10:7761005",
+"name": "서운중학교",
+"kind": "중학교",
+"region": "경기",
+"neis": "20261231",
+"web": "https://seoun-m.goean.kr/seoun-m/main.do"
+},
+{
+"n": 25,
+"id": "F10:7391122",
+"name": "전남대학교사범대학부설중학교",
+"kind": "중학교",
+"region": "광주",
+"neis": "20270107",
+"web": "http://chonnam-am.gen.ms.kr"
+},
+{
+"n": 26,
+"id": "P10:8462055",
+"name": "줄포중학교",
+"kind": "중학교",
+"region": "전북",
+"neis": "20270204",
+"web": "http://joolpo.ms.kr"
+},
+{
+"n": 27,
+"id": "M10:8031009",
+"name": "송학중학교",
+"kind": "중학교",
+"region": "충북",
+"neis": "20261221",
+"web": "school.cbe.go.kr/songhak-m/M01/"
+},
+{
+"n": 28,
+"id": "N10:8171014",
+"name": "청라중학교",
+"kind": "중학교",
+"region": "충남",
+"neis": "20270104",
+"web": "http://www.chungra.cnems.kr"
+},
+{
+"n": 29,
+"id": "D10:7251031",
+"name": "노변중학교",
+"kind": "중학교",
+"region": "대구",
+"neis": "20270205",
+"web": "https://nobyeon.dge.ms.kr"
+},
+{
+"n": 30,
+"id": "R10:8891023",
+"name": "수비중학교",
+"kind": "중학교",
+"region": "경북",
+"neis": "20261231",
+"web": "http://school.gyo6.net/subihs"
+},
+{
+"n": 31,
+"id": "G10:7441044",
+"name": "한밭여자중학교",
+"kind": "중학교",
+"region": "대전",
+"neis": "20270107",
+"web": "http://hanbat-gms.djsch.kr"
+},
+{
+"n": 32,
+"id": "C10:7181089",
+"name": "부산진여자중학교",
+"kind": "중학교",
+"region": "부산",
+"neis": "20270203",
+"web": "http://busanjingm.ms.kr"
+},
+{
+"n": 33,
+"id": "K10:7912042",
+"name": "봉평중학교",
+"kind": "중학교",
+"region": "강원",
+"neis": "20261231",
+"web": "bongpyeong.gwe.ms.kr"
+},
+{
+"n": 34,
+"id": "N10:8241004",
+"name": "비인중학교",
+"kind": "중학교",
+"region": "충남",
+"neis": "20270107",
+"web": "http://www.biin-m.cnems.kr"
+},
+{
+"n": 35,
+"id": "C10:7211027",
+"name": "반안중학교",
+"kind": "중학교",
+"region": "부산",
+"neis": "20270203",
+"web": "school.busanedu.net/banan-m/"
+},
+{
+"n": 36,
+"id": "J10:7530092",
+"name": "수원여자고등학교",
+"kind": "고등학교",
+"region": "경기",
+"neis": "20261222",
+"web": "https://suwong-h.goesw.kr"
+},
+{
+"n": 37,
+"id": "G10:7430256",
+"name": "동아마이스터고등학교",
+"kind": "고등학교",
+"region": "대전",
+"neis": "20270107",
+"web": "http://dongahs.djsch.kr"
+},
+{
+"n": 38,
+"id": "N10:8140072",
+"name": "충남예술고등학교",
+"kind": "고등학교",
+"region": "충남",
+"neis": "20270203",
+"web": "http://cna.caehs.kr"
+},
+{
+"n": 39,
+"id": "S10:9010046",
+"name": "마산가포고등학교",
+"kind": "고등학교",
+"region": "경남",
+"neis": "20261230",
+"web": "http://msgapo-h.gne.go.kr"
+},
+{
+"n": 40,
+"id": "K10:7801152",
+"name": "속초고등학교",
+"kind": "고등학교",
+"region": "강원",
+"neis": "20270107",
+"web": "http://sokcho.gwe.hs.kr "
+},
+{
+"n": 41,
+"id": "C10:7150134",
+"name": "동인고등학교",
+"kind": "고등학교",
+"region": "부산",
+"neis": "20270204",
+"web": "www.dongin.hs.kr"
+},
+{
+"n": 42,
+"id": "K10:7801107",
+"name": "강원체육고등학교",
+"kind": "고등학교",
+"region": "강원",
+"neis": "20261222",
+"web": "http://gangwon-ph.gwe.hs.kr"
+},
+{
+"n": 43,
+"id": "Q10:7140210",
+"name": "문태고등학교",
+"kind": "고등학교",
+"region": "전남",
+"neis": "20270107",
+"web": "https://moontae.jge.hs.kr/"
+},
+{
+"n": 44,
+"id": "R10:8750832",
+"name": "김천한일고등학교",
+"kind": "고등학교",
+"region": "경북",
+"neis": "20270203",
+"web": "https://school.gyo6.net/hanilhs"
+},
+{
+"n": 45,
+"id": "D10:7240452",
+"name": "대구과학기술고등학교",
+"kind": "고등학교",
+"region": "대구",
+"neis": "20261231",
+"web": "https://dgst.dge.hs.kr"
+},
+{
+"n": 46,
+"id": "J10:7530991",
+"name": "안산디자인문화고등학교",
+"kind": "고등학교",
+"region": "경기",
+"neis": "20270112",
+"web": "https://adc-h.goeas.kr/"
+},
+{
+"n": 47,
+"id": "C10:7005103",
+"name": "부산대학교사범대학부설고등학교",
+"kind": "고등학교",
+"region": "부산",
+"neis": "20270204",
+"web": "http://pnu.hs.kr"
+},
+{
+"n": 48,
+"id": "M10:8000077",
+"name": "충북체육고등학교",
+"kind": "고등학교",
+"region": "충북",
+"neis": "20261231",
+"web": "https://school.cbe.go.kr/cbp-h/M01"
+},
+{
+"n": 49,
+"id": "M10:8000183",
+"name": "매괴고등학교",
+"kind": "고등학교",
+"region": "충북",
+"neis": "20270107",
+"web": "http://school.cbe.go.kr/maegoe-h/M01"
+},
+{
+"n": 50,
+"id": "H10:7480094",
+"name": "함월고등학교",
+"kind": "고등학교",
+"region": "울산",
+"neis": "20270204",
+"web": "http://hamwol.hs.kr"
+}
+]
