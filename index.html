@@ -202,6 +202,16 @@ details summary::after{content:" ▾"}
 .range-pills button[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
 .memo-ok{font-size:11.5px;color:var(--brand);font-weight:700;height:16px;margin-top:3px;opacity:0;transition:opacity .2s}
 .memo-ok.on{opacity:1}
+.badge.g-m{background:#e6eefb;color:#2c5aa0}
+.badge.g-f{background:#fbe8ef;color:#b0365d}
+.src{font-size:11.5px;color:var(--ink3);margin-top:3px}
+.placebox{display:flex;gap:8px;margin-top:10px}
+.placebox input{flex:1;min-width:0;height:48px;border:1.5px solid var(--line);border-radius:13px;padding:0 14px;font-size:16px;outline:none;background:#fff}
+.placebox input:focus{border-color:var(--brand)}
+.placebox .btn{width:auto;height:48px;padding:0 16px}
+.placelist{display:grid;gap:6px;margin-top:8px}
+.placelist button{text-align:left;padding:10px 12px;border-radius:12px;background:#fff;border:1.5px solid var(--line);font-size:14px}
+.placelist button small{display:block;color:var(--ink3);font-size:12px;margin-top:2px}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -232,6 +242,7 @@ details summary::after{content:" ▾"}
     <button class="chip" data-k="고등학교" aria-pressed="false">고등</button>
     <button class="chip" data-k="대학" aria-pressed="false">대학</button>
     <span class="chip-select"><select id="region" aria-label="지역"><option value="">전국</option></select></span>
+    <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
   </div>
   <section class="rangebox" aria-label="졸업식 기간 검색">
     <div class="range-head"><strong>📅 졸업식 기간</strong><button class="linkbtn" id="resetRange" type="button">초기화</button></div>
@@ -250,7 +261,7 @@ details summary::after{content:" ▾"}
   <div class="count"><span id="rc">불러오는 중…</span><button class="linkbtn" id="sort">빠른 날짜순</button></div>
   <div class="list" id="list"></div>
   <button class="more" id="more" hidden>더 보기</button>
-  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다.</p>
+  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
 </section>
 
 <section class="panel" id="p-plan">
@@ -264,10 +275,12 @@ details summary::after{content:" ▾"}
 <section class="panel" id="p-near">
   <div class="top">
     <div class="brand">📍 내 주변 학교</div>
-    <p class="sub">내 위치나 지도에서 고른 곳을 기준으로 찾아요</p>
+    <p class="sub">내 위치, 가게 주소, 지도에서 고른 곳을 기준으로 찾아요</p>
   </div>
   <button class="btn" id="locate">📍 내 위치로 찾기</button>
-  <p class="near-note">위치 값은 이 기기에서만 거리 계산에 쓰고 서버로 보내거나 저장하지 않아요(지도 그림은 OpenStreetMap에서 받아와요). 위치를 쓰고 싶지 않으면 <b>지도를 눌러</b> 기준을 정하세요.</p>
+  <form class="placebox" id="placeForm" autocomplete="off"><input id="placeQ" type="search" enterkeyhint="search" placeholder="동네·주소·가게 이름 (예: 과천시청)" aria-label="기준 위치 검색"><button class="btn line" type="submit">찾기</button></form>
+  <div class="placelist" id="placeList"></div>
+  <p class="near-note">위치 값은 이 기기에서만 거리 계산에 쓰고 저장하지 않아요. 길찾기를 누를 때만 출발 위치가 카카오맵으로 전달돼요. 위치를 쓰기 싫으면 장소를 검색하거나 <b>지도를 눌러</b> 기준을 정하세요. <a href="privacy.html">개인정보 안내</a></p>
   <div class="chips" id="radii" style="margin-top:6px">
     <button class="chip" data-r="1" aria-pressed="false">1km</button>
     <button class="chip" data-r="3" aria-pressed="false">3km</button>
@@ -276,9 +289,10 @@ details summary::after{content:" ▾"}
     <button class="chip" data-r="20" aria-pressed="false">20km</button>
     <button class="chip" id="onlyOk" aria-pressed="true">날짜 확정만</button>
     <button class="chip" id="showUniv" aria-pressed="false">대학 포함</button>
+    <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
   </div>
   <div id="map" role="application" aria-label="학교 지도"></div>
-  <div class="count"><span id="nc">내 위치로 찾기를 누르거나 지도를 눌러 보세요</span></div>
+  <div class="count"><span id="nc">내 위치로 찾기, 장소 검색, 지도 누르기 중 하나로 시작해요</span><button class="linkbtn" id="nsort" hidden>가까운 순</button></div>
   <div class="list" id="nlist"></div>
   <button class="more" id="nmore" hidden>더 보기</button>
 </section>
@@ -307,6 +321,10 @@ const norm=s=>String(s||'').toLowerCase().replace(/\s+/g,'');
 const DOW=['일','월','화','수','목','금','토'];
 const isOk=s=>(s.status==='Graduation found in NEIS'||s.status==='univ_confirmed')&&s.dates.length===1;
 const isNQ=s=>s.status==='not_queried';
+const genderOf=s=>s.status==='university'||s.status==='univ_confirmed'?(/여자대학/.test(s.name)?'f':'co'):(s.coedu==='남'?'m':s.coedu==='여'?'f':'co');
+const GENDER_LABEL={m:'남학교',f:'여학교'};
+let COEDU='';   // '' 전체 · co 남녀공학 · m 남학교 · f 여학교 (학교 찾기·내 주변 같이 써요)
+const passCoedu=s=>!COEDU||genderOf(s)===COEDU;
 const isUniv=s=>s.status==='university'||s.status==='univ_confirmed';
 const UNIV_KINDS=['대학교','전문대학'];
 const SIDO_SHORT={'서울특별시':'서울','부산광역시':'부산','대구광역시':'대구','인천광역시':'인천','대전광역시':'대전','울산광역시':'울산','세종특별자치시':'세종','경기도':'경기','강원특별자치도':'강원','강원도':'강원','충청북도':'충북','충청남도':'충남','전북특별자치도':'전북','전라북도':'전북','전라남도':'전남','경상북도':'경북','경상남도':'경남','제주특별자치도':'제주','광주광역시':'광주'};
@@ -378,6 +396,7 @@ function filtered(){
   let m=SCHOOL_DATA.filter(s=>{
     if(st.kind==='대학'){if(!UNIV_KINDS.includes(s.kind))return false}else if(st.kind&&s.kind!==st.kind)return false;
     if(st.region&&s.region!==st.region)return false;
+    if(!passCoedu(s))return false;
     if(st.status==='confirmed'&&!isOk(s))return false;
     if(st.status==='pending'&&(isOk(s)||isNQ(s)))return false;
     if(q&&!norm(s.name+s.address).includes(q))return false;
@@ -406,7 +425,7 @@ function cardHtml(s){
     btn=`<button class="add alt ${n?'done':''}" data-open="${esc(s.id)}">${n?'✓ 담김':'날짜 입력'}</button>`;
   }
   const km=st.tab==='near'?nearDist.get(s.id):null;
-  return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span><span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div></div><div class="card-foot">${dateHtml}${btn}</div></article>`;
+  return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[genderOf(s)]?`<span class="badge g-${genderOf(s)}">${GENDER_LABEL[genderOf(s)]}</span>`:''}<span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div>${isOk(s)?`<div class="src">${isUniv(s)?'학교 학사일정':'나이스 학사일정'}${s.checked?' · '+esc(s.checked.slice(5).replace('-','/'))+' 확인':''}</div>`:''}</div><div class="card-foot">${dateHtml}${btn}</div></article>`;
 }
 
 function render(reset=true){
@@ -456,7 +475,8 @@ function openSheet(id,keep){
   if(ok){
     const d=s.dates[0],on=!!find(s.id,d),[dd]=dday(d);
     const sus=suspect(s);
-    const src=isUniv(s)?`학교 학사일정 페이지 기준이에요${s.dateLabel?` (원문: “${esc(s.dateLabel)}”)`:''}${s.checked?`, ${esc(s.checked.slice(5).replace('-','/'))} 확인`:''}. 캠퍼스·단과대별 행사와 시간은 학교 공지로 확인하세요.${safeUrl(s.dateUrl)?` <a href="${esc(safeUrl(s.dateUrl))}" target="_blank" rel="noopener noreferrer">학사일정 원문 보기 ↗</a>`:''}`:'나이스에 등록된 일정이에요. 시간은 학교에 확인하세요.';
+    const chk=s.checked?` (${esc(s.checked.slice(5).replace('-','/'))} 확인)`:'';
+    const src=isUniv(s)?`학교 학사일정 페이지 기준이에요${s.dateLabel?` (원문: “${esc(s.dateLabel)}”)`:''}${s.checked?`, ${esc(s.checked.slice(5).replace('-','/'))} 확인`:''}. 캠퍼스·단과대별 행사와 시간은 학교 공지로 확인하세요.${safeUrl(s.dateUrl)?` <a href="${esc(safeUrl(s.dateUrl))}" target="_blank" rel="noopener noreferrer">학사일정 원문 보기 ↗</a>`:''}`:`나이스에 등록된 일정이에요${chk}. 시간은 학교에 확인하세요.`;
     body=`<div class="bigdate">${fmt(d)}</div><div class="hint">${fmtY(d)} · ${dd} · ${src}</div>
     ${sus?`<div class="warnbox"><b>⚠ 날짜 확인이 필요해요</b>${esc(sus)}</div>`:''}
     <div style="margin-top:18px"><button class="btn ${on?'soft':''}" data-sheet-toggle>${on?'✓ 담았어요 (누르면 빼기)':'＋ 이 날짜 내 일정에 담기'}</button></div>
@@ -606,6 +626,11 @@ $('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)
   document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.kind==='대학'&&st.status!=='all'){st.status='all';[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v==='all'))}   // 대학은 나이스 날짜가 없어서 '전체'로 보여줘요
   render()});
+document.querySelectorAll('.coedu-sel').forEach(sel=>sel.addEventListener('change',e=>{
+  COEDU=e.target.value;
+  document.querySelectorAll('.coedu-sel').forEach(x=>{x.value=COEDU;x.classList.toggle('on',!!COEDU)});
+  render();if(near.center)near.shown=20,runNear(false);
+}));
 $('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);render()});
 $('sort').addEventListener('click',()=>{st.sort=st.sort==='date'?'name':'date';render()});
 /* 빠른 기간: 내일 = 내일 하루, 3일·일주일·한 달 = 오늘부터 그 기간 안 */
@@ -675,7 +700,7 @@ function wayUrl(s){
   const nm=encodeURIComponent(s.name);
   if(!Number.isFinite(s.lat))return 'https://map.kakao.com/link/search/'+encodeURIComponent(s.name+' '+(s.address||''));
   const c=near.center;
-  if(c&&c.isMe)return `https://map.kakao.com/link/from/${encodeURIComponent('내 위치')},${c.lat},${c.lon}/to/${nm},${s.lat},${s.lon}`;
+  if(c)return `https://map.kakao.com/link/from/${encodeURIComponent(c.label||'출발')},${c.lat},${c.lon}/to/${nm},${s.lat},${s.lon}`;
   return `https://map.kakao.com/link/to/${nm},${s.lat},${s.lon}`;
 }
 
@@ -686,7 +711,7 @@ function loadKakao(){
   if(!KAKAO_KEY)return Promise.reject(new Error('no key'));
   if(kakaoReady)return kakaoReady;
   kakaoReady=new Promise((res,rej)=>{const sc=document.createElement('script');
-    sc.src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(KAKAO_KEY)+'&autoload=false';
+    sc.src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(KAKAO_KEY)+'&autoload=false&libraries=services';
     sc.onload=()=>(window.kakao&&kakao.maps)?kakao.maps.load(res):rej(new Error('sdk'));sc.onerror=()=>rej(new Error('load'));
     document.head.appendChild(sc)});
   kakaoReady.catch(()=>{kakaoReady=null});
@@ -711,7 +736,7 @@ function showKakao(s,mode){
 }
 
 /* ===== 내 주변 ===== */
-const near={map:null,layer:null,center:null,radius:5,onlyOk:true,univ:false,shown:20,list:[]};
+const near={map:null,layer:null,center:null,radius:5,onlyOk:true,univ:false,sort:'dist',shown:20,list:[]};
 const nearDist=new Map();
 function hav(a,b,c,d){const R=6371,r=x=>x*Math.PI/180,dl=r(c-a),dn=r(d-b);
   const x=Math.sin(dl/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
@@ -723,17 +748,19 @@ function initNearMap(){
   near.layer=L.layerGroup().addTo(near.map);
   near.map.on('click',e=>setCenter(e.latlng.lat,e.latlng.lng,false));
 }
-function setCenter(lat,lon,isMe){near.center={lat,lon,isMe};near.shown=20;runNear(true)}
+function setCenter(lat,lon,isMe,label){near.center={lat,lon,isMe,label:label||(isMe?'내 위치':'지도에서 고른 곳')};near.shown=20;runNear(true)}
 function runNear(fit){
   const c=near.center;if(!c)return;
   nearDist.clear();const out=[];
   for(const s of SCHOOL_DATA){
     if(!Number.isFinite(s.lat))continue;
     if(isUniv(s)){if(!near.univ)continue}else if(near.onlyOk&&!isOk(s))continue;
+    if(!passCoedu(s))continue;
     const d=hav(c.lat,c.lon,s.lat,s.lon);
     if(d<=near.radius){out.push(s);nearDist.set(s.id,d)}
   }
-  out.sort((a,b)=>nearDist.get(a.id)-nearDist.get(b.id));
+  const dkey=s=>isOk(s)?s.dates[0]:(s.dates[0]||'99999999');
+  out.sort(near.sort==='date'?((a,b)=>dkey(a).localeCompare(dkey(b))||nearDist.get(a.id)-nearDist.get(b.id)):((a,b)=>nearDist.get(a.id)-nearDist.get(b.id)));
   near.list=out;
   if(near.map){
     near.layer.clearLayers();
@@ -751,7 +778,8 @@ function runNear(fit){
 function renderNearList(){
   if(!near.center){$('nlist').innerHTML='';$('nmore').hidden=true;return}
   const L2=near.list,more=L2.length-near.shown;
-  $('nc').innerHTML=`<b>${L2.length.toLocaleString('ko-KR')}</b>개 학교 · 반경 ${near.radius}km${near.onlyOk?' · 날짜 확정만':''}${near.univ?' · 대학 포함':''}`;
+  $('nsort').hidden=false;$('nsort').textContent=near.sort==='date'?'빠른 날짜순':'가까운 순';
+  $('nc').innerHTML=`<b>${esc(near.center.label)}</b> 기준 · <b>${L2.length.toLocaleString('ko-KR')}</b>개 학교 · 반경 ${near.radius}km${near.onlyOk?' · 날짜 확정만':''}${near.univ?' · 대학 포함':''}`;
   $('nlist').innerHTML=L2.slice(0,near.shown).map(cardHtml).join('')||`<div class="empty"><span class="big">🔍</span>이 반경에는 ${near.onlyOk?'날짜가 확정된 ':''}학교가 없어요.<br>반경을 넓히거나 ‘날짜 확정만’을 꺼 보세요.</div>`;
   $('nmore').hidden=more<=0;if(more>0)$('nmore').textContent=`더 보기 (${Math.min(20,more)}개 더 · 남은 ${more.toLocaleString('ko-KR')}개)`;
 }
@@ -772,6 +800,27 @@ $('radii').addEventListener('click',e=>{
   else if(b.id==='showUniv'){near.univ=!near.univ;b.setAttribute('aria-pressed',near.univ)}
   else if(b.dataset.r){near.radius=+b.dataset.r;document.querySelectorAll('#radii [data-r]').forEach(x=>x.setAttribute('aria-pressed',x===b))}
   if(near.center)near.shown=20,runNear(true);
+});
+$('nsort').addEventListener('click',()=>{near.sort=near.sort==='date'?'dist':'date';near.shown=20;runNear(false)});
+/* 장소 검색: 카카오 장소·주소 검색(JavaScript 키, 서버 불필요) */
+$('placeForm').addEventListener('submit',e=>{
+  e.preventDefault();const q=$('placeQ').value.trim();const box=$('placeList');
+  if(!q){box.innerHTML='';return}
+  if(!KAKAO_KEY){box.innerHTML='<p class="hint">장소 검색을 준비 중이에요. 지도를 눌러 기준 위치를 정해 주세요.</p>';return}
+  box.innerHTML='<p class="hint">찾는 중…</p>';
+  loadKakao().then(()=>{
+    const ps=new kakao.maps.services.Places(),gc=new kakao.maps.services.Geocoder();
+    const show=list=>{
+      if(!list.length){box.innerHTML='<p class="hint">찾는 곳이 없어요. 동네 이름이나 도로명 주소로 다시 검색해 보세요.</p>';return}
+      box.innerHTML=list.slice(0,5).map((p,i)=>`<button type="button" data-pi="${i}">${esc(p.name)}<small>${esc(p.addr)}</small></button>`).join('');
+      box.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>{const p=list[+b.dataset.pi];box.innerHTML='';$('placeQ').blur();setCenter(p.lat,p.lon,false,p.name)});
+      if(list.length===1)box.querySelector('[data-pi]').click();
+    };
+    ps.keywordSearch(q,(data,status)=>{
+      if(status===kakao.maps.services.Status.OK)return show(data.map(d=>({name:d.place_name,addr:d.road_address_name||d.address_name,lat:+d.y,lon:+d.x})));
+      gc.addressSearch(q,(d2,s2)=>show(s2===kakao.maps.services.Status.OK?d2.map(d=>({name:d.address_name,addr:'주소',lat:+d.y,lon:+d.x})):[]));
+    },{size:5});
+  }).catch(()=>{box.innerHTML='<p class="hint">장소 검색을 불러오지 못했어요. 지도를 눌러 기준 위치를 정해 주세요.</p>'});
 });
 $('nmore').addEventListener('click',()=>{near.shown+=20;renderNearList()});
 
