@@ -190,8 +190,15 @@ details summary::after{content:" ▾"}
 .near-note{font-size:12px;color:var(--ink3);line-height:1.6;margin:10px 2px 4px}
 .leaflet-container{font-family:inherit}
 .me-dot{width:16px;height:16px;border-radius:50%;background:#2563eb;border:3px solid #fff;box-shadow:0 0 0 2px #2563eb55,0 1px 4px #0006}
+.kbox{margin:12px 0 4px}
+.ktabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#e9ebe4;border-radius:12px;padding:4px;margin-top:10px}
+.ktabs button{height:36px;border-radius:9px;font-size:14px;font-weight:700;color:var(--ink2)}
+.ktabs button[aria-pressed=true]{background:#fff;color:var(--brand);box-shadow:0 1px 4px #0000001a}
+.kview{height:280px;border-radius:14px;overflow:hidden;margin-top:8px;background:#eef0ea;position:relative}
+.kmsg{padding:90px 20px;text-align:center;font-size:13px;color:var(--ink2);line-height:1.6}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
+<script src="config.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -470,7 +477,9 @@ function openSheet(id,keep){
     <h2>${esc(s.name)}</h2><div class="addr">${esc(s.address)}</div>
     <span class="pill ${tone==='ok'?'':tone}">${esc(label)}</span>
     ${body}${mineHtml}
-    <div class="sec"><h4>학교 위치 · 정보</h4><div class="links">
+    <div class="sec"><h4>학교 위치 · 정보</h4>
+      ${loc&&KAKAO_KEY?`<div class="kbox"><button class="btn soft" data-kopen>🗺️ 지도·로드뷰 펼치기</button><div id="kwrap" hidden><div class="ktabs"><button data-kv="map" aria-pressed="true">지도</button><button data-kv="rv" aria-pressed="false">로드뷰</button></div><div id="kview" class="kview"></div><p class="hint" style="margin-top:6px">로드뷰는 화면을 끌거나 바닥의 화살표를 눌러 주변을 둘러볼 수 있어요.</p></div></div>`:''}
+      <div class="links">
       <a href="${esc(map)}" target="_blank" rel="noopener noreferrer">🗺️<br>지도</a>
       <a href="${esc(rv)}" target="_blank" rel="noopener noreferrer">📍<br>로드뷰</a>
       ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>검색</a>`}
@@ -493,6 +502,10 @@ $('scrim').addEventListener('click',closeSheet);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&st.open)closeSheet()});
 $('sheet').addEventListener('click',e=>{
   const s=BY.get(st.open);if(!s)return;
+  const ko=e.target.closest('[data-kopen]');
+  if(ko){ko.hidden=true;$('kwrap').hidden=false;showKakao(s,'map');return}
+  const kv=e.target.closest('[data-kv]');
+  if(kv){document.querySelectorAll('[data-kv]').forEach(b=>b.setAttribute('aria-pressed',b===kv));showKakao(s,kv.dataset.kv);return}
   if(e.target.closest('[data-sheet-toggle]')){const d=s.dates[0];if(find(s.id,d))remove(s,d);else add(s,d,'학사일정 등록');openSheet(s.id,true);return}
   const cd=e.target.closest('[data-cd]');
   if(cd){pickedDate=cd.dataset.cd;openSheet(s.id,true);return}
@@ -633,6 +646,37 @@ async function boot(){
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
 }
+/* ===== 카카오 지도·로드뷰 (상세 화면) ===== */
+const KAKAO_KEY=String(window.KAKAO_JS_KEY||'').trim();   // config.js 에서 읽어요 (GitHub Actions가 시크릿으로 만들어요)
+let kakaoReady=null;
+function loadKakao(){
+  if(!KAKAO_KEY)return Promise.reject(new Error('no key'));
+  if(kakaoReady)return kakaoReady;
+  kakaoReady=new Promise((res,rej)=>{const sc=document.createElement('script');
+    sc.src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(KAKAO_KEY)+'&autoload=false';
+    sc.onload=()=>(window.kakao&&kakao.maps)?kakao.maps.load(res):rej(new Error('sdk'));sc.onerror=()=>rej(new Error('load'));
+    document.head.appendChild(sc)});
+  kakaoReady.catch(()=>{kakaoReady=null});
+  return kakaoReady;
+}
+function showKakao(s,mode){
+  const box=$('kview');if(!box)return;box.innerHTML='<div class="kmsg">불러오는 중…</div>';
+  loadKakao().then(()=>{
+    if(!$('kview'))return;box.innerHTML='';
+    const pos=new kakao.maps.LatLng(s.lat,s.lon);
+    if(mode==='map'){
+      const m=new kakao.maps.Map(box,{center:pos,level:3});new kakao.maps.Marker({position:pos,map:m});
+      m.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);
+    }else{
+      const rv=new kakao.maps.Roadview(box);
+      new kakao.maps.RoadviewClient().getNearestPanoId(pos,150,id=>{
+        if(id===null){box.innerHTML='<div class="kmsg">학교 근처 150m 안에 로드뷰가 없어요.<br>아래 카카오맵 로드뷰 링크로 주변을 찾아보세요.</div>';return}
+        rv.setPanoId(id,pos);
+      });
+    }
+  }).catch(()=>{box.innerHTML='<div class="kmsg">카카오 지도를 불러오지 못했어요.<br>아래 카카오맵 링크를 이용해 주세요.</div>'});
+}
+
 /* ===== 내 주변 ===== */
 const near={map:null,layer:null,center:null,radius:5,onlyOk:true,univ:false,shown:20,list:[]};
 const nearDist=new Map();

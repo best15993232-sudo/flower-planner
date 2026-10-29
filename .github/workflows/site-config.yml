@@ -1,0 +1,23 @@
+name: 사이트 설정 만들기 (카카오 키)
+on:
+  workflow_dispatch:      # 키를 바꿨을 때 한 번 실행
+permissions:
+  contents: write
+jobs:
+  config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: config.js 만들기
+        env:
+          KEY: ${{ secrets.KAKAO_JAVA_KEY }}
+        run: |
+          [ -n "$KEY" ] || { echo "KAKAO_JAVA_KEY 시크릿이 없어요"; exit 1; }
+          # 카카오 JavaScript 키는 원래 웹페이지에 공개되는 키예요. 카카오 콘솔에 등록한 도메인에서만 동작해요.
+          printf "window.KAKAO_JS_KEY=%s;\n" "$(python3 -c 'import json,os;print(json.dumps(os.environ["KEY"].strip()))')" > config.js
+      - name: 커밋
+        run: |
+          git config user.name "data-bot"
+          git config user.email "data-bot@users.noreply.github.com"
+          git add config.js
+          git diff --cached --quiet || (git commit -m "config: 카카오 JavaScript 키 설정" && git pull --rebase -q && git push)
