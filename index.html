@@ -197,6 +197,11 @@ details summary::after{content:" ▾"}
 .kview{height:280px;border-radius:14px;overflow:hidden;margin-top:8px;background:#eef0ea;position:relative}
 .kmsg{padding:90px 20px;text-align:center;font-size:13px;color:var(--ink2);line-height:1.6}
 .links.two{grid-template-columns:1fr 1fr}
+.range-pills{display:flex;gap:6px;margin:2px 0 10px;flex-wrap:wrap}
+.range-pills button{height:34px;padding:0 14px;border-radius:17px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;color:var(--ink2)}
+.range-pills button[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.memo-ok{font-size:11.5px;color:var(--brand);font-weight:700;height:16px;margin-top:3px;opacity:0;transition:opacity .2s}
+.memo-ok.on{opacity:1}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -230,6 +235,12 @@ details summary::after{content:" ▾"}
   </div>
   <section class="rangebox" aria-label="졸업식 기간 검색">
     <div class="range-head"><strong>📅 졸업식 기간</strong><button class="linkbtn" id="resetRange" type="button">초기화</button></div>
+    <div class="range-pills" id="rangePills" role="group" aria-label="빠른 기간 선택">
+      <button type="button" data-days="1" aria-pressed="false">내일</button>
+      <button type="button" data-days="3" aria-pressed="false">3일</button>
+      <button type="button" data-days="7" aria-pressed="false">일주일</button>
+      <button type="button" data-days="30" aria-pressed="false">한 달</button>
+    </div>
     <div class="range-grid">
       <label>시작일<input type="date" id="fromDate" aria-label="졸업 시작일" value=""></label>
       <label>종료일<input type="date" id="toDate" aria-label="졸업 종료일" value=""></label>
@@ -529,7 +540,7 @@ function renderPlan(){
     const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
     return `<article class="scard ${ch?'changed':''}">${chHtml}<div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
     <div class="qty"><label for="q-${esc(r.id)}">예상 수량</label><div class="stepper"><button data-q="-1" data-id="${esc(r.id)}" aria-label="수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}"><button data-q="1" data-id="${esc(r.id)}" aria-label="수량 늘리기">＋</button></div></div>
-    <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea>
+    <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
     <div class="sactions"><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button><button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div></article>`}).join('')}</section>`}).join('')+backupHtml();
 }
 function backupHtml(){return `<div class="backup"><b style="font-size:14px">일정 백업</b><p>일정은 이 기기의 브라우저에만 저장돼요. 기록을 지우면 사라질 수 있으니 가끔 백업해 두세요.</p><div class="row"><button class="btn soft sm" data-export>⬇ 백업하기</button><button class="btn line sm" data-import>⬆ 불러오기</button></div></div>`}
@@ -553,7 +564,8 @@ $('plan').addEventListener('click',e=>{
   if(e.target.closest('[data-import]'))return $('file').click();
 });
 $('plan').addEventListener('input',e=>{
-  const m=e.target.closest('[data-memo]');if(m){const r=saved.find(x=>x.id===m.dataset.memo);if(r){r.note=m.value;persist()}return}
+  const m=e.target.closest('[data-memo]');if(m){const r=saved.find(x=>x.id===m.dataset.memo);if(r){r.note=m.value;persist();
+    const ind=document.querySelector(`[data-ind="${CSS.escape(r.id)}"]`);if(ind){ind.classList.add('on');clearTimeout(ind._t);ind._t=setTimeout(()=>ind.classList.remove('on'),1600)}}return}
   const q=e.target.closest('[data-qty]');if(q){setQty(q.dataset.qty,q.value);updateTotal()}
 });
 function exportData(){
@@ -596,14 +608,29 @@ $('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)
   render()});
 $('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);render()});
 $('sort').addEventListener('click',()=>{st.sort=st.sort==='date'?'name':'date';render()});
+/* 빠른 기간: 내일 = 내일 하루, 3일·일주일·한 달 = 오늘부터 그 기간 안 */
+const isoDay=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const md=s=>+s.slice(5,7)+'/'+ +s.slice(8,10);
+function setPill(b){document.querySelectorAll('#rangePills button').forEach(x=>x.setAttribute('aria-pressed',x===b))}
+$('rangePills').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-days]');if(!b)return;
+  if(b.getAttribute('aria-pressed')==='true'){$('resetRange').click();return}   // 한 번 더 누르면 해제
+  const n=+b.dataset.days;
+  const from=n===1?isoDay(1):isoDay(0), to=isoDay(n);
+  $('fromDate').value=from;$('toDate').value=to;setPill(b);
+  $('rangeHint').classList.remove('warnrange');
+  $('rangeHint').textContent=n===1?`내일(${md(to)}) 졸업식이 있는 학교만 보여줘요.`:`오늘부터 ${b.textContent} 안(~${md(to)})에 졸업식이 있는 학교만 보여줘요.`;
+  render();
+});
 ['fromDate','toDate'].forEach(id=>$(id).addEventListener('change',()=>{
+  setPill(null);
   const f=$('fromDate').value, t=$('toDate').value;
   const bad=!!(f&&t&&f>t);
   $('rangeHint').classList.toggle('warnrange',bad);
   $('rangeHint').textContent=bad?'시작일이 종료일보다 늦어요. 날짜를 다시 선택해 주세요.':'기간을 지정하면 해당 날짜에 졸업식이 등록된 학교만 찾아요.';
   render();
 }));
-$('resetRange').addEventListener('click',()=>{$('fromDate').value='';$('toDate').value='';$('rangeHint').classList.remove('warnrange');$('rangeHint').textContent='기간을 지정하면 해당 날짜에 졸업식이 등록된 학교만 찾아요.';render()});
+$('resetRange').addEventListener('click',()=>{setPill(null);$('fromDate').value='';$('toDate').value='';$('rangeHint').classList.remove('warnrange');$('rangeHint').textContent='기간을 지정하면 해당 날짜에 졸업식이 등록된 학교만 찾아요.';render()});
 $('more').addEventListener('click',()=>{st.shown+=PAGE;render(false)});
 
 /* init: 데이터는 data/schools.json 에서 불러와요 */
