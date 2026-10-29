@@ -27,4 +27,10 @@ print("OK " if ok else "FAIL", "html-table", got, repr(t))
 # 준비성 공지는 제외
 ok = extract("2월\n24(수)\n학위수여식 예행연습\n") == []; bad += not ok
 print("OK " if ok else "FAIL", "prep-excluded")
+# 성균관대처럼 일정 전체가 JSON 한 줄에 들어 있는 경우
+j = '{"bachelor_3":[' + ",".join(f'{{"sd":"2026-{m:02d}-10","cont":"행사{m}"}}' for m in range(3, 13)) + \
+    ',{"sd":"2027-02-18","ed":"2027-02-25","cont":"2027학년도 1학기 등록"},{"sd":"2027-02-25","ed":"","cont":"2027년 겨울 학위수여식"},{"sd":"2027-02-28","cont":"겨울방학 종료"}]}'
+got = sorted({d.strftime("%Y%m%d") for d, *_ in extract("학사일정\n2026\n" + j) if in_season(d, 2026)})
+ok = got == ["20270225"]; bad += not ok
+print("OK " if ok else "FAIL", "json-line", got)
 sys.exit(1 if bad else 0)

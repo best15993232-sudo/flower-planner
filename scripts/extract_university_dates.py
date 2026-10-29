@@ -90,6 +90,14 @@ def extract(text, ay=2026):
             month, last_m = m, m
             raw = rest.strip()
             if not raw: continue
+        if len(raw) > 200:                      # 표 데이터가 한 줄에 몰린 경우(JSON 등): 키워드 주변만 봐요
+            for k in KEYWORD.finditer(raw):
+                seg = raw[max(0, k.start() - 120):k.start()]
+                around = raw[max(0, k.start() - 30):k.end() + 30]
+                if PREP.search(around): continue
+                ds = dates_in(seg)
+                if ds and ds[-1][0]: out.append((ds[-1][0], around.strip(), ds[-1][1]))   # 키워드 바로 앞 날짜
+            continue
         found = dates_in(raw)
         if KEYWORD.search(raw) and not PREP.search(raw):
             for date, note in (found or recent[-1:]):    # 날짜가 같은 줄에 없으면 바로 앞 날짜 줄
@@ -114,7 +122,11 @@ def allowed(url):
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    raw = urllib.request.urlopen(req, timeout=25).read()
+    try:
+        raw = urllib.request.urlopen(req, timeout=40).read()
+    except Exception:
+        import time; time.sleep(5)
+        raw = urllib.request.urlopen(req, timeout=60).read()
     for enc in ("utf-8", "cp949", "euc-kr"):
         try: return raw.decode(enc)
         except UnicodeDecodeError: pass
@@ -136,11 +148,16 @@ def main():
         try:
             text = html_to_text(fetch(s["url"]))
         except Exception as e:
-            rows.append((s, "접속 실패", type(e).__name__, [])); continue
+            rows.append((s, "접속 실패", f"{type(e).__name__} (해외 서버 접속을 막는 사이트일 수 있어요)", [])); continue
         cands = [c for c in extract(text, ay) if in_season(c[0], ay)]
         ds = sorted({c[0].strftime("%Y%m%d") for c in cands})
-        if not ds: state = "후보 없음"
-        elif conf and ds == [conf]: state = "일치"
+        kw = len(KEYWORD.findall(text))
+        if not ds:
+            state = "후보 없음"
+            why = (f"받은 페이지에 '학위수여식' 단어가 없어요(글자 {len(text):,}자). 해외 접속 차단이거나 자바스크립트로 채우는 페이지일 수 있어요"
+                   if kw == 0 else f"단어는 {kw}번 있지만 날짜를 못 찾았어요(형식 확인 필요)")
+            rows.append((s, state, why, [])); continue
+        if conf and ds == [conf]: state = "일치"
         elif conf and conf in ds: state = "후보 여러 개"
         elif conf: state = "⚠ 변경 의심"
         else: state = "새 후보"
