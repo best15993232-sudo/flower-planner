@@ -205,6 +205,8 @@ details summary::after{content:" ▾"}
 .badge.g-m{background:#e6eefb;color:#2c5aa0}
 .badge.g-f{background:#fbe8ef;color:#b0365d}
 .src{font-size:11.5px;color:var(--ink3);margin-top:3px}
+.size{font-size:12.5px;color:var(--ink2);margin-top:4px}.size b{color:var(--ink);font-weight:800}
+.evl{display:inline-block;margin-top:4px;font-size:11.5px;font-weight:700;color:var(--brand);background:var(--soft,#eef5f1);border-radius:6px;padding:2px 7px}
 .placebox{display:flex;gap:8px;margin-top:10px}
 .placebox input{flex:1;min-width:0;height:48px;border:1.5px solid var(--line);border-radius:13px;padding:0 14px;font-size:16px;outline:none;background:#fff}
 .placebox input:focus{border-color:var(--brand)}
@@ -216,7 +218,8 @@ details summary::after{content:" ▾"}
 #chips .chip{flex:1 1 0;min-width:0;padding:0 6px}
 .chips.row2{overflow:visible;flex-wrap:wrap;padding-top:0}
 .chips.row2 .chip-select{flex:1 1 0;min-width:0}
-.chips.row2 .chip-select select{width:100%}
+.chips.row2 .chip-select select{width:100%;padding:0 26px 0 12px;text-overflow:ellipsis}
+.chips.row2 .chip-select::after{right:10px}
 /* 내 일정 한눈에 */
 .plansum{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
 .plansum h4{margin:0 0 8px;font-size:15px;display:flex;justify-content:space-between;align-items:baseline}
@@ -284,6 +287,7 @@ details summary::after{content:" ▾"}
   <div class="chips row2" id="chips2">
     <span class="chip-select"><select id="region" aria-label="지역"><option value="">전국</option></select></span>
     <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
+    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수</option><option value="50">졸업 50+</option><option value="100">졸업 100+</option><option value="200">졸업 200+</option><option value="300">졸업 300+</option></select></span>
   </div>
   <section class="rangebox" aria-label="졸업식 기간 검색">
     <div class="range-head"><strong>📅 졸업식 기간</strong><button class="linkbtn" id="resetRange" type="button">초기화</button></div>
@@ -332,6 +336,7 @@ details summary::after{content:" ▾"}
     <button class="chip" id="onlyOk" aria-pressed="true">날짜 등록만</button>
     <button class="chip" id="showUniv" aria-pressed="false">대학 포함</button>
     <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
+    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수</option><option value="50">졸업 50+</option><option value="100">졸업 100+</option><option value="200">졸업 200+</option><option value="300">졸업 300+</option></select></span>
   </div>
   <div class="range-pills near-range" role="group" aria-label="졸업식 기간">
     <span class="rp-label">졸업식</span>
@@ -370,20 +375,40 @@ const norm=s=>String(s||'').toLowerCase().replace(/\s+/g,'');
 const DOW=['일','월','화','수','목','금','토'];
 const isOk=s=>(s.status==='Graduation found in NEIS'||s.status==='univ_confirmed')&&s.dates.length===1;
 const isNQ=s=>s.status==='not_queried';
-const genderOf=s=>s.status==='university'||s.status==='univ_confirmed'?(/여자대학/.test(s.name)?'f':'co'):(s.coedu==='남'?'m':s.coedu==='여'?'f':'co');
+const genderOf=s=>s.gender||'co';
 const GENDER_LABEL={m:'남학교',f:'여학교'};
 let COEDU='';   // '' 전체 · co 남녀공학 · m 남학교 · f 여학교 (학교 찾기·내 주변 같이 써요)
 const passCoedu=s=>!COEDU||genderOf(s)===COEDU;
-const isUniv=s=>s.status==='university'||s.status==='univ_confirmed';
+let MINGRAD=0;   // 졸업생 수 조건 (학교 찾기·내 주변 같이 써요). 대학은 규모 자료가 없어 늘 보여줘요
+const gradsOf=s=>s.size&&s.size.grads||0;
+const passSize=s=>!MINGRAD||isUniv(s)||gradsOf(s)>=MINGRAD;
+const sizeLine=s=>s.size&&s.size.students?`<div class="size">${s.size.grads?`졸업 학년 <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명</div>`:'';
+const isUniv=s=>s.ptype==='campus';
 const UNIV_KINDS=['대학교','전문대학'];
 const SIDO_SHORT={'서울특별시':'서울','부산광역시':'부산','대구광역시':'대구','인천광역시':'인천','대전광역시':'대전','울산광역시':'울산','세종특별자치시':'세종','경기도':'경기','강원특별자치도':'강원','강원도':'강원','충청북도':'충북','충청남도':'충남','전북특별자치도':'전북','전라북도':'전북','전라남도':'전남','경상북도':'경북','경상남도':'경남','제주특별자치도':'제주','광주광역시':'광주'};
-function univToSchool(u){
-  let region=SIDO_SHORT[u.region]||u.region;
-  if(u.region==='전남광주통합특별시'){const g=(u.address.split(' ')[1]||'');region=/구$/.test(g)?'광주':'전남'}
-  const camp=u.campus&&u.campus!=='본교'?' ('+u.campus.replace(/캠퍼$/,'캠퍼스')+')':'';
-  return {id:u.id,name:u.name+camp,kind:u.kind,region,address:u.address,coedu:u.founded||'',website:u.website||'',
-    status:(u.dates&&u.dates.length===1)?'univ_confirmed':'university',dates:(u.dates&&u.dates.length===1)?u.dates.slice():[],checked:u.dateChecked||null,
-    dateLabel:u.dateLabel||'',dateUrl:u.dateUrl||'',lat:u.lat,lon:u.lon};
+/* 장소(places.json) + 행사(events.json) → 화면용 학교 객체.
+   지금 화면은 장소마다 '졸업식' 행사 하나를 보여줘요. 행사는 s.events 에 모두 들어 있어요. */
+const GENDER_TEXT={co:'남녀공학',m:'남학교',f:'여학교'};
+const EV_STATUS={registered:'Graduation found in NEIS',confirmed:'univ_confirmed',review_multiple:'Review: multiple graduation dates',review_name:'Review: ambiguous event name',missing:'Graduation not yet found',no_data:'No calendar data',not_queried:'not_queried'};
+const evIdOf=(placeId,type='graduation')=>(type==='graduation'?'grad':type)+':'+placeId+':'+TERM;
+let TERM='2026';
+function joinPlaces(places,events){
+  const evBy=new Map();
+  for(const e of events){(evBy.get(e.place)||evBy.set(e.place,[]).get(e.place)).push(e)}
+  return places.map(p=>{
+    const evs=evBy.get(p.id)||[],g=evs.find(e=>e.type==='graduation')||{status:'not_queried',date:null,source:{}};
+    const camp=p.type==='campus';
+    let status=EV_STATUS[g.status]||'not_queried';
+    if(camp&&!g.date)status='university';
+    if(g.candidates)REVIEW_DATES[p.id]=g.candidates;
+    if(g.rawNames)RAW_EVENTS[p.id]=g.rawNames;
+    const h=(g.history||[])[0];
+    return {id:p.id,ptype:p.type,name:p.name,kind:p.kind,region:p.region,address:p.address,gender:p.gender,coedu:GENDER_TEXT[p.gender]||'',
+      website:p.website||'',lat:p.lat,lon:p.lon,size:p.size||null,
+      status,dates:g.date?[g.date]:[],checked:(g.source||{}).checked||null,winter:g.winterStart,
+      prevDates:h?h.from:undefined,changedAt:h?h.at:undefined,
+      dateLabel:camp?g.label:'',dateUrl:(g.source||{}).url||'',ev:g,events:evs};
+  });
 }
 const candidateDates=s=>s.dates.length?s.dates:(REVIEW_DATES[s.id]||[]);
 const between=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
@@ -411,6 +436,8 @@ function stText(s){
 const safeUrl=u=>{u=String(u||'').trim();if(!u)return '';if(!/^https?:\/\//i.test(u))u='https://'+u;try{new URL(u);return u}catch{return ''}};
 
 let saved=(()=>{try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch{return[]}})();
+/* 예전에 담은 일정(학교+날짜)에 행사 정보를 붙여요. 지금은 모두 2026학년도 졸업식이에요 */
+let migrated=false;for(const r of saved){if(!r.eventId){r.eventId=evIdOf(r.schoolId);r.type='graduation';migrated=true}}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved))}catch{toast('저장하지 못했어요. 백업 파일로 보관해 주세요')}updateCount()}
 function updateCount(pop){$('dot').classList.toggle('on',alertCount()>0);const c=$('cnt');c.textContent=saved.length;c.classList.toggle('on',saved.length>0);if(pop){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}}
 const find=(sid,d)=>saved.find(r=>r.schoolId===sid&&r.date===d);
@@ -452,7 +479,7 @@ function filtered(){
   let m=SCHOOL_DATA.filter(s=>{
     if(!st.kinds.has(UNIV_KINDS.includes(s.kind)?'대학':s.kind))return false;   // 여러 학교급을 같이 고를 수 있어요
     if(st.region&&s.region!==st.region)return false;
-    if(!passCoedu(s))return false;
+    if(!passCoedu(s)||!passSize(s))return false;
     if(st.status==='confirmed'&&!isOk(s))return false;
     if(st.status==='pending'&&(isOk(s)||isNQ(s)))return false;
     if(q&&!norm(s.name+s.address).includes(q))return false;
@@ -460,7 +487,8 @@ function filtered(){
     return true;
   });
   const key=s=>isOk(s)?s.dates[0]:(s.dates[0]||'99999999');
-  if(st.sort==='date')m.sort((a,b)=>key(a).localeCompare(key(b))||a.name.localeCompare(b.name,'ko'));
+  if(st.sort==='size')m.sort((a,b)=>gradsOf(b)-gradsOf(a)||key(a).localeCompare(key(b)));
+  else if(st.sort==='date')m.sort((a,b)=>key(a).localeCompare(key(b))||a.name.localeCompare(b.name,'ko'));
   else m.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
   return m;
 }
@@ -479,14 +507,14 @@ function cardHtml(s){
     btn=`<button class="add alt ${n?'done':''}" data-open="${esc(s.id)}">${n?'✓ 담김':'날짜 입력'}</button>`;
   }
   const km=st.tab==='near'?nearDist.get(s.id):null;
-  return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[genderOf(s)]?`<span class="badge g-${genderOf(s)}">${GENDER_LABEL[genderOf(s)]}</span>`:''}<span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div>${isOk(s)?`<div class="src">${isUniv(s)?'학교 학사일정':'나이스 학사일정'}${s.checked?' · '+esc(s.checked.slice(5).replace('-','/'))+' 확인':''}</div>`:''}</div><div class="card-foot">${dateHtml}${btn}</div></article>`;
+  return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[genderOf(s)]?`<span class="badge g-${genderOf(s)}">${GENDER_LABEL[genderOf(s)]}</span>`:''}<span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div>${sizeLine(s)}${isOk(s)?`<div class="src">${isUniv(s)?'학교 학사일정':'나이스 학사일정'}${s.checked?' · '+esc(s.checked.slice(5).replace('-','/'))+' 확인':''}</div>`:''}</div><div class="card-foot">${dateHtml}${btn}</div></article>`;
 }
 
 function render(reset=true){
   if(reset){st.list=filtered();st.shown=PAGE}
   const L=st.list;
   $('rc').innerHTML=`<b>${L.length.toLocaleString('ko-KR')}</b>개 학교`;
-  $('sort').textContent=st.sort==='date'?'빠른 날짜순':'가나다순';
+  $('sort').textContent={date:'빠른 날짜순',size:'졸업생 많은 순',name:'가나다순'}[st.sort];
   $('list').innerHTML=L.slice(0,st.shown).map(cardHtml).join('')||
    `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${st.status==='confirmed'?'‘전체’로 바꾸면 아직 날짜가 등록되지 않은 학교도 볼 수 있어요.':'검색어나 지역을 바꿔 보세요.'}</div>`;
   const rest=L.length-st.shown;
@@ -498,7 +526,7 @@ function refreshCards(){render(false)}
 /* actions */
 function add(s,date,source){
   if(find(s.id,date)){toast('이미 담은 일정이에요');return false}
-  saved.push({id:s.id+'@'+date,schoolId:s.id,date,source,note:'',qty:0,savedAt:new Date().toISOString()});
+  saved.push({id:s.id+'@'+date,schoolId:s.id,eventId:evIdOf(s.id),type:'graduation',date,source,note:'',qty:0,savedAt:new Date().toISOString()});
   persist();updateCount(true);toast(`${s.name} 담았어요`,'내 일정 보기',()=>setTab('plan'));return true;
 }
 function remove(s,date){saved=saved.filter(r=>!(r.schoolId===s.id&&r.date===date));persist();toast('일정에서 뺐어요')}
@@ -556,8 +584,8 @@ function openSheet(id,keep){
   const mine=anySaved(s.id).filter(r=>!(ok&&r.date===s.dates[0]));
   const mineHtml=mine.length?`<div class="sec"><h4>담아둔 날짜</h4>${mine.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><b>${fmt(r.date)}</b><button class="btn sm danger" data-rm="${esc(r.date)}">빼기</button></div>`).join('')}</div>`:'';
   $('sheet').innerHTML=`<button class="sheet-x" type="button" data-close aria-label="닫기">✕</button><div class="grab"></div>
-    <div class="meta"><span class="badge">${esc(s.kind)}</span><span>${esc(s.region)} · ${esc(s.coedu||'')}</span></div>
-    <h2>${esc(s.name)}</h2><div class="addr">${esc(s.address)}</div>
+    <div class="meta"><span class="badge">${esc(s.kind)}</span><span>${esc(s.region)}${isUniv(s)?'':' · '+esc(s.coedu||'')}</span></div>
+    <h2>${esc(s.name)}</h2><div class="addr">${esc(s.address)}</div>${sizeLine(s)}
     <span class="pill ${tone==='ok'?'':tone}">${esc(label)}</span>
     ${body}${mineHtml}
     <div class="sec"><h4>학교 위치 · 정보</h4>
@@ -635,7 +663,7 @@ function renderPlan(){
   [...keys.filter(d=>daysFromToday(d)>=0),...keys.filter(d=>daysFromToday(d)<0).reverse()].map((d,i,arr)=>{const [dd]=dday(d);const pastHead=daysFromToday(d)<0&&(i===0||daysFromToday(arr[i-1])>=0)?'<h3 class="pasthead">지난 일정</h3>':'';return `${pastHead}<section class="group" id="day-${d}"><h3>${fmt(d)}<small>${dd} · ${g[d].length}곳</small></h3>${g[d].map(r=>{
     const s=BY.get(r.schoolId);const ch=changeOf(r);
     const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
-    return `<article class="scard ${ch?'changed':''}">${chHtml}<div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
+    return `<article class="scard ${ch?'changed':''}">${chHtml}<div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="evl">${esc(s&&isUniv(s)?'학위수여식':'졸업식')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
     <div class="qty"><label for="q-${esc(r.id)}">꽃다발 준비 수량</label><div class="stepper"><button data-q="-1" data-id="${esc(r.id)}" aria-label="수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}"><button data-q="1" data-id="${esc(r.id)}" aria-label="수량 늘리기">＋</button></div></div>
     <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
     <div class="sactions"><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button><button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div></article>`}).join('')}</section>`}).join('')+backupHtml();
@@ -678,7 +706,7 @@ $('file').addEventListener('change',e=>{
   rd.onload=()=>{try{
     const o=JSON.parse(rd.result);if(o.app!=='flower-planner-preview'||!Array.isArray(o.items))throw Error('다른 형식의 파일이에요');
     const clean=[];for(const r of o.items){if(typeof r.schoolId!=='string'||!BY.has(r.schoolId)||!/^\d{8}$/.test(r.date))continue;
-      clean.push({id:r.schoolId+'@'+r.date,schoolId:r.schoolId,date:r.date,source:['직접 입력','학사일정 후보 선택'].includes(r.source)?r.source:'학사일정 등록',note:String(r.note||'').slice(0,10000),qty:Math.max(0,Math.min(9999,Math.floor(+r.qty||0))),ack:typeof r.ack==='string'?r.ack:undefined,savedAt:r.savedAt||''})}
+      clean.push({id:r.schoolId+'@'+r.date,schoolId:r.schoolId,eventId:typeof r.eventId==='string'?r.eventId:evIdOf(r.schoolId),type:r.type||'graduation',date:r.date,source:['직접 입력','학사일정 후보 선택'].includes(r.source)?r.source:'학사일정 등록',note:String(r.note||'').slice(0,10000),qty:Math.max(0,Math.min(9999,Math.floor(+r.qty||0))),ack:typeof r.ack==='string'?r.ack:undefined,savedAt:r.savedAt||''})}
     saved=[...new Map([...saved,...clean].map(r=>[r.id,r])).values()];persist();renderPlan();toast(clean.length+'개 일정을 불러왔어요');
   }catch(err){toast('파일을 읽지 못했어요: '+err.message)}finally{e.target.value=''}};
   rd.readAsText(f,'utf-8');
@@ -723,8 +751,13 @@ document.querySelectorAll('.coedu-sel').forEach(sel=>sel.addEventListener('chang
   document.querySelectorAll('.coedu-sel').forEach(x=>{x.value=COEDU;x.classList.toggle('on',!!COEDU)});
   render();if(near.center)near.shown=20,runNear(false);
 }));
+document.querySelectorAll('.size-sel').forEach(sel=>sel.addEventListener('change',e=>{
+  MINGRAD=+e.target.value||0;
+  document.querySelectorAll('.size-sel').forEach(x=>{x.value=MINGRAD||'';x.classList.toggle('on',!!MINGRAD)});
+  render();if(near.center)near.shown=20,runNear(false);paintActive();
+}));
 $('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);render()});
-$('sort').addEventListener('click',()=>{st.sort=st.sort==='date'?'name':'date';render()});
+$('sort').addEventListener('click',()=>{st.sort={date:'size',size:'name',name:'date'}[st.sort];render()});
 /* 빠른 기간: 내일 = 내일 하루, 3일·일주일·한 달 = 오늘부터 그 기간 안 */
 const isoDay=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const md=s=>+s.slice(5,7)+'/'+ +s.slice(8,10);
@@ -760,6 +793,7 @@ function paintActive(){
   const items=[];
   if(st.region)items.push(['region',st.region]);
   if(COEDU)items.push(['coedu',{co:'남녀공학',m:'남학교',f:'여학교'}[COEDU]]);
+  if(MINGRAD)items.push(['size','졸업생 '+MINGRAD+'명+']);
   const rl=rangeLabel();if(rl)items.push(['range','졸업 '+rl]);
   $('activeChips').innerHTML=items.map(([k,l])=>`<button type="button" class="achip" data-clear="${k}" aria-label="${esc(l)} 조건 빼기">${esc(l)} <span aria-hidden="true">✕</span></button>`).join('');
   $('fcount').textContent=items.length?items.length:'';
@@ -770,14 +804,15 @@ $('activeChips').addEventListener('click',e=>{
   const b=e.target.closest('[data-clear]');if(!b)return;const k=b.dataset.clear;
   if(k==='region'){st.region='';$('region').value='';$('region').classList.remove('on');render()}
   if(k==='coedu'){COEDU='';document.querySelectorAll('.coedu-sel').forEach(x=>{x.value='';x.classList.remove('on')});render();if(near.center)runNear(false)}
+  if(k==='size'){MINGRAD=0;document.querySelectorAll('.size-sel').forEach(x=>{x.value='';x.classList.remove('on')});render();if(near.center)runNear(false)}
   if(k==='range'){$('resetRange').click();return}
   paintActive();
 });
 ['region'].forEach(id=>$(id).addEventListener('change',paintActive));
 document.querySelectorAll('.coedu-sel').forEach(x=>x.addEventListener('change',paintActive));
 
-/* init: 데이터는 data/schools.json 에서 불러와요 */
-const DATA_URL='data/schools.json';
+/* init: 장소는 data/places.json, 행사(졸업식 등)는 data/events.json 에서 불러와요 */
+const PLACES_URL='data/places.json',EVENTS_URL='data/events.json';
 function setLoading(){
   $('rc').textContent='학교 목록을 불러오는 중…';
   $('list').innerHTML=Array(4).fill('<div class="card sk" aria-hidden="true"><i style="width:30%"></i><i style="width:60%;height:20px"></i><i style="width:80%"></i><i style="width:45%;height:34px"></i></div>').join('');
@@ -792,17 +827,16 @@ async function boot(){
   try{
     let d=window.__INLINE_DATA__;   // 미리보기용(파일 하나로 열 때). 실제 배포에서는 쓰지 않아요
     if(!d){
-      const res=await fetch(DATA_URL,{cache:'no-cache'});   // 바뀌었을 때만 새로 받고, 아니면 브라우저 캐시 사용
-      if(!res.ok)throw Error('HTTP '+res.status);
-      d=await res.json();
+      const get=async u=>{const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw Error('HTTP '+r.status+' '+u);return r.json()};
+      const [pl,ev]=await Promise.all([get(PLACES_URL),get(EVENTS_URL)]);   // 장소·행사를 같이 받아요
+      d={places:pl.places,events:ev.events,updatedAt:ev.updatedAt||pl.updatedAt,term:ev.term};
     }
-    if(!d||!Array.isArray(d.schools))throw Error('bad data');
-    SCHOOL_DATA=d.schools;RAW_EVENTS=d.rawEvents||{};REVIEW_DATES=d.reviewDates||{};DATA_UPDATED=d.updatedAt||'';
+    if(!d||!Array.isArray(d.places)||!Array.isArray(d.events))throw Error('bad data');
+    if(d.term)TERM=d.term;
+    RAW_EVENTS={};REVIEW_DATES={};
+    SCHOOL_DATA=joinPlaces(d.places,d.events);DATA_UPDATED=d.updatedAt||'';
+    if(migrated){for(const r of saved)r.eventId=evIdOf(r.schoolId);persist();migrated=false}
   }catch(err){console.error(err);showLoadError();return}
-  try{
-    const ur=await fetch('data/universities.json',{cache:'no-cache'});
-    if(ur.ok){const ud=await ur.json();SCHOOL_DATA.push(...(ud.universities||[]).map(univToSchool))}
-  }catch(e){console.warn('대학 목록을 불러오지 못했어요',e)}   // 대학 목록이 없어도 초중고는 그대로 써요
   if(DEMO)setupDemo();
   BY=new Map(SCHOOL_DATA.map(s=>[s.id,s]));
   const regs=[...new Set(SCHOOL_DATA.map(s=>s.region))].sort((a,b)=>a.localeCompare(b,'ko'));
@@ -875,7 +909,7 @@ function runNear(fit){
     if(isUniv(s)&&!near.univ)continue;
     if(near.onlyOk&&!isOk(s))continue;   // 대학도 같은 날짜 조건
     if(!rangeOK(s))continue;
-    if(!passCoedu(s))continue;
+    if(!passCoedu(s)||!passSize(s))continue;
     const d=hav(c.lat,c.lon,s.lat,s.lon);
     if(d<=near.radius){out.push(s);nearDist.set(s.id,d)}
   }
@@ -948,7 +982,7 @@ $('nmore').addEventListener('click',()=>{near.shown+=20;renderNearList()});
 /* 체험 모드(?demo=1): 가상의 '테스트중학교'로 날짜 변경 알림을 미리 볼 수 있어요. 실제 일정과 섞이지 않아요. */
 const DEMO_OLD='20261211',DEMO_NEW='20261218';
 function setupDemo(){
-  SCHOOL_DATA.unshift({id:'TEST:0001',name:'테스트중학교 (체험용)',kind:'중학교',region:'경기',address:'가상의 학교예요 · 체험용',coedu:'남여공학',website:'',status:'Graduation found in NEIS',dates:[DEMO_OLD],checked:new Date().toISOString().slice(0,10),lat:null,lon:null});
+  SCHOOL_DATA.unshift({id:'TEST:0001',name:'테스트중학교 (체험용)',kind:'중학교',region:'경기',address:'가상의 학교예요 · 체험용',gender:'co',coedu:'남녀공학',ptype:'school',size:{students:420,grads:140},website:'',status:'Graduation found in NEIS',dates:[DEMO_OLD],checked:new Date().toISOString().slice(0,10),lat:null,lon:null});
   $('q').value='테스트중학교';
   const box=document.createElement('div');box.className='warnbox';box.style.cssText='background:#e8f2ec;color:#174634;margin:0 0 6px';
   box.innerHTML='<b>🧪 체험 모드 (실제 일정과 따로 저장돼요)</b>① 아래 <strong>테스트중학교</strong>를 <strong>＋ 담기</strong><br>② <button class="btn sm" id="demoFlip" style="margin:6px 0;width:100%">나이스가 졸업일을 12/18로 바꾼 것처럼 하기</button>③ <strong>내 일정</strong> 탭에서 알림 확인 <button class="linkbtn" id="demoReset" style="float:right">처음부터 다시</button>';

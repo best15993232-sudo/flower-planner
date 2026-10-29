@@ -39,9 +39,11 @@ jobs:
           elif [ "$(date -u +%u)" = "7" ]; then MODE="--max 13000"
           else MODE="--priority --max 13000"; fi
           python3 scripts/update_schools.py $MODE $EXTRA
+      - name: 장소·행사 파일 만들기
+        run: python3 scripts/build_events.py
       - name: 변경분 커밋
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
-          git add data/schools.json
+          git add data/schools.json data/places.json data/events.json
           git diff --cached --quiet || (git commit -m "data: 학사일정 갱신 $(date +%F)" && git pull --rebase -q && git push)
