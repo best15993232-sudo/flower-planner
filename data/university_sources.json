@@ -1,0 +1,17 @@
+{
+  "note": "대학별 학부 학사일정 주소와 확인된 학위수여식 날짜. confirmed 는 사람이 원본 페이지에서 확인한 값만 넣어요. extract_university_dates.py 가 이 주소들을 읽어 후보를 보고서로 만들어요.",
+  "sources": [
+    {"name": "서울대학교", "campus": "본교", "url": "https://www.snu.ac.kr/academics/resources/calendar", "format": "html",
+     "confirmed": {"date": "20270224", "label": "전기 학위수여식", "checked": "2026-10-29"}},
+    {"name": "연세대학교", "campus": "본교", "url": "https://www.yonsei.ac.kr/sc/373/subview.do", "format": "html", "note": "신촌 학부 일정. 미래캠퍼스는 별도 확인 필요",
+     "confirmed": {"date": "20270222", "label": "학위수여식", "checked": "2026-10-29"}},
+    {"name": "고려대학교", "campus": "본교", "url": "https://registrar.korea.ac.kr/eduinfo/affairs/schedule.do", "format": "html", "note": "안암 학부. 학기별 탭 중 최신 학기가 기본 표시됨",
+     "confirmed": {"date": "20270225", "label": "2026학년도 전기 학위수여식", "checked": "2026-10-29"}},
+    {"name": "성균관대학교", "campus": "본교", "url": "https://www.skku.edu/skku/edu/bachelor/ca_de_schedule.do", "format": "html",
+     "confirmed": {"date": "20270225", "label": "2027년 겨울 학위수여식", "checked": "2026-10-29"}},
+    {"name": "경북대학교", "campus": "본교", "url": "https://knu.ac.kr/wbbs/wbbs/download/2026yearSchedule.pdf", "format": "pdf", "note": "PDF 파일 주소가 해마다 바뀔 수 있음",
+     "confirmed": {"date": "20270219", "label": "2026학년도 전기학위수여식", "checked": "2026-10-29"}},
+    {"name": "인하공업전문대학", "campus": "본교", "url": "https://cbncrew.inhatc.ac.kr/cbncrew/2173/subview.do", "format": "html", "note": "학과 사이트에 게시된 학교 전체 학사일정",
+     "confirmed": {"date": "20270212", "label": "2026학년도 전기 학위수여식", "checked": "2026-10-29"}}
+  ]
+}

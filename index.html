@@ -286,9 +286,9 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s||'').toLowerCase().replace(/\s+/g,'');
 const DOW=['일','월','화','수','목','금','토'];
-const isOk=s=>s.status==='Graduation found in NEIS'&&s.dates.length===1;
+const isOk=s=>(s.status==='Graduation found in NEIS'||s.status==='univ_confirmed')&&s.dates.length===1;
 const isNQ=s=>s.status==='not_queried';
-const isUniv=s=>s.status==='university';
+const isUniv=s=>s.status==='university'||s.status==='univ_confirmed';
 const UNIV_KINDS=['대학교','전문대학'];
 const SIDO_SHORT={'서울특별시':'서울','부산광역시':'부산','대구광역시':'대구','인천광역시':'인천','대전광역시':'대전','울산광역시':'울산','세종특별자치시':'세종','경기도':'경기','강원특별자치도':'강원','강원도':'강원','충청북도':'충북','충청남도':'충남','전북특별자치도':'전북','전라북도':'전북','전라남도':'전남','경상북도':'경북','경상남도':'경남','제주특별자치도':'제주','광주광역시':'광주'};
 function univToSchool(u){
@@ -296,7 +296,8 @@ function univToSchool(u){
   if(u.region==='전남광주통합특별시'){const g=(u.address.split(' ')[1]||'');region=/구$/.test(g)?'광주':'전남'}
   const camp=u.campus&&u.campus!=='본교'?' ('+u.campus.replace(/캠퍼$/,'캠퍼스')+')':'';
   return {id:u.id,name:u.name+camp,kind:u.kind,region,address:u.address,coedu:u.founded||'',website:u.website||'',
-    status:'university',dates:[],checked:null,lat:u.lat,lon:u.lon};
+    status:(u.dates&&u.dates.length===1)?'univ_confirmed':'university',dates:(u.dates&&u.dates.length===1)?u.dates.slice():[],checked:u.dateChecked||null,
+    dateLabel:u.dateLabel||'',dateUrl:u.dateUrl||'',lat:u.lat,lon:u.lon};
 }
 const candidateDates=s=>s.dates.length?s.dates:(REVIEW_DATES[s.id]||[]);
 const between=(d,f,t)=>(!f||d>=f)&&(!t||d<=t);
@@ -306,6 +307,7 @@ const fmt=d=>{if(!/^\d{8}$/.test(d||''))return '날짜 미공개';const x=toDate
 const fmtY=d=>d.slice(0,4)+'.'+d.slice(4,6)+'.'+d.slice(6,8);
 function dday(d){const t=new Date();t.setHours(0,0,0,0);const n=Math.round((toDate(d)-t)/864e5);return n<0?['지남',true]:n===0?['오늘',false]:['D-'+n,n>45]}
 function stText(s){
+  if(s.status==='univ_confirmed')return['학교 학사일정 확인','ok'];
   if(isUniv(s))return['학위수여식 날짜 직접 입력','muted'];
   if(isOk(s))return['학사일정 확인','ok'];
   if(s.status==='Review: multiple graduation dates')return['날짜 후보 여러 개','warn'];
@@ -438,7 +440,8 @@ function openSheet(id,keep){
   if(ok){
     const d=s.dates[0],on=!!find(s.id,d),[dd]=dday(d);
     const sus=suspect(s);
-    body=`<div class="bigdate">${fmt(d)}</div><div class="hint">${fmtY(d)} · ${dd} · 나이스에 등록된 일정이에요. 시간은 학교에 확인하세요.</div>
+    const src=isUniv(s)?`학교 학사일정 페이지 기준이에요${s.dateLabel?` (원문: “${esc(s.dateLabel)}”)`:''}${s.checked?`, ${esc(s.checked.slice(5).replace('-','/'))} 확인`:''}. 캠퍼스·단과대별 행사와 시간은 학교 공지로 확인하세요.${safeUrl(s.dateUrl)?` <a href="${esc(safeUrl(s.dateUrl))}" target="_blank" rel="noopener noreferrer">학사일정 원문 보기 ↗</a>`:''}`:'나이스에 등록된 일정이에요. 시간은 학교에 확인하세요.';
+    body=`<div class="bigdate">${fmt(d)}</div><div class="hint">${fmtY(d)} · ${dd} · ${src}</div>
     ${sus?`<div class="warnbox"><b>⚠ 날짜 확인이 필요해요</b>${esc(sus)}</div>`:''}
     <div style="margin-top:18px"><button class="btn ${on?'soft':''}" data-sheet-toggle>${on?'✓ 담았어요 (누르면 빼기)':'＋ 이 날짜 내 일정에 담기'}</button></div>
     <details class="sec" style="padding-top:4px"><summary>다른 날짜로 담기</summary>${manualBlock()}</details>`;
