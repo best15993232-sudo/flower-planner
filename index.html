@@ -12,14 +12,14 @@
   --bg:#f6f5f0; --card:#fff; --ink:#1d2b24; --ink2:#5d6d63; --ink3:#8a978e;
   --line:#e6e9e2; --brand:#1f5a43; --brand-d:#174634; --brand-soft:#e8f2ec;
   --rose:#c4486b; --rose-soft:#fbeaf0; --amber:#9a6a14; --amber-soft:#fff3d9;
-  --r:16px; --gut:20px; --tab:60px;
+  --r:16px; --gut:20px; --tab:58px; --tabpad:max(10px, env(safe-area-inset-bottom));
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:15px;line-height:1.5;letter-spacing:-.2px}
 button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
 button{cursor:pointer;border:0;background:none;padding:0}
-.wrap{max-width:640px;margin:0 auto;padding:0 var(--gut) calc(var(--tab) + 40px + env(safe-area-inset-bottom))}
+.wrap{max-width:640px;margin:0 auto;padding:0 var(--gut) calc(var(--tab) + 50px + var(--tabpad))}
 
 /* top */
 .top{padding:22px 0 14px}
@@ -108,9 +108,9 @@ button{cursor:pointer;border:0;background:none;padding:0}
 .backup .btn{flex:1}
 
 /* tab bar */
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#ffffffee;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#ffffffee;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:var(--tabpad)}   /* 카카오톡 등 앱 안 브라우저의 아래 막대에 글씨가 가리지 않게 여유를 둬요 */
 .tabbar-in{max-width:640px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;height:var(--tab)}
-.tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--ink3);position:relative}
+.tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;line-height:1.2;white-space:nowrap;font-weight:700;color:var(--ink3);position:relative}
 .tabbar button svg{width:24px;height:24px;stroke:currentColor}
 .tabbar button[aria-selected=true]{color:var(--brand)}
 .cnt{position:absolute;top:6px;left:calc(50% + 6px);min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:var(--rose);color:#fff;font-size:11px;font-weight:800;display:none;align-items:center;justify-content:center}
@@ -145,7 +145,7 @@ details summary::-webkit-details-marker{display:none}
 details summary::after{content:" ▾"}
 
 /* toast */
-.toast{position:fixed;left:50%;bottom:calc(var(--tab) + 18px + env(safe-area-inset-bottom));transform:translate(-50%,16px);z-index:80;background:#1d2b24;color:#fff;padding:12px 16px;border-radius:14px;font-size:14px;font-weight:600;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.2s;width:max-content;max-width:calc(100vw - 32px)}
+.toast{position:fixed;left:50%;bottom:calc(var(--tab) + 18px + var(--tabpad));transform:translate(-50%,16px);z-index:80;background:#1d2b24;color:#fff;padding:12px 16px;border-radius:14px;font-size:14px;font-weight:600;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.2s;width:max-content;max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .toast button{color:#8fe0b4;font-weight:800;padding:4px 2px}
 .foot{font-size:11.5px;color:var(--ink3);line-height:1.7;margin:28px 2px 0}
