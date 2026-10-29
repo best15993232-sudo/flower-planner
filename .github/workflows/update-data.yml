@@ -22,7 +22,9 @@ jobs:
       - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - name: 분류 규칙 테스트
-        run: python3 scripts/test_classify.py
+        run: |
+          python3 scripts/test_classify.py
+          python3 scripts/test_event_rules.py
       - name: 학사일정 조회
         env:
           NEIS_KEY: ${{ secrets.NEIS_KEY }}     # 저장소 Settings > Secrets 에 등록

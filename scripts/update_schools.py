@@ -19,9 +19,10 @@ KST = timezone(timedelta(hours=9))
 # ── 졸업일 분류 규칙: 기존 PowerShell 수집기(collect_neis_nationwide.ps1 v0.4.0)와 똑같이 옮겼어요 ──
 WINDOW_FROM, WINDOW_TO = "20261201", "20270228"
 ART = re.compile(r"음악회|연주회|전시|공연|예술제|축제|졸업작품|발표회")
-PREP = re.compile(r"졸업후미산입|졸업진급사정|졸업사정|졸업앨범|졸업사진|졸업여행|졸업생|졸업논문|졸업시험|졸업식연습|졸업식예행|졸업식리허설|졸업식안내|졸업식준비")
+PREP = re.compile(r"사정회|졸업후미산입|졸업진급사정|졸업사정|졸업앨범|졸업사진|졸업여행|졸업생|졸업논문|졸업시험|졸업식연습|졸업식예행|졸업식리허설|졸업식안내|졸업식준비")
 CEREMONY = re.compile(r"졸업식|졸업[/·•,\-]종업식|졸업및종업식|종업식[/·•,\-]졸업")
 CONTEXT = re.compile(r"종업식")
+HOLIDAY = re.compile(r"휴업|휴무|휴교")   # '졸업식 휴업'은 졸업식 날짜라고 단정하지 않고 확인 필요로 (2026-10-30 추가)
 
 ST_OK, ST_MULTI = "Graduation found in NEIS", "Review: multiple graduation dates"
 ST_AMBIG, ST_NONE = "Review: ambiguous event name", "Graduation not yet found"
@@ -32,6 +33,7 @@ def event_class(name):
     n = re.sub(r"\s+", "", name or "").replace("（", "(").replace("）", ")")
     art, prep, cer = ART.search(n), PREP.search(n), CEREMONY.search(n)
     if cer and art: return "review"
+    if cer and HOLIDAY.search(n): return "review"
     if art: return "future_event"
     if prep: return "excluded"
     if cer: return "graduation"

@@ -1,4 +1,5 @@
-"""기존 수집 결과(school_summary.csv + event_audit.csv)와 이 스크립트의 분류가 같은지 대조해요. (인터넷·키 불필요)
+"""[참고용] 2026-10-28 이전 규칙으로 옮겼을 때 기존 수집 결과와 같았는지 보던 도구예요. 이후 규칙을 고쳐서(졸업식 휴업·사정회) 일부는 일부러 달라요.
+기존 수집 결과(school_summary.csv + event_audit.csv)와 이 스크립트의 분류가 같은지 대조해요. (인터넷·키 불필요)
 사용: python3 scripts/verify_against_audit.py school_summary.csv event_audit.csv"""
 import csv, sys, os, collections
 sys.path.insert(0, os.path.dirname(__file__))

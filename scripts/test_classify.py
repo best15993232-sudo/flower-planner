@@ -5,13 +5,8 @@ R = lambda d, n: {"AA_YMD": d, "EVENT_NM": n}
 d = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "schools.json"), encoding="utf-8"))
 B = {s["id"]: s for s in d["schools"]}
 fails = 0
-# 1) 기존 결과에 저장된 행사명 7곳을 되돌려 넣어 같은 분류가 나오는지
-for sid, ev in d["rawEvents"].items():
-    rows = [R(day, n) for day, ns in ev.items() for n in ns]
-    st, dates, rev, _ = classify(rows)
-    ok = st == B[sid]["status"] and dates == B[sid]["dates"] and rev == d["reviewDates"].get(sid, [])
-    fails += not ok
-    print("OK " if ok else "FAIL", B[sid]["name"], st, len(dates), len(rev))
+# 1) 예전에는 저장된 결과를 그대로 되돌려 넣어 비교했지만, 규칙을 고치면서(졸업식 휴업·사정회) 기대값이 바뀌어
+#    헷갈리는 행사명 사례는 test_event_rules.py 로 옮겼어요.
 # 2) 단순 사례
 cases = [
     ([R("20270108", "졸업식"), R("20270108", "종업식")], "Graduation found in NEIS", ["20270108"]),
