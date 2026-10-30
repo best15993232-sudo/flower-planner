@@ -95,19 +95,34 @@ def main():
 
     t0 = time.time()
     res = {}
-    with cf.ThreadPoolExecutor(48) as ex:
-        futs = {ex.submit(check, w, 12): pid for pid, w in items}
-        for i, f in enumerate(cf.as_completed(futs), 1):
-            res[futs[f]] = f.result()
-            if i % 1000 == 0:
-                print(f"  {i:,}/{len(items):,} ({time.time()-t0:.0f}초)", flush=True)
-    # 실패한 곳은 한 번 더, 천천히
-    retry = [pid for pid, r in res.items() if r and not r["ok"] and not r.get("dns")]
     web = dict(items)
-    with cf.ThreadPoolExecutor(16) as ex:
-        for pid, r in zip(retry, ex.map(lambda p: check(web[p], 25), retry)):
-            if r:
-                res[pid] = r
+
+    def run(ids, workers, timeout, limit):
+        """limit 초 안에 끝난 것만 모아요. 끝없이 늘어지는 학교 서버가 있어 전체 시간을 묶어 둬요."""
+        ex = cf.ThreadPoolExecutor(workers)
+        futs = {ex.submit(check, web[p], timeout): p for p in ids}
+        try:
+            for i, f in enumerate(cf.as_completed(futs, timeout=limit), 1):
+                res[futs[f]] = f.result()
+                if i % 2000 == 0:
+                    print(f"  {i:,}/{len(ids):,} ({time.time()-t0:.0f}초)", flush=True)
+        except cf.TimeoutError:
+            left = [p for f, p in futs.items() if not f.done()]
+            print(f"  시간 제한으로 {len(left):,}곳은 이번에 건너뛰어요(이전 결과 유지)", flush=True)
+            for p in left:
+                res.setdefault(p, "skip")
+        ex.shutdown(wait=False, cancel_futures=True)
+
+    run([p for p, _ in items], 96, 12, 30 * 60)
+    # 실패한 곳은 한 번 더, 천천히
+    retry = [p for p, r in res.items() if isinstance(r, dict) and not r["ok"] and not r.get("dns")]
+    run(retry, 16, 25, 8 * 60)
+    for p, r in list(res.items()):
+        if r == "skip":
+            if p in prev:
+                res[p] = prev[p]
+            else:
+                res.pop(p)
 
     fail = [p for p, r in res.items() if r and not r["ok"]]
     rate = len(fail) / max(1, len(res))
@@ -121,7 +136,8 @@ def main():
     for pid, r in res.items():
         if r is None:
             continue
-        r["fails"] = 0 if r["ok"] else (prev.get(pid, {}).get("fails", 0) + 1)
+        if r is not prev.get(pid):   # 이번에 실제로 확인한 곳만 횟수를 바꿔요
+            r["fails"] = 0 if r["ok"] else (prev.get(pid, {}).get("fails", 0) + 1)
         sites[pid] = r
     with open(D("website_status.json"), "w", encoding="utf-8") as f:
         json.dump({"version": 1, "checkedAt": date.today().isoformat(), "sites": sites},
@@ -137,4 +153,6 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    code = main()
+    sys.stdout.flush()
+    os._exit(code)   # 늘어진 접속 스레드를 기다리지 않고 끝내요
