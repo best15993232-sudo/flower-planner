@@ -50,14 +50,15 @@ def school_gender(c):
 
 
 def site_of(raw, st):
-    """홈페이지 점검 결과 반영: 열린 주소로 바꾸고, 도메인이 없거나 2번 연속 안 열리면 비워요(→ '학교 검색' 버튼)."""
+    """홈페이지 점검 결과 반영: 열린 주소(https·http)로 바꾸고, 도메인이 없는 상태가 두 번 확인되면 비워요(→ '학교 검색' 버튼)."""
+    raw = re.sub(r"[\s\ufeff\u200b-\u200d]+", "", raw or "")
     if not st:
-        return raw or ""
+        return raw
     if st.get("ok"):
-        return st.get("url") or raw or ""
-    if st.get("dns") or st.get("fails", 0) >= 2:
+        return st.get("url") or raw
+    if st.get("dns") and st.get("fails", 0) >= 2:   # 도메인이 없는 상태가 다른 날 두 번 확인되면
         return ""
-    return raw or ""
+    return raw   # 시간 초과 등은 지우지 않아요 (해외 접속 차단·잠깐의 장애일 수 있어서)
 
 
 def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):

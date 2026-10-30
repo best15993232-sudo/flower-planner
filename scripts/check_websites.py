@@ -8,8 +8,8 @@
 
 build_events.py 가 이 파일을 보고
   - http 로만 열리면 http 주소로 바꿔 쓰고
-  - 도메인이 아예 없거나 2번 연속(다른 날) 안 열리면 주소를 비워요 → 사이트에는 '학교 검색' 버튼이 나와요.
-한 번 실패로는 지우지 않아요(학교 서버가 잠깐 멈췄을 수 있어서).
+  - 도메인이 아예 없는 상태가 2번 연속(다른 날) 나오면 주소를 비워요 → 사이트에는 '학교 검색' 버튼이 나와요.
+그 밖의 실패(시간 초과·연결 끊김 등)는 해외 접속 차단이나 잠깐의 장애일 수 있어 주소를 지우지 않고 보고서에만 남겨요.
 
 주의: 해외 서버(GitHub Actions)에서 보면 해외 접속을 막는 학교가 있어 실패로 보일 수 있어요.
 실패가 너무 많으면(전체의 30% 이상) 결과를 저장하지 않고 멈춰요.
@@ -17,7 +17,7 @@ build_events.py 가 이 파일을 보고
 import concurrent.futures as cf, json, os, re, socket, ssl, sys, time
 import urllib.request, urllib.error
 from datetime import date
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, quote
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 D = lambda *p: os.path.join(ROOT, "data", *p)
@@ -34,15 +34,15 @@ def load(p, d=None):
 
 
 def clean(u):
-    u = (u or "").strip()
+    u = re.sub(r"[\s\ufeff\u200b-\u200d]+", "", u or "")   # 공백·BOM·보이지 않는 문자 (명단에 섞여 있어요)
     if not u:
         return ""
-    u = re.sub(r"\s+", "", u)
     u = re.sub(r"^https?://", "", u, flags=re.I)
     return u.rstrip("/")
 
 
 def try_open(url, timeout):
+    url = quote(url, safe=":/?&=%#~+,;@!$'()*[]")   # 주소에 한글이 있으면 인코딩
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,*/*"})
     for ctx in (CTX, LAX):
         try:
