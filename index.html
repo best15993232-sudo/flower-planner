@@ -342,6 +342,8 @@ details summary::after{content:" ▾"}
 .card .c-foot .add{grid-column:2}
 .card > .add{grid-column:2;grid-row:2 / span 3;align-self:center}
 .c-meta .badge{white-space:nowrap;flex:none}
+.count #rc{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
+.rchip{height:34px;padding:0 12px;border-radius:17px;background:#fff;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--brand)}
 .sl-km{font-size:13px;font-weight:700;color:var(--brand)}
 .sl-main .name::after{display:none}
 .sl-main .name{display:block}
@@ -416,7 +418,7 @@ details summary::after{content:" ▾"}
 <div class="sheet fsheet" id="fsheet" role="dialog" aria-modal="true" aria-labelledby="fTitle">
   <button class="sheet-x" type="button" data-fclose aria-label="닫기">✕</button><div class="grab"></div>
   <h3 id="fTitle">필터</h3>
-  <div class="fsec" id="fsRadius"><h4>거리</h4><div class="pillrow" id="radii"><button type="button" data-r="3">3km</button><button type="button" data-r="5">5km</button><button type="button" data-r="10">10km</button><button type="button" data-r="20">20km</button><button type="button" data-r="40">40km</button></div></div>
+  <div class="fsec" id="fsRadius"><h4>거리 <small>기준 위치에서 직선거리</small></h4><div class="pillrow" id="radii"><button type="button" data-r="1">1km</button><button type="button" data-r="2">2km</button><button type="button" data-r="3">3km</button><button type="button" data-r="5">5km</button><button type="button" data-r="10">10km</button><button type="button" data-r="20">20km</button></div></div>
   <div class="fsec"><h4>학교급 <small>여러 개 고를 수 있어요</small></h4><div class="pillrow" id="kinds"><button type="button" data-k="초등학교">초등</button><button type="button" data-k="중학교">중학</button><button type="button" data-k="고등학교">고등</button><button type="button" data-k="대학">대학</button></div></div>
   <div class="fsec"><h4>졸업식 날짜</h4><div class="seg" id="seg" role="group" aria-label="졸업일 상태"><button type="button" data-v="confirmed" aria-pressed="true">날짜 나온 곳</button><button type="button" data-v="pending" aria-pressed="false">확인 필요</button><button type="button" data-v="all" aria-pressed="false">전체</button></div></div>
   <div class="fsec"><h4>졸업식 기간 <button class="linkbtn" id="resetRange" type="button">지우기</button></h4>
@@ -594,9 +596,9 @@ function cardHtml(s){
 function render(reset=true){
   if(reset){st.list=filtered();st.shown=PAGE}
   const L=st.list,q=$('q').value.trim();
-  $('rc').innerHTML=`<b>${L.length.toLocaleString('ko-KR')}</b>곳${LOC?(q?' · 전국에서 검색':` · ${RADIUS}km 안`):''}${st.status==='confirmed'?' · 날짜 나온 곳':''}`;
+  $('rc').innerHTML=`<span><b>${L.length.toLocaleString('ko-KR')}</b>곳${LOC&&q?' · 전국에서 검색':''}${st.status==='confirmed'?' · 날짜 나온 곳':''}</span>${LOC&&!q?`<button type="button" class="rchip" data-openf aria-label="거리 바꾸기">반경 ${RADIUS}km <span aria-hidden="true">▾</span></button>`:''}`;
   $('sort').textContent=SORT_NAME[st.sort]||'빠른 날짜순';
-  const wider=LOC&&RADIUS<40?`<button class="btn sm" type="button" data-wider style="margin:14px auto 0">${RADIUS<20?20:40}km로 넓혀 보기</button>`:'';
+  const nextR=[1,2,3,5,10,20].find(r=>r>RADIUS),wider=LOC&&nextR?`<button class="btn sm" type="button" data-wider style="margin:14px auto 0">${nextR}km로 넓혀 보기</button>`:'';
   $('list').innerHTML=L.slice(0,st.shown).map(cardHtml).join('')||
    `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${LOC&&!q?`${RADIUS}km 안에는 없어요. 거리를 넓히거나 필터를 바꿔 보세요.`:st.status==='confirmed'?'필터에서 ‘졸업식 날짜: 전체’로 바꾸면 날짜가 아직 안 나온 학교도 보여요.':'검색어나 필터를 바꿔 보세요.'}${wider}</div>`;
   const rest=L.length-st.shown;
@@ -604,7 +606,7 @@ function render(reset=true){
   if(rest>0)$('more').textContent=`더 보기 (${Math.min(PAGE,rest)}개 더 · 남은 ${rest.toLocaleString('ko-KR')}개)`;
   if(VIEW==='map'&&reset)renderMap(false);
 }
-$('list').addEventListener('click',e=>{if(e.target.closest('[data-wider]')){setRadius(RADIUS<20?20:40);paintLoc();render();if(VIEW==='map')renderMap(true)}});
+$('list').addEventListener('click',e=>{if(e.target.closest('[data-wider]')){setRadius([1,2,3,5,10,20].find(r=>r>RADIUS)||20);paintLoc();render();if(VIEW==='map')renderMap(true)}});
 function refreshCards(){render(false)}
 
 /* actions */
@@ -839,6 +841,7 @@ $('scrim2').addEventListener('click',closePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('fsheet').classList.contains('on')||$('lsheet').classList.contains('on')))closePanels()});
 $('fsheet').addEventListener('click',e=>{if(e.target.closest('[data-fclose]')||e.target.closest('#fapply'))closePanels()});
 $('fbtn').addEventListener('click',()=>{paintFilters();openPanel('fsheet')});
+$('rc').addEventListener('click',e=>{if(e.target.closest('[data-openf]')){paintFilters();openPanel('fsheet')}});
 function filtersChanged(){render();paintActive();paintFilters()}
 function paintFilters(){
   $('fsRadius').hidden=!LOC;$('fsRegion').hidden=!!LOC;
@@ -1002,8 +1005,8 @@ function showKakao(s,mode){
 /* LOC = {lat,lon,kind:'me'|'place'|'map'|'shop',label,addr}. 없으면 전국 보기 */
 let LOC=null,VIEW='list';
 const dist=new Map();
-let RADIUS=(()=>{try{return +localStorage.getItem('fp-radius')||10}catch{return 10}})();
-function setRadius(r){RADIUS=r;try{localStorage.setItem('fp-radius',r)}catch{}}
+let RADIUS=(()=>{try{return +localStorage.getItem('fp-radius2')||5}catch{return 5}})();   // 기본 직선거리 5km
+function setRadius(r){RADIUS=r;try{localStorage.setItem('fp-radius2',r)}catch{}}
 function hav(a,b,c,d){const R=6371,r=x=>x*Math.PI/180,dl=r(c-a),dn=r(d-b);
   const x=Math.sin(dl/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
 const SHOP_KEY='fp-shop';
@@ -1037,9 +1040,9 @@ function paintLoc(){
   if(!LOC){ic.innerHTML='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a978e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.4"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5" stroke-dasharray="none"/></svg>';t.textContent='위치를 정해 주세요';sub.textContent='지금은 전국 졸업식을 보여드려요';$('locbar').classList.add('empty');return}
   $('locbar').classList.remove('empty');
   ic.textContent=LOC.kind==='shop'?'💐':'📍';
-  if(LOC.approx){t.textContent=`내 위치(대략) · ${RADIUS}km`;sub.textContent=`오차 약 ${LOC.approx}km · 동네 이름으로 찾으면 더 정확해요`;return}
+  if(LOC.approx){t.textContent='내 위치(대략)';sub.textContent=`오차 약 ${LOC.approx}km · 동네 이름으로 찾으면 더 정확해요`;return}
   const name=LOC.kind==='shop'?'우리 가게':LOC.kind==='me'?'내 위치':LOC.kind==='map'?'지도에서 고른 곳':LOC.label;
-  t.textContent=`${name} · ${RADIUS}km`;
+  t.textContent=name;   // 위치 줄은 '어디'만. 거리는 목록 위 '반경' 알약과 필터에서 바꿔요
   const where=LOC.kind==='shop'?(LOC.name||LOC.addr):LOC.kind==='place'?(LOC.addr||''):LOC.addr;
   sub.textContent=(where?where+' 주변':'주변')+' 졸업식';
 }
