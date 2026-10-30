@@ -1,0 +1,31 @@
+name: 홈페이지 주소 점검
+on:
+  schedule:
+    - cron: "0 20 1,15 * *"   # 매달 1일·15일 05:00 (한국시간)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [scripts/check_websites.py]   # 점검 스크립트를 고치면 한 번 바로 돌려요
+permissions:
+  contents: write
+concurrency:
+  group: update-data   # 학사일정 갱신과 같은 파일(places.json)을 고쳐서 차례로 돌려요
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: 홈페이지 접속 확인
+        run: python3 scripts/check_websites.py
+      - name: 장소·행사 파일 다시 만들기
+        run: python3 scripts/build_events.py
+      - name: 결과 커밋
+        run: |
+          git config user.name "data-bot"
+          git config user.email "data-bot@users.noreply.github.com"
+          git add data/website_status.json data/places.json data/events.json docs/reports/websites_failed.txt
+          git diff --cached --quiet || (git commit -m "data: 홈페이지 주소 점검 $(date +%F)" && git pull --rebase -q && git push)

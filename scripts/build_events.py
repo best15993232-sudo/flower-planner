@@ -49,13 +49,25 @@ def school_gender(c):
     return "m" if c == "남" else "f" if c == "여" else "co"
 
 
-def build(schools_doc, univ_doc, sources_doc, sizes):
+def site_of(raw, st):
+    """홈페이지 점검 결과 반영: 열린 주소로 바꾸고, 도메인이 없거나 2번 연속 안 열리면 비워요(→ '학교 검색' 버튼)."""
+    if not st:
+        return raw or ""
+    if st.get("ok"):
+        return st.get("url") or raw or ""
+    if st.get("dns") or st.get("fails", 0) >= 2:
+        return ""
+    return raw or ""
+
+
+def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
+    webst = webst or {}
     places, events = [], []
     raw, rev = schools_doc.get("rawEvents", {}), schools_doc.get("reviewDates", {})
 
     for s in schools_doc["schools"]:
         p = {"id": s["id"], "type": "school", "name": s["name"], "kind": s["kind"], "region": s["region"],
-             "address": s["address"], "gender": school_gender(s.get("coedu")), "website": s.get("website") or "",
+             "address": s["address"], "gender": school_gender(s.get("coedu")), "website": site_of(s.get("website"), webst.get(s["id"])),
              "lat": s.get("lat"), "lon": s.get("lon")}
         z = size_of(sizes, s["id"])
         if z: p["size"] = z
@@ -89,7 +101,7 @@ def build(schools_doc, univ_doc, sources_doc, sizes):
         name = u["name"] + ("" if camp == "본교" else f" ({re.sub('캠퍼$', '캠퍼스', camp)})")
         p = {"id": u["id"], "type": "campus", "name": name, "kind": u["kind"], "region": region,
              "address": u["address"], "gender": "f" if "여자대학" in u["name"] else "co",
-             "website": u.get("website") or "", "lat": u.get("lat"), "lon": u.get("lon")}
+             "website": site_of(u.get("website"), webst.get(u["id"])), "lat": u.get("lat"), "lon": u.get("lon")}
         z = size_of(sizes, u["id"])
         if z: p["size"] = z
         places.append(p)
@@ -126,7 +138,8 @@ def main():
     sources = load(D("university_sources.json"), {})
     sz = load(D("place_sizes.json"), {}) or {}
     sizes = sz.get("sizes", {})
-    places, events = build(schools_doc, univ_doc, sources, sizes)
+    webst = (load(D("website_status.json"), {}) or {}).get("sites", {})
+    places, events = build(schools_doc, univ_doc, sources, sizes, webst)
     validate(places, events)
     upd = schools_doc.get("updatedAt") or date.today().isoformat()
     out = [("places.json", {"version": 1, "updatedAt": upd, "sizeYear": sz.get("year"), "sizeSource": sz.get("source"), "places": places}),
