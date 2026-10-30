@@ -974,7 +974,7 @@ function paintLoc(){
   const ic=$('locIc'),t=$('locTitle'),sub=$('locSub');
   if(!LOC){ic.innerHTML='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a978e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.4"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5" stroke-dasharray="none"/></svg>';t.textContent='위치를 정해 주세요';sub.textContent='지금은 전국 졸업식을 보여드려요';$('locbar').classList.add('empty');return}
   $('locbar').classList.remove('empty');
-  ic.textContent=LOC.kind==='shop'?'🏪':'📍';
+  ic.textContent=LOC.kind==='shop'?'💐':'📍';
   if(LOC.approx){t.textContent=`내 위치(대략) · ${RADIUS}km`;sub.textContent=`오차 약 ${LOC.approx}km · 동네 이름으로 찾으면 더 정확해요`;return}
   const name=LOC.kind==='shop'?'우리 가게':LOC.kind==='me'?'내 위치':LOC.kind==='map'?'지도에서 고른 곳':LOC.label;
   t.textContent=`${name} · ${RADIUS}km`;
@@ -992,9 +992,9 @@ function openLoc(first){
 function onLocClosed(){if(onboarding){onboarding=false;flag('fp-onboarded','1')}}
 function paintShopRow(){
   const b=$('lShop');
-  if(shopEditing){b.innerHTML='<div class="shop on"><span>🏪 <b>가게 위치 고치는 중</b><br><small>위에서 내 위치·검색·지도로 새 위치를 골라 주세요</small></span><button class="linkbtn" type="button" data-shop-cancel>취소</button></div>';return}
+  if(shopEditing){b.innerHTML='<div class="shop on"><span>💐 <b>가게 위치 고치는 중</b><br><small>위에서 내 위치·검색·지도로 새 위치를 골라 주세요</small></span><button class="linkbtn" type="button" data-shop-cancel>취소</button></div>';return}
   if(!SHOP){b.innerHTML='';return}
-  b.innerHTML=`<div class="shop on"><span>🏪 <b>우리 가게</b><br><small>${esc(SHOP.name||SHOP.addr||'저장한 위치')}${SHOP.name&&SHOP.addr?' · '+esc(SHOP.addr):''}</small></span><span class="shop-btns"><button class="btn sm" type="button" data-shop-go>여기로 보기</button></span></div>
+  b.innerHTML=`<div class="shop on"><span>💐 <b>우리 가게</b><br><small>${esc(SHOP.name||SHOP.addr||'저장한 위치')}${SHOP.name&&SHOP.addr?' · '+esc(SHOP.addr):''}</small></span><span class="shop-btns"><button class="btn sm" type="button" data-shop-go>여기로 보기</button></span></div>
   <div class="shop-edit"><button class="linkbtn" type="button" data-shop-edit>가게 위치 고치기</button><button class="linkbtn muted" type="button" data-shop-del>지우기</button></div>`;
 }
 $('lsheet').addEventListener('click',e=>{
@@ -1050,7 +1050,7 @@ function paintShopAsk(){
   const b=$('shopAsk');
   if(!LOC||LOC.kind==='shop'||LOC.approx||SHOP||shopAskOff||DEMO){b.innerHTML='';return}   // 대략적인 위치는 가게로 저장하라고 하지 않아요
   const where=LOC.kind==='place'?LOC.label:(LOC.addr||'');
-  b.innerHTML=`<div class="shopask"><span>🏪 여기를 <b>우리 가게</b>로 저장할까요?${where?` <small>(${esc(where)})</small>`:''}<br><small>다음부터 열면 가게 주변 졸업식부터 보여드려요. 대강 맞아도 괜찮아요.</small></span><span class="shop-btns"><button class="btn sm" type="button" data-ask-save>저장</button><button class="linkbtn muted" type="button" data-ask-no>괜찮아요</button></span></div>`;
+  b.innerHTML=`<div class="shopask"><span>💐 여기를 <b>우리 가게</b>로 저장할까요?${where?` <small>(${esc(where)})</small>`:''}<br><small>다음부터 열면 가게 주변 졸업식부터 보여드려요. 대강 맞아도 괜찮아요.</small></span><span class="shop-btns"><button class="btn sm" type="button" data-ask-save>저장</button><button class="linkbtn muted" type="button" data-ask-no>괜찮아요</button></span></div>`;
 }
 $('shopAsk').addEventListener('click',e=>{
   if(e.target.closest('[data-ask-save]')&&LOC){if(saveShop(LOC)){LOC=shopLoc();paintLoc();paintShopAsk();toast('우리 가게로 저장했어요. 위쪽 위치 줄에서 언제든 고칠 수 있어요')}return}
@@ -1088,7 +1088,7 @@ function renderMap(fit){
   const pts=[];
   if(LOC){
     const circ=L.circle([LOC.lat,LOC.lon],{radius:RADIUS*1000,color:'#1f5a43',weight:1.5,fillColor:'#1f5a43',fillOpacity:.05,interactive:false}).addTo(MAP.layer);
-    L.marker([LOC.lat,LOC.lon],{icon:L.divIcon({className:'',html:`<div class="me-dot ${LOC.kind==='shop'?'shop-dot':''}">${LOC.kind==='shop'?'🏪':''}</div>`,iconSize:[22,22],iconAnchor:[11,11]}),interactive:false}).addTo(MAP.layer);
+    L.marker([LOC.lat,LOC.lon],{icon:L.divIcon({className:'',html:`<div class="me-dot ${LOC.kind==='shop'?'shop-dot':''}">${LOC.kind==='shop'?'💐':''}</div>`,iconSize:[22,22],iconAnchor:[11,11]}),interactive:false}).addTo(MAP.layer);
     if(fit)MAP.map.fitBounds(circ.getBounds(),{padding:[8,8]});
   }
   for(const s of st.list.slice(0,400)){
