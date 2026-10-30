@@ -198,6 +198,11 @@ details summary::after{content:" ▾"}
 .kview{height:280px;border-radius:14px;overflow:hidden;margin-top:8px;background:#eef0ea;position:relative}
 .kmsg{padding:90px 20px;text-align:center;font-size:13px;color:var(--ink2);line-height:1.6}
 .links.two{grid-template-columns:1fr 1fr}
+.links.four{grid-template-columns:repeat(auto-fit,minmax(0,1fr))}
+.links button{height:56px;border-radius:12px;background:var(--bg);font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
+.links.four a{height:56px;line-height:1.25}
+.links button[aria-pressed=true]{background:var(--brand);color:#fff}
+#kwrap{margin-top:10px}
 .range-pills{display:flex;gap:6px;margin:2px 0 10px;flex-wrap:wrap}
 .range-pills button{height:40px;padding:0 15px;border-radius:20px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;color:var(--ink2)}
 .range-pills button[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
@@ -675,11 +680,12 @@ function openSheet(id,keep){
     <span class="pill ${tone==='ok'?'':tone}">${esc(label)}</span>
     ${body}${mineHtml}
     <div class="sec"><h4>학교 위치 · 정보</h4>
-      ${loc&&KAKAO_KEY?`<div class="kbox"><button class="btn soft" data-kopen>🗺️ 지도·로드뷰 펼치기</button><div id="kwrap" hidden><div class="ktabs"><button data-kv="map" aria-pressed="true">지도</button><button data-kv="rv" aria-pressed="false">로드뷰</button></div><div id="kview" class="kview"></div><p class="hint" style="margin-top:6px">로드뷰는 화면을 끌거나 바닥의 화살표를 눌러 주변을 둘러볼 수 있어요.</p></div></div>`:''}
-      <div class="links two">
+      <div class="links four">
+      ${loc&&KAKAO_KEY?`<button type="button" data-kv="map" aria-pressed="false">🗺️<br>지도</button><button type="button" data-kv="rv" aria-pressed="false">👀<br>로드뷰</button>`:''}
       <a href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗<br>길찾기</a>
-      ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>학교 홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>학교 검색</a>`}
+      ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>학교 검색</a>`}
     </div>
+    ${loc&&KAKAO_KEY?`<div id="kwrap" hidden><div id="kview" class="kview"></div><p class="hint" id="khint" style="margin-top:6px"></p></div>`:''}
     ${site&&s.siteWarn?`<p class="hint" style="margin:8px 2px 0">학교 홈페이지가 요즘 잘 안 열려요. 안 열리면 <a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎 카카오맵에서 학교 검색</a></p>`:''}
     <p class="notice">※ 목록에 있다고 해서 판매가 허용되는 장소는 아니에요. 판매 가능 여부는 직접 확인해 주세요. 지도 좌표는 출입구와 다를 수 있어요.</p></div>`;
   $('toast').classList.remove('on');$('sheet').classList.add('on');$('scrim').classList.add('on');document.body.style.overflow='hidden';
@@ -702,7 +708,12 @@ $('sheet').addEventListener('click',e=>{
   const ko=e.target.closest('[data-kopen]');
   if(ko){ko.hidden=true;$('kwrap').hidden=false;showKakao(s,'map');return}
   const kv=e.target.closest('[data-kv]');
-  if(kv){document.querySelectorAll('[data-kv]').forEach(b=>b.setAttribute('aria-pressed',b===kv));showKakao(s,kv.dataset.kv);return}
+  if(kv){   // 지도·로드뷰 버튼을 누르면 바로 아래에 펼쳐져요. 같은 버튼을 다시 누르면 접혀요
+    const on=kv.getAttribute('aria-pressed')==='true';
+    document.querySelectorAll('[data-kv]').forEach(b=>b.setAttribute('aria-pressed',!on&&b===kv));
+    $('kwrap').hidden=on;if(on)return;
+    $('khint').textContent=kv.dataset.kv==='rv'?'화면을 끌거나 바닥의 화살표를 눌러 주변을 둘러볼 수 있어요.':'두 손가락으로 확대·축소할 수 있어요.';
+    showKakao(s,kv.dataset.kv);setTimeout(()=>$('kwrap').scrollIntoView({behavior:'smooth',block:'nearest'}),60);return}
   if(e.target.closest('[data-sheet-toggle]')){const d=s.dates[0];if(find(s.id,d))remove(s,d);else add(s,d,'학사일정 등록');openSheet(s.id,true);return}
   const cd=e.target.closest('[data-cd]');
   if(cd){pickedDate=cd.dataset.cd;openSheet(s.id,true);return}
@@ -783,7 +794,7 @@ $('plan').addEventListener('click',e=>{
   const d=e.target.closest('[data-del]');
   if(d){const r=saved.find(x=>x.id===d.dataset.del);const bak=r;saved=saved.filter(x=>x.id!==d.dataset.del);persist();renderPlan();toast('일정을 삭제했어요','되돌리기',()=>{saved.push(bak);persist();renderPlan()});return}
   const o=e.target.closest('[data-detail]');if(o){lastFocus=null;openSheet(o.dataset.detail);return}
-  const mv2=e.target.closest('[data-mapview]');if(mv2){lastFocus=null;openSheet(mv2.dataset.mapview);const k=$('sheet').querySelector('[data-kopen]');if(k){k.click();setTimeout(()=>$('kwrap')&&$('kwrap').scrollIntoView({block:'center'}),80)}return}
+  const mv2=e.target.closest('[data-mapview]');if(mv2){lastFocus=null;openSheet(mv2.dataset.mapview);const k=$('sheet').querySelector('[data-kv="map"]');if(k)k.click();return}
   const tg=e.target.closest('[data-toggle]');if(tg){const id=tg.dataset.toggle,card=tg.closest('.scard'),more=card.querySelector('.sl-more'),open=more.hidden;
     more.hidden=!open;card.classList.toggle('open',open);tg.setAttribute('aria-expanded',open);open?OPEN_R.add(id):OPEN_R.delete(id);return}
   if(e.target.closest('[data-go]'))return setTab('find');
