@@ -15,6 +15,7 @@
   --r:16px; --gut:20px; --tab:58px; --tabpad:max(14px, env(safe-area-inset-bottom));
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:15px;line-height:1.5;letter-spacing:-.2px}
 button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
@@ -109,7 +110,7 @@ button{cursor:pointer;border:0;background:none;padding:0}
 
 /* tab bar */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#ffffffee;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:var(--tabpad)}   /* 카카오톡 등 앱 안 브라우저의 아래 막대에 글씨가 가리지 않게 여유를 둬요 */
-.tabbar-in{max-width:640px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;height:var(--tab)}
+.tabbar-in{max-width:640px;margin:auto;display:grid;grid-template-columns:1fr 1fr;height:var(--tab)}
 .tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;line-height:1.4;white-space:nowrap;font-weight:700;color:var(--ink3);position:relative}
 .tabbar button svg{width:24px;height:24px;stroke:currentColor}
 .tabbar button[aria-selected=true]{color:var(--brand)}
@@ -252,6 +253,56 @@ details summary::after{content:" ▾"}
 .achip{height:40px;padding:0 12px;border-radius:20px;background:var(--brand-soft);color:var(--brand);font-size:13px;font-weight:700}
 .near-range{align-items:center;margin:2px 0 12px}
 .rp-label{font-size:13px;font-weight:700;color:var(--ink2);margin-right:2px}
+
+/* 졸업식 찾기 한 화면 (위치 줄 · 필터 창 · 목록/지도) */
+.top{padding:18px 0 10px}
+.locbar{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:10px 14px;min-height:58px}
+.locbar .loc-ic{font-size:22px;flex:none}.locbar .loc-tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.locbar b{font-size:16px;font-weight:800;letter-spacing:-.3px}.locbar small{font-size:12.5px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.locbar .loc-ch{flex:none;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-soft);border-radius:14px;padding:6px 11px}
+.locbar.empty{border-style:dashed}
+.toolbar{display:flex;gap:8px;align-items:center;margin-top:10px}
+.toolbar .fbtn{height:42px}
+.fbtn svg{width:16px;height:16px;stroke:currentColor}
+.viewseg{margin-left:auto;display:grid;grid-template-columns:1fr 1fr;background:#e9ebe4;border-radius:21px;padding:3px;flex:none}
+.viewseg button{height:36px;padding:0 14px;border-radius:18px;font-size:14px;font-weight:700;color:var(--ink2)}
+.viewseg button[aria-pressed=true]{background:#fff;color:var(--brand);box-shadow:0 1px 4px #0000001a}
+.active-chips:not(:empty){margin-top:8px}
+.coach{position:relative;margin-top:10px;background:#1d2b24;color:#fff;font-size:13px;border-radius:12px;padding:9px 12px;width:max-content;max-width:100%}
+.coach::before{content:"";position:absolute;top:-6px;left:22px;border:6px solid transparent;border-top:0;border-bottom-color:#1d2b24}
+.shopask{display:flex;align-items:center;gap:10px;justify-content:space-between;margin:0 0 12px;padding:12px 12px 12px 14px;border-radius:14px;background:#fff8e6;border:1.5px solid #f2dfae;font-size:13.5px;line-height:1.45}
+.shopask small{font-size:12px;color:var(--ink2)}
+.shop-btns{display:flex;flex-direction:column;align-items:center;gap:2px;flex:none}
+.linkbtn.muted{color:var(--ink3);font-weight:600}
+.shop-edit{display:flex;justify-content:space-between;margin:4px 4px 0}
+#mapwrap{position:relative;margin-bottom:12px}
+#mapwrap #map{height:calc(100vh - 330px);height:calc(100dvh - 330px);min-height:320px;margin:0}
+#mapcard:not(:empty){margin-top:10px}
+.pickbar{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:500;background:#1d2b24;color:#fff;font-size:13.5px;font-weight:700;padding:8px 8px 8px 14px;border-radius:20px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.pickbar .linkbtn{color:#fff;background:#ffffff26;border-radius:14px;padding:4px 10px}
+.shop-dot{width:22px;height:22px;background:#fff;border:2px solid var(--brand);font-size:12px;display:flex;align-items:center;justify-content:center}
+.fsheet{z-index:61}
+#scrim2{z-index:60}
+.fsheet h3{margin:4px 0 14px;font-size:19px;letter-spacing:-.4px}
+.fsec{padding:14px 0;border-top:1px solid var(--line)}
+.fsec h4{margin:0 0 10px;font-size:14px;display:flex;align-items:center;gap:8px}
+.fsec h4 small{font-size:12px;color:var(--ink3);font-weight:600}
+.fsec h4 .linkbtn{margin-left:auto}
+.pillrow{display:flex;gap:6px;flex-wrap:wrap}
+.pillrow button{height:42px;padding:0 16px;border-radius:21px;border:1.5px solid var(--line);background:#fff;font-size:14px;font-weight:700;color:var(--ink2)}
+.pillrow button[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.fsec .seg{margin-top:0}
+.fsec .chips.row2{margin:0;padding:0}
+.ffoot{position:sticky;bottom:calc(-24px - env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 2fr;gap:8px;background:#fff;padding:12px 0 calc(12px + env(safe-area-inset-bottom));margin-top:4px;border-top:1px solid var(--line)}
+#lsheet .btn{margin-top:4px}
+#lsheet .okhint{margin:8px 2px 4px}
+.lalt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.lalt .btn.sm{width:100%;margin:0}
+#lShop .shop{margin-top:12px}
+.onb{text-align:center;padding:6px 6px 14px}
+.onb-ic{font-size:40px}
+.onb h3{margin:6px 0 8px;font-size:21px;line-height:1.35}
+.onb p{margin:0;color:var(--ink2);font-size:14px;line-height:1.6}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -262,50 +313,32 @@ details summary::after{content:" ▾"}
 <section class="panel on" id="p-find">
   <div class="top">
     <div class="brand">🌸 꽃 판매 플래너</div>
-    <p class="sub">졸업식 날짜를 찾아 내 판매 일정에 담아두세요</p>
   </div>
+  <button type="button" class="locbar" id="locbar" aria-label="기준 위치 바꾸기"><span class="loc-ic" id="locIc">📍</span><span class="loc-tx"><b id="locTitle">위치를 정해 주세요</b><small id="locSub">주변 학교 졸업식부터 보여드려요</small></span><span class="loc-ch">바꾸기</span></button>
   <div class="sticky">
     <label class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="학교 이름이나 지역으로 검색" autocomplete="off" enterkeyhint="search" aria-label="학교 검색">
+      <input id="q" type="search" placeholder="학교 이름으로 찾기 (전국)" autocomplete="off" enterkeyhint="search" aria-label="학교 이름 검색">
     </label>
-    <div class="seg" id="seg" role="group" aria-label="졸업일 상태">
-      <button data-v="confirmed" aria-pressed="true">날짜 등록</button>
-      <button data-v="pending" aria-pressed="false">확인 필요</button>
-      <button data-v="all" aria-pressed="false">전체</button>
+    <div class="toolbar">
+      <button class="fbtn" id="fbtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>필터<span id="fcount"></span></button>
+      <button class="fbtn" id="sort" type="button">빠른 날짜순</button>
+      <div class="viewseg" id="viewseg" role="group" aria-label="보기 방식"><button type="button" data-view="list" aria-pressed="true">목록</button><button type="button" data-view="map" aria-pressed="false">지도</button></div>
     </div>
-  </div>
-  <div class="chips" id="chips">
-    <button class="chip" data-k="" aria-pressed="true">전체</button>
-    <button class="chip" data-k="초등학교" aria-pressed="false">초등</button>
-    <button class="chip" data-k="중학교" aria-pressed="false">중학</button>
-    <button class="chip" data-k="고등학교" aria-pressed="false">고등</button>
-    <button class="chip" data-k="대학" aria-pressed="false">대학</button>
-  </div>
-  <div class="filterbar">
-    <button class="fbtn" id="fbtn" type="button" aria-expanded="false" aria-controls="morefilters">필터 <span id="fcount"></span><span class="caret">▾</span></button>
+    <div class="coach" id="coach" hidden>학교급·기간·졸업생 수는 <b>필터</b>에서 바꿀 수 있어요</div>
     <div class="active-chips" id="activeChips"></div>
   </div>
-  <div id="morefilters" hidden>
-  <div class="chips row2" id="chips2">
-    <span class="chip-select"><select id="region" aria-label="지역"><option value="">전국</option></select></span>
-    <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
-    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수</option><option value="50">졸업 50+</option><option value="100">졸업 100+</option><option value="200">졸업 200+</option><option value="300">졸업 300+</option></select></span>
+  <div id="shopAsk"></div>
+  <div class="count"><span id="rc">불러오는 중…</span></div>
+  <div id="mapwrap" hidden>
+    <div class="pickbar" id="pickbar" hidden>지도를 눌러 기준 위치를 정해 주세요 <button type="button" class="linkbtn" id="pickCancel">취소</button></div>
+    <div id="map" role="application" aria-label="학교 지도"></div>
+    <div id="mapcard"></div>
   </div>
-  <section class="rangebox" aria-label="졸업식 기간 검색">
-    <div class="range-head"><strong>📅 졸업식 기간</strong><button class="linkbtn" id="resetRange" type="button">초기화</button></div>
-    <div class="range-pills" id="rangePills" role="group" aria-label="빠른 기간 선택">
-      <button type="button" data-days="1" aria-pressed="false">내일</button>
-      <button type="button" data-days="3" aria-pressed="false">3일</button>
-      <button type="button" data-days="7" aria-pressed="false">일주일</button>
-      <button type="button" data-days="30" aria-pressed="false">한 달</button>
-    </div>
-    <div class="range-grid">
-      <label>시작일<input type="date" id="fromDate" aria-label="졸업 시작일" value=""></label>
-      <label>종료일<input type="date" id="toDate" aria-label="졸업 종료일" value=""></label>
-    </div>
-    <p id="rangeHint">기간을 지정하면 해당 날짜에 졸업식이 등록된 학교만 찾아요.</p>
-  </section>
+  <div class="list" id="list"></div>
+  <button class="more" id="more" hidden>더 보기</button>
+  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
+</section>
   </div>
   <div class="count"><span id="rc">불러오는 중…</span><button class="linkbtn" id="sort">빠른 날짜순</button></div>
   <div class="list" id="list"></div>
@@ -321,50 +354,46 @@ details summary::after{content:" ▾"}
   <div id="plan"></div>
 </section>
 
-<section class="panel" id="p-near">
-  <div class="top">
-    <div class="brand">📍 내 주변 학교</div>
-    <p class="sub">내 위치, 가게 주소, 지도에서 고른 곳을 기준으로 찾아요</p>
-  </div>
-  <button class="btn" id="locate">📍 내 위치로 찾기</button>
-  <form class="placebox" id="placeForm" autocomplete="off"><input id="placeQ" type="search" enterkeyhint="search" placeholder="동네·주소·가게 이름 (예: 과천시청)" aria-label="기준 위치 검색"><button class="btn line" type="submit">찾기</button></form>
-  <div class="placelist" id="placeList"></div>
-  <div id="shopbar"></div>
-  <p class="near-note">위치 값은 이 기기에서만 거리 계산에 쓰고 저장하지 않아요. ‘가게로 저장’한 위치만 이 기기 브라우저에 남아요. 길찾기를 누를 때만 출발 위치가 카카오맵으로 전달돼요. 위치를 쓰기 싫으면 장소를 검색하거나 <b>지도를 눌러</b> 기준을 정하세요. <a href="privacy.html">개인정보 안내</a></p>
-  <div class="chips" id="radii" style="margin-top:6px">
-    <button class="chip" data-r="1" aria-pressed="false">1km</button>
-    <button class="chip" data-r="3" aria-pressed="false">3km</button>
-    <button class="chip" data-r="5" aria-pressed="true">5km</button>
-    <button class="chip" data-r="10" aria-pressed="false">10km</button>
-    <button class="chip" data-r="20" aria-pressed="false">20km</button>
-    <button class="chip" id="onlyOk" aria-pressed="true">날짜 등록만</button>
-    <button class="chip" id="showUniv" aria-pressed="false">대학 포함</button>
-    <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
-    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수</option><option value="50">졸업 50+</option><option value="100">졸업 100+</option><option value="200">졸업 200+</option><option value="300">졸업 300+</option></select></span>
-  </div>
-  <div class="range-pills near-range" role="group" aria-label="졸업식 기간">
-    <span class="rp-label">졸업식</span>
-    <button type="button" data-days="1" aria-pressed="false">내일</button>
-    <button type="button" data-days="3" aria-pressed="false">3일</button>
-    <button type="button" data-days="7" aria-pressed="false">일주일</button>
-    <button type="button" data-days="30" aria-pressed="false">한 달</button>
-  </div>
-  <div id="map" role="application" aria-label="학교 지도"></div>
-  <div class="count"><span id="nc">내 위치로 찾기, 장소 검색, 지도 누르기 중 하나로 시작해요</span><button class="linkbtn" id="nsort" hidden>가까운 순</button></div>
-  <div class="list" id="nlist"></div>
-  <button class="more" id="nmore" hidden>더 보기</button>
-</section>
 
 </div>
 
 <nav class="tabbar" aria-label="메뉴"><div class="tabbar-in">
-  <button id="t-find" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>학교 찾기</button>
-  <button id="t-near" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>내 주변</button>
+  <button id="t-find" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>졸업식 찾기</button>
   <button id="t-plan" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>내 일정<span class="dot" id="dot"></span><span class="cnt" id="cnt">0</span></button>
 </div></nav>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="학교 상세"></div>
+<div class="scrim" id="scrim2"></div>
+<div class="sheet fsheet" id="lsheet" role="dialog" aria-modal="true" aria-labelledby="lTitle">
+  <button class="sheet-x" type="button" data-lclose aria-label="닫기">✕</button><div class="grab"></div>
+  <div id="lHead"><h3 id="lTitle">어디 주변 졸업식을 볼까요?</h3></div>
+  <button class="btn" type="button" id="locate">📍 내 위치로 보기</button>
+  <form class="placebox" id="placeForm" autocomplete="off"><input id="placeQ" type="search" enterkeyhint="search" placeholder="동네·주소·가게 이름 (예: 과천시청)" aria-label="기준 위치 검색"><button class="btn line" type="submit">찾기</button></form>
+  <div class="placelist" id="placeList"></div>
+  <p class="hint okhint">정확하지 않아도 괜찮아요. 동네만 맞으면 주변 학교를 찾아드려요.</p>
+  <div id="lShop"></div>
+  <div class="lalt"><button type="button" class="btn line sm" id="pickMap">🗺 지도에서 고르기</button><button type="button" class="btn line sm" id="allKr">전국에서 보기</button></div>
+  <p class="near-note">위치는 이 기기 안에서 거리 계산에만 쓰고 저장하지 않아요. ‘우리 가게로 저장’한 위치만 이 기기 브라우저에 남아요. 길찾기를 누를 때만 출발 위치가 카카오맵으로 전달돼요. <a href="privacy.html">개인정보 안내</a></p>
+</div>
+<div class="sheet fsheet" id="fsheet" role="dialog" aria-modal="true" aria-labelledby="fTitle">
+  <button class="sheet-x" type="button" data-fclose aria-label="닫기">✕</button><div class="grab"></div>
+  <h3 id="fTitle">필터</h3>
+  <div class="fsec" id="fsRadius"><h4>거리</h4><div class="pillrow" id="radii"><button type="button" data-r="3">3km</button><button type="button" data-r="5">5km</button><button type="button" data-r="10">10km</button><button type="button" data-r="20">20km</button><button type="button" data-r="40">40km</button></div></div>
+  <div class="fsec"><h4>학교급 <small>여러 개 고를 수 있어요</small></h4><div class="pillrow" id="kinds"><button type="button" data-k="초등학교">초등</button><button type="button" data-k="중학교">중학</button><button type="button" data-k="고등학교">고등</button><button type="button" data-k="대학">대학</button></div></div>
+  <div class="fsec"><h4>졸업식 날짜</h4><div class="seg" id="seg" role="group" aria-label="졸업일 상태"><button type="button" data-v="confirmed" aria-pressed="true">날짜 나온 곳</button><button type="button" data-v="pending" aria-pressed="false">확인 필요</button><button type="button" data-v="all" aria-pressed="false">전체</button></div></div>
+  <div class="fsec"><h4>졸업식 기간 <button class="linkbtn" id="resetRange" type="button">지우기</button></h4>
+    <div class="range-pills pillrow" id="rangePills" role="group" aria-label="빠른 기간 선택"><button type="button" data-days="1" aria-pressed="false">내일</button><button type="button" data-days="3" aria-pressed="false">3일</button><button type="button" data-days="7" aria-pressed="false">일주일</button><button type="button" data-days="30" aria-pressed="false">한 달</button></div>
+    <div class="range-grid"><label>시작일<input type="date" id="fromDate" aria-label="졸업 시작일" value=""></label><label>종료일<input type="date" id="toDate" aria-label="졸업 종료일" value=""></label></div>
+    <p id="rangeHint" class="hint">기간을 정하면 그 사이에 졸업식이 있는 학교만 보여줘요.</p>
+  </div>
+  <div class="fsec"><h4>남녀 · 졸업생 수</h4><div class="chips row2">
+    <span class="chip-select"><select class="coedu-sel" aria-label="남녀공학"><option value="">남녀 전체</option><option value="co">남녀공학</option><option value="m">남학교</option><option value="f">여학교</option></select></span>
+    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수 전체</option><option value="50">졸업 50명+</option><option value="100">졸업 100명+</option><option value="200">졸업 200명+</option><option value="300">졸업 300명+</option></select></span>
+  </div></div>
+  <div class="fsec" id="fsRegion"><h4>지역 <small>전국에서 볼 때만</small></h4><div class="chips row2"><span class="chip-select"><select id="region" aria-label="지역"><option value="">전국</option></select></span></div></div>
+  <div class="ffoot"><button type="button" class="btn line" id="freset">초기화</button><button type="button" class="btn" id="fapply">보기</button></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="file" accept=".json,application/json" hidden>
 
@@ -479,20 +508,25 @@ const ALL_KINDS=['초등학교','중학교','고등학교','대학'];
 const st={status:'confirmed',kinds:new Set(ALL_KINDS),region:'',sort:'date',shown:PAGE,list:[],tab:'find',open:null};
 
 function filtered(){
-  const q=norm($('q').value);
+  const q=norm($('q').value);dist.clear();
   let m=SCHOOL_DATA.filter(s=>{
     if(!st.kinds.has(UNIV_KINDS.includes(s.kind)?'대학':s.kind))return false;   // 여러 학교급을 같이 고를 수 있어요
-    if(st.region&&s.region!==st.region)return false;
     if(!passCoedu(s)||!passSize(s))return false;
     if(st.status==='confirmed'&&!isOk(s))return false;
     if(st.status==='pending'&&(isOk(s)||isNQ(s)))return false;
     if(q&&!norm(s.name+s.address).includes(q))return false;
     if(!rangeOK(s))return false;
+    if(LOC){   // 기준 위치가 있으면 반경 안만. 학교 이름을 검색할 때는 전국에서 찾아요
+      if(!Number.isFinite(s.lat))return false;
+      const d=hav(LOC.lat,LOC.lon,s.lat,s.lon);if(!q&&d>RADIUS)return false;dist.set(s.id,d);
+    }else if(st.region&&s.region!==st.region)return false;
     return true;
   });
   const key=s=>isOk(s)?s.dates[0]:(s.dates[0]||'99999999');
+  const dk=s=>dist.has(s.id)?dist.get(s.id):1e9;
   if(st.sort==='size')m.sort((a,b)=>gradsOf(b)-gradsOf(a)||key(a).localeCompare(key(b)));
-  else if(st.sort==='date')m.sort((a,b)=>key(a).localeCompare(key(b))||a.name.localeCompare(b.name,'ko'));
+  else if(st.sort==='dist')m.sort((a,b)=>dk(a)-dk(b));
+  else if(st.sort==='date')m.sort((a,b)=>key(a).localeCompare(key(b))||dk(a)-dk(b)||a.name.localeCompare(b.name,'ko'));
   else m.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
   return m;
 }
@@ -510,21 +544,24 @@ function cardHtml(s){
     dateHtml=`<div class="date ${tone==='warn'?'warn':'none'}"><b>${esc(label)}</b><small class="far">${candidateDates(s).length>1?'후보 '+candidateDates(s).length+'개 · 원문 확인':candidateDates(s).length===1?'행사명 원문 확인':'날짜를 직접 입력해요'}</small></div>`;
     btn=`<button class="add alt ${n?'done':''}" data-open="${esc(s.id)}">${n?'✓ 담김':'날짜 입력'}</button>`;
   }
-  const km=st.tab==='near'?nearDist.get(s.id):null;
+  const km=LOC?dist.get(s.id):null;
   return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[genderOf(s)]?`<span class="badge g-${genderOf(s)}">${GENDER_LABEL[genderOf(s)]}</span>`:''}<span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div>${sizeLine(s)}${isOk(s)?`<div class="src">${isUniv(s)?'학교 학사일정':'나이스 학사일정'}${s.checked?' · '+esc(s.checked.slice(5).replace('-','/'))+' 확인':''}</div>`:''}</div><div class="card-foot">${dateHtml}${btn}</div></article>`;
 }
 
 function render(reset=true){
   if(reset){st.list=filtered();st.shown=PAGE}
-  const L=st.list;
-  $('rc').innerHTML=`<b>${L.length.toLocaleString('ko-KR')}</b>개 학교`;
-  $('sort').textContent={date:'빠른 날짜순',size:'졸업생 많은 순',name:'가나다순'}[st.sort];
+  const L=st.list,q=$('q').value.trim();
+  $('rc').innerHTML=`<b>${L.length.toLocaleString('ko-KR')}</b>곳${LOC?(q?' · 전국에서 검색':` · ${RADIUS}km 안`):''}${st.status==='confirmed'?' · 날짜 나온 곳':''}`;
+  $('sort').textContent=SORT_NAME[st.sort]||'빠른 날짜순';
+  const wider=LOC&&RADIUS<40?`<button class="btn sm" type="button" data-wider style="margin:14px auto 0">${RADIUS<20?20:40}km로 넓혀 보기</button>`:'';
   $('list').innerHTML=L.slice(0,st.shown).map(cardHtml).join('')||
-   `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${st.status==='confirmed'?'‘전체’로 바꾸면 아직 날짜가 등록되지 않은 학교도 볼 수 있어요.':'검색어나 지역을 바꿔 보세요.'}</div>`;
+   `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${LOC&&!q?`${RADIUS}km 안에는 없어요. 거리를 넓히거나 필터를 바꿔 보세요.`:st.status==='confirmed'?'필터에서 ‘졸업식 날짜: 전체’로 바꾸면 날짜가 아직 안 나온 학교도 보여요.':'검색어나 필터를 바꿔 보세요.'}${wider}</div>`;
   const rest=L.length-st.shown;
-  $('more').hidden=rest<=0;
+  $('more').hidden=rest<=0||VIEW==='map';
   if(rest>0)$('more').textContent=`더 보기 (${Math.min(PAGE,rest)}개 더 · 남은 ${rest.toLocaleString('ko-KR')}개)`;
+  if(VIEW==='map'&&reset)renderMap(false);
 }
+$('list').addEventListener('click',e=>{if(e.target.closest('[data-wider]')){setRadius(RADIUS<20?20:40);paintLoc();render();if(VIEW==='map')renderMap(true)}});
 function refreshCards(){render(false)}
 
 /* actions */
@@ -610,7 +647,6 @@ function closeSheet(){
   $('sheet').classList.remove('on');$('scrim').classList.remove('on');document.body.style.overflow='';
   const had=st.open;st.open=null;
   if(st.tab==='find')refreshCards();
-  if(st.tab==='near')renderNearList();
   if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true})}catch{}
 }
 $('scrim').addEventListener('click',closeSheet);
@@ -721,11 +757,11 @@ $('file').addEventListener('change',e=>{
 function setTab(t){
   if(st.open)closeSheet();
   st.tab=t;
-  for(const k of ['find','near','plan']){$('p-'+k).classList.toggle('on',t===k);$('t-'+k).setAttribute('aria-selected',t===k)}
-  if(t==='plan')renderPlan();else if(t==='near'){initNearMap();setTimeout(()=>near.map&&near.map.invalidateSize(),60);renderNearList()}else refreshCards();
+  for(const k of ['find','plan']){$('p-'+k).classList.toggle('on',t===k);$('t-'+k).setAttribute('aria-selected',t===k)}
+  if(t==='plan')renderPlan();else{refreshCards();if(VIEW==='map'&&MAP.map)setTimeout(()=>MAP.map.invalidateSize(),60)}
   window.scrollTo(0,0);
 }
-$('t-find').onclick=()=>setTab('find');$('t-near').onclick=()=>setTab('near');$('t-plan').onclick=()=>setTab('plan');
+$('t-find').onclick=()=>setTab('find');$('t-plan').onclick=()=>setTab('plan');
 let tt;
 function toast(msg,label,fn){
   const t=$('toast');t.innerHTML=`<span>${esc(msg)}</span>${label?`<button>${esc(label)}</button>`:''}`;
@@ -733,36 +769,34 @@ function toast(msg,label,fn){
   t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),label?4000:2200);
 }
 
-/* filters */
-let deb;$('q').addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>render(),120)});
-$('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.status=b.dataset.v;[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
-/* 학교급 알약: 전체 상태에서 누르면 그것만, 그다음은 더하기·빼기, '전체'는 모두 */
-function paintKinds(){
-  const all=ALL_KINDS.every(k=>st.kinds.has(k));
-  document.querySelectorAll('#chips .chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===''?all:st.kinds.has(x.dataset.k)));
+/* ===== 필터 (아래에서 올라오는 창 하나) ===== */
+let deb;$('q').addEventListener('input',()=>{clearTimeout(deb);deb=setTimeout(()=>{render();paintActive()},150)});
+function openPanel(id){$(id).classList.add('on');$('scrim2').classList.add('on');document.body.style.overflow='hidden';$(id).scrollTop=0}
+function closePanels(){['fsheet','lsheet'].forEach(id=>$(id).classList.remove('on'));$('scrim2').classList.remove('on');if(!st.open)document.body.style.overflow='';onLocClosed()}
+$('scrim2').addEventListener('click',closePanels);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&($('fsheet').classList.contains('on')||$('lsheet').classList.contains('on')))closePanels()});
+$('fsheet').addEventListener('click',e=>{if(e.target.closest('[data-fclose]')||e.target.closest('#fapply'))closePanels()});
+$('fbtn').addEventListener('click',()=>{paintFilters();openPanel('fsheet')});
+function filtersChanged(){render();paintActive();paintFilters()}
+function paintFilters(){
+  $('fsRadius').hidden=!LOC;$('fsRegion').hidden=!!LOC;
+  document.querySelectorAll('#radii [data-r]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.r===RADIUS));
+  document.querySelectorAll('#kinds [data-k]').forEach(x=>x.setAttribute('aria-pressed',st.kinds.has(x.dataset.k)));
+  [...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===st.status));
+  $('fapply').textContent=`${st.list.length.toLocaleString('ko-KR')}곳 보기`;
 }
-$('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
-  const k=b.dataset.k;
-  const allOn=ALL_KINDS.every(x=>st.kinds.has(x));
-  if(k===''){st.kinds=new Set(ALL_KINDS)}
-  else if(allOn){st.kinds=new Set([k])}            // 전체 상태에서 누르면 그것만
-  else{st.kinds.has(k)?st.kinds.delete(k):st.kinds.add(k);if(!st.kinds.size)st.kinds=new Set(ALL_KINDS)}   // 그다음부터는 더하기·빼기, 다 빼면 전체로
-  paintKinds();
-  if(st.kinds.size===1&&st.kinds.has('대학')&&st.status!=='all'){st.status='all';[...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v==='all'))}   // 대학만 볼 때는 날짜 없는 곳이 많아 '전체'로
-  render()});
-paintKinds();
-document.querySelectorAll('.coedu-sel').forEach(sel=>sel.addEventListener('change',e=>{
-  COEDU=e.target.value;
-  document.querySelectorAll('.coedu-sel').forEach(x=>{x.value=COEDU;x.classList.toggle('on',!!COEDU)});
-  render();if(near.center)near.shown=20,runNear(false);
-}));
-document.querySelectorAll('.size-sel').forEach(sel=>sel.addEventListener('change',e=>{
-  MINGRAD=+e.target.value||0;
-  document.querySelectorAll('.size-sel').forEach(x=>{x.value=MINGRAD||'';x.classList.toggle('on',!!MINGRAD)});
-  render();if(near.center)near.shown=20,runNear(false);paintActive();
-}));
-$('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);render()});
-$('sort').addEventListener('click',()=>{st.sort={date:'size',size:'name',name:'date'}[st.sort];render()});
+$('radii').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;setRadius(+b.dataset.r);filtersChanged();if(VIEW==='map')renderMap(true)});
+$('kinds').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;
+  if(st.kinds.has(k)){if(st.kinds.size===1){toast('학교급은 하나 이상 골라야 해요');return}st.kinds.delete(k)}else st.kinds.add(k);
+  if(st.kinds.size===1&&st.kinds.has('대학')&&st.status==='confirmed')toast('대학은 아직 날짜가 나온 곳이 적어요. ‘졸업식 날짜: 전체’로 보면 다 보여요');
+  filtersChanged()});
+$('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.status=b.dataset.v;filtersChanged()});
+document.querySelectorAll('.coedu-sel').forEach(sel=>sel.addEventListener('change',e=>{COEDU=e.target.value;e.target.classList.toggle('on',!!COEDU);filtersChanged()}));
+document.querySelectorAll('.size-sel').forEach(sel=>sel.addEventListener('change',e=>{MINGRAD=+e.target.value||0;e.target.classList.toggle('on',!!MINGRAD);filtersChanged()}));
+$('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);filtersChanged()});
+const SORTS_LOC=['date','dist','size'],SORTS_ALL=['date','size','name'];
+const SORT_NAME={date:'빠른 날짜순',dist:'가까운 순',size:'졸업생 많은 순',name:'가나다순'};
+$('sort').addEventListener('click',()=>{const L=LOC?SORTS_LOC:SORTS_ALL;st.sort=L[(L.indexOf(st.sort)+1)%L.length];render()});
 /* 빠른 기간: 내일 = 내일 하루, 3일·일주일·한 달 = 오늘부터 그 기간 안 */
 const isoDay=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const md=s=>+s.slice(5,7)+'/'+ +s.slice(8,10);
@@ -779,9 +813,8 @@ function rangeChanged(){
   $('rangeHint').classList.toggle('warnrange',bad);
   $('rangeHint').textContent=bad?'시작일이 종료일보다 늦어요. 날짜를 다시 선택해 주세요.':
     RANGE_DAYS===1?`내일(${md(t)}) 졸업식이 있는 학교만 보여줘요.`:RANGE_DAYS?`오늘부터 ${RANGE_NAME[RANGE_DAYS]} 안(~${md(t)})에 졸업식이 있는 학교만 보여줘요.`:
-    (f||t)?'이 기간에 졸업식이 등록된 학교만 보여줘요.':'기간을 지정하면 해당 날짜에 졸업식이 등록된 학교만 찾아요.';
-  render();if(near.center){near.shown=20;runNear(false)}
-  paintActive();
+    (f||t)?'이 기간에 졸업식이 있는 학교만 보여줘요.':'기간을 정하면 그 사이에 졸업식이 있는 학교만 보여줘요.';
+  filtersChanged();
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('.range-pills button[data-days]');if(!b)return;
@@ -791,30 +824,37 @@ document.addEventListener('click',e=>{
 });
 ['fromDate','toDate'].forEach(id=>$(id).addEventListener('change',()=>{setPill(0);rangeChanged()}));
 $('resetRange').addEventListener('click',()=>{setPill(0);$('fromDate').value='';$('toDate').value='';rangeChanged()});
+$('freset').addEventListener('click',()=>{
+  st.kinds=new Set(ALL_KINDS);st.status='confirmed';st.region='';COEDU='';MINGRAD=0;
+  document.querySelectorAll('.coedu-sel,.size-sel,#region').forEach(x=>{x.value='';x.classList.remove('on')});
+  setPill(0);$('fromDate').value='';$('toDate').value='';rangeChanged();
+});
 $('more').addEventListener('click',()=>{st.shown+=PAGE;render(false)});
 
-/* 필터 접기: 지역·남녀·기간은 '필터' 안에, 적용 중인 조건은 작은 알약(✕)으로 보여줘요 */
+/* 적용 중인 조건은 검색창 아래 작은 알약(✕)으로 보여줘요 */
+const KIND_SHORT={'초등학교':'초','중학교':'중','고등학교':'고','대학':'대학'};
 function paintActive(){
   const items=[];
-  if(st.region)items.push(['region',st.region]);
-  if(COEDU)items.push(['coedu',{co:'남녀공학',m:'남학교',f:'여학교'}[COEDU]]);
-  if(MINGRAD)items.push(['size','졸업생 '+MINGRAD+'명+']);
+  if(!ALL_KINDS.every(k=>st.kinds.has(k)))items.push(['kinds',ALL_KINDS.filter(k=>st.kinds.has(k)).map(k=>KIND_SHORT[k]).join('·')]);
+  if(st.status!=='confirmed')items.push(['status',st.status==='pending'?'날짜 확인 필요':'날짜 없는 곳 포함']);
   const rl=rangeLabel();if(rl)items.push(['range','졸업 '+rl]);
+  if(MINGRAD)items.push(['size','졸업생 '+MINGRAD+'명+']);
+  if(COEDU)items.push(['coedu',{co:'남녀공학',m:'남학교',f:'여학교'}[COEDU]]);
+  if(!LOC&&st.region)items.push(['region',st.region]);
   $('activeChips').innerHTML=items.map(([k,l])=>`<button type="button" class="achip" data-clear="${k}" aria-label="${esc(l)} 조건 빼기">${esc(l)} <span aria-hidden="true">✕</span></button>`).join('');
   $('fcount').textContent=items.length?items.length:'';
   $('fbtn').classList.toggle('on',items.length>0);
 }
-$('fbtn').addEventListener('click',()=>{const box=$('morefilters'),open=box.hidden;box.hidden=!open;$('fbtn').setAttribute('aria-expanded',open)});
 $('activeChips').addEventListener('click',e=>{
   const b=e.target.closest('[data-clear]');if(!b)return;const k=b.dataset.clear;
-  if(k==='region'){st.region='';$('region').value='';$('region').classList.remove('on');render()}
-  if(k==='coedu'){COEDU='';document.querySelectorAll('.coedu-sel').forEach(x=>{x.value='';x.classList.remove('on')});render();if(near.center)runNear(false)}
-  if(k==='size'){MINGRAD=0;document.querySelectorAll('.size-sel').forEach(x=>{x.value='';x.classList.remove('on')});render();if(near.center)runNear(false)}
+  if(k==='kinds')st.kinds=new Set(ALL_KINDS);
+  if(k==='status')st.status='confirmed';
+  if(k==='region'){st.region='';$('region').value='';$('region').classList.remove('on')}
+  if(k==='coedu'){COEDU='';document.querySelectorAll('.coedu-sel').forEach(x=>{x.value='';x.classList.remove('on')})}
+  if(k==='size'){MINGRAD=0;document.querySelectorAll('.size-sel').forEach(x=>{x.value='';x.classList.remove('on')})}
   if(k==='range'){$('resetRange').click();return}
-  paintActive();
+  filtersChanged();
 });
-['region'].forEach(id=>$(id).addEventListener('change',paintActive));
-document.querySelectorAll('.coedu-sel').forEach(x=>x.addEventListener('change',paintActive));
 
 /* init: 장소는 data/places.json, 행사(졸업식 등)는 data/events.json 에서 불러와요 */
 const PLACES_URL='data/places.json',EVENTS_URL='data/events.json';
@@ -847,10 +887,10 @@ async function boot(){
   const regs=[...new Set(SCHOOL_DATA.map(s=>s.region))].sort((a,b)=>a.localeCompare(b,'ko'));
   $('region').innerHTML='<option value="">전국</option>'+regs.map(r=>`<option${r===st.region?' selected':''}>${esc(r)}</option>`).join('');
   $('upd').textContent=DATA_UPDATED?DATA_UPDATED.replace(/-/g,'.'):'—';
-  updateCount();render();paintActive();
+  if(SHOP&&!DEMO&&!locChosen){LOC=shopLoc();if(!SHOP.addr&&!SHOP.name)reverseAddr(LOC)}   // 가게를 저장했으면 가게 주변부터
+  updateCount();render();paintActive();paintLoc();
   if(st.tab==='plan')renderPlan();
-  else if(SHOP&&!DEMO&&st.tab==='find'){setTab('near');setRadius(10);near.sort='date';setCenter(SHOP.lat,SHOP.lon,false,SHOP.label,true);setTimeout(()=>{if(near.map){near.map.invalidateSize();runNear(true)}},150)}   // 가게를 저장했으면 가게 주변부터
-  paintShop();
+  if(!LOC&&!DEMO&&!locChosen&&!flag('fp-onboarded'))openLoc(true);   // 처음 온 분께 위치부터 물어봐요
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
 }
@@ -858,8 +898,8 @@ async function boot(){
 function wayUrl(s){
   const nm=encodeURIComponent(s.name);
   if(!Number.isFinite(s.lat))return 'https://map.kakao.com/link/search/'+encodeURIComponent(s.name+' '+(s.address||''));
-  const c=near.center;
-  if(c)return `https://map.kakao.com/link/from/${encodeURIComponent(c.label||'출발')},${c.lat},${c.lon}/to/${nm},${s.lat},${s.lon}`;
+  const c=LOC;
+  if(c)return `https://map.kakao.com/link/from/${encodeURIComponent(c.kind==='shop'?'우리 가게':c.label||'출발')},${c.lat},${c.lon}/to/${nm},${s.lat},${s.lon}`;
   return `https://map.kakao.com/link/to/${nm},${s.lat},${s.lon}`;
 }
 
@@ -894,116 +934,168 @@ function showKakao(s,mode){
   }).catch(()=>{box.innerHTML='<div class="kmsg">카카오 지도를 불러오지 못했어요.<br>잠시 뒤 다시 열어 주세요.</div>'});
 }
 
-/* ===== 내 주변 ===== */
-const near={map:null,layer:null,center:null,radius:5,onlyOk:true,univ:false,sort:'dist',shown:20,list:[]};
-const nearDist=new Map();
+/* ===== 기준 위치 (내 위치 · 검색한 곳 · 지도에서 고른 곳 · 우리 가게) ===== */
+/* LOC = {lat,lon,kind:'me'|'place'|'map'|'shop',label,addr}. 없으면 전국 보기 */
+let LOC=null,VIEW='list';
+const dist=new Map();
+let RADIUS=(()=>{try{return +localStorage.getItem('fp-radius')||10}catch{return 10}})();
+function setRadius(r){RADIUS=r;try{localStorage.setItem('fp-radius',r)}catch{}}
 function hav(a,b,c,d){const R=6371,r=x=>x*Math.PI/180,dl=r(c-a),dn=r(d-b);
   const x=Math.sin(dl/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
-function initNearMap(){
-  if(near.map)return;
-  if(!window.L){$('map').innerHTML='<div class="empty" style="padding:70px 16px">지도를 불러오지 못했어요.<br>목록은 그대로 볼 수 있어요.</div>';return}
-  near.map=L.map('map',{zoomControl:true,attributionControl:true}).setView([36.4,127.8],7);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(near.map);
-  near.layer=L.layerGroup().addTo(near.map);
-  near.map.on('click',e=>setCenter(e.latlng.lat,e.latlng.lng,false));
-}
-function setCenter(lat,lon,isMe,label,shop){near.center={lat,lon,isMe,shop:!!shop,label:label||(isMe?'내 위치':'지도에서 고른 곳')};near.shown=20;runNear(true);paintShop()}
-/* 우리 가게 위치: 한 번 저장하면 다음부터 '가게 기준 10km · 빠른 날짜순'으로 시작해요. 이 기기 브라우저에만 저장 */
 const SHOP_KEY='fp-shop';
 let SHOP=(()=>{try{const o=JSON.parse(localStorage.getItem(SHOP_KEY)||'null');return o&&Number.isFinite(o.lat)&&Number.isFinite(o.lon)?o:null}catch{return null}})();
-const isShopCenter=()=>!!(SHOP&&near.center&&Math.abs(near.center.lat-SHOP.lat)<1e-6&&Math.abs(near.center.lon-SHOP.lon)<1e-6);
-function paintShop(){
-  const b=$('shopbar');if(!b)return;const c=near.center;
-  if(!c){b.innerHTML=SHOP?`<div class="shop"><span>🏪 <b>${esc(SHOP.label)}</b></span><button class="btn sm" type="button" data-shop-go>가게 기준으로 보기</button></div>`:'';return}
-  if(isShopCenter()){b.innerHTML=`<div class="shop on"><span>🏪 <b>${esc(SHOP.label)}</b> 기준이에요</span><button class="linkbtn" type="button" data-shop-del>가게 위치 지우기</button></div>`;return}
-  b.innerHTML=`<div class="shop"><span>${SHOP?`🏪 저장한 가게: <b>${esc(SHOP.label)}</b>`:'여기가 우리 가게라면 저장해 두세요.<br><small>다음부터 가게 주변 졸업식부터 보여드려요</small>'}</span><span class="shop-btns">${SHOP?'<button class="btn line sm" type="button" data-shop-go>가게 기준</button>':''}<button class="btn sm" type="button" data-shop-set>${SHOP?'여기로 바꾸기':'🏪 가게로 저장'}</button></span></div>`;
+const flag=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
+let shopEditing=false,shopAskOff=false,locChosen=false,onboarding=false;
+const shopLoc=()=>({lat:SHOP.lat,lon:SHOP.lon,kind:'shop',label:'우리 가게',addr:SHOP.addr||'',name:SHOP.name||''});
+const sameSpot=(a,b)=>a&&b&&Math.abs(a.lat-b.lat)<2e-4&&Math.abs(a.lon-b.lon)<2e-4;
+
+function setLoc(l){
+  if(l&&shopEditing&&l.kind!=='shop'){saveShop(l);shopEditing=false;l=shopLoc();toast('가게 위치를 고쳤어요')}
+  LOC=l;locChosen=true;st.shown=PAGE;
+  if(!l&&st.sort==='dist')st.sort='date';
+  if(l&&!l.addr)reverseAddr(l);
+  closePanels();paintLoc();render();paintActive();paintShopAsk();showCoach();
+  if(VIEW==='map')renderMap(true);
+  window.scrollTo(0,0);
 }
-function setRadius(r){near.radius=r;document.querySelectorAll('#radii [data-r]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.r===r))}
-$('shopbar').addEventListener('click',e=>{
-  if(e.target.closest('[data-shop-set]')&&near.center){
-    const c=near.center,label=(c.isMe||c.label==='지도에서 고른 곳')?'우리 가게':c.label;
-    SHOP={lat:+c.lat.toFixed(6),lon:+c.lon.toFixed(6),label};try{localStorage.setItem(SHOP_KEY,JSON.stringify(SHOP))}catch{toast('이 브라우저에는 저장할 수 없어요');return}
-    near.center.shop=true;near.center.label=label;runNear(false);paintShop();toast('가게 위치를 저장했어요. 다음부터 가게 주변 10km 졸업식부터 보여드려요');return}
-  if(e.target.closest('[data-shop-go]')&&SHOP){setRadius(10);near.sort='date';setCenter(SHOP.lat,SHOP.lon,false,SHOP.label,true);return}
-  if(e.target.closest('[data-shop-del]')){SHOP=null;try{localStorage.removeItem(SHOP_KEY)}catch{}if(near.center)near.center.shop=false;paintShop();toast('가게 위치를 지웠어요')}
+/* 좌표 → '과천시 별양동' 같은 동네 이름 (카카오 지도 기능) */
+function reverseAddr(l){
+  loadKakao().then(()=>{new kakao.maps.services.Geocoder().coord2RegionCode(l.lon,l.lat,(r,s)=>{
+    if(s!==kakao.maps.services.Status.OK||!r.length)return;
+    const h=r.find(x=>x.region_type==='H')||r[0];
+    l.addr=[h.region_2depth_name,h.region_3depth_name].filter(Boolean).join(' ')||h.address_name;
+    if(l.kind==='shop'&&SHOP&&!SHOP.addr){SHOP.addr=l.addr;try{localStorage.setItem(SHOP_KEY,JSON.stringify(SHOP))}catch{}}
+    paintLoc();paintShopAsk();
+  })}).catch(()=>{});
+}
+function paintLoc(){
+  const ic=$('locIc'),t=$('locTitle'),sub=$('locSub');
+  if(!LOC){ic.textContent='🗺';t.textContent='전국';sub.textContent='위치를 정하면 주변 졸업식부터 보여드려요';$('locbar').classList.add('empty');return}
+  $('locbar').classList.remove('empty');
+  ic.textContent=LOC.kind==='shop'?'🏪':'📍';
+  const name=LOC.kind==='shop'?'우리 가게':LOC.kind==='me'?'내 위치':LOC.kind==='map'?'지도에서 고른 곳':LOC.label;
+  t.textContent=`${name} · ${RADIUS}km`;
+  const where=LOC.kind==='shop'?(LOC.name||LOC.addr):LOC.kind==='place'?(LOC.addr||''):LOC.addr;
+  sub.textContent=(where?where+' 주변':'주변')+' 졸업식';
+}
+$('locbar').addEventListener('click',()=>openLoc(false));
+function openLoc(first){
+  onboarding=!!first;
+  $('lHead').innerHTML=first?`<div class="onb"><div class="onb-ic">🌸</div><h3 id="lTitle">내 주변 학교 졸업식을<br>바로 보여드릴게요</h3><p>위치를 알려주시면 가까운 학교 졸업식부터 날짜순으로 보여드려요.</p></div>`:`<h3 id="lTitle">어디 주변 졸업식을 볼까요?</h3>`;
+  $('allKr').textContent=first?'나중에 · 전국 보기':'전국에서 보기';
+  $('placeList').innerHTML='';$('placeQ').value='';
+  paintShopRow();openPanel('lsheet');
+}
+function onLocClosed(){if(onboarding){onboarding=false;flag('fp-onboarded','1')}}
+function paintShopRow(){
+  const b=$('lShop');
+  if(shopEditing){b.innerHTML='<div class="shop on"><span>🏪 <b>가게 위치 고치는 중</b><br><small>위에서 내 위치·검색·지도로 새 위치를 골라 주세요</small></span><button class="linkbtn" type="button" data-shop-cancel>취소</button></div>';return}
+  if(!SHOP){b.innerHTML='';return}
+  b.innerHTML=`<div class="shop on"><span>🏪 <b>우리 가게</b><br><small>${esc(SHOP.name||SHOP.addr||'저장한 위치')}${SHOP.name&&SHOP.addr?' · '+esc(SHOP.addr):''}</small></span><span class="shop-btns"><button class="btn sm" type="button" data-shop-go>여기로 보기</button></span></div>
+  <div class="shop-edit"><button class="linkbtn" type="button" data-shop-edit>가게 위치 고치기</button><button class="linkbtn muted" type="button" data-shop-del>지우기</button></div>`;
+}
+$('lsheet').addEventListener('click',e=>{
+  if(e.target.closest('[data-lclose]')){closePanels();return}
+  if(e.target.closest('[data-shop-go]')){setLoc(shopLoc());return}
+  if(e.target.closest('[data-shop-edit]')){shopEditing=true;paintShopRow();toast('새 위치를 골라 주세요. 대강 맞아도 괜찮아요');return}
+  if(e.target.closest('[data-shop-cancel]')){shopEditing=false;paintShopRow();return}
+  if(e.target.closest('[data-shop-del]')){SHOP=null;try{localStorage.removeItem(SHOP_KEY)}catch{}if(LOC&&LOC.kind==='shop'){LOC.kind='map';paintLoc()}paintShopRow();toast('가게 위치를 지웠어요');return}
 });
-function runNear(fit){
-  const c=near.center;if(!c)return;
-  nearDist.clear();const out=[];
-  for(const s of SCHOOL_DATA){
-    if(!Number.isFinite(s.lat))continue;
-    if(isUniv(s)&&!near.univ)continue;
-    if(near.onlyOk&&!isOk(s))continue;   // 대학도 같은 날짜 조건
-    if(!rangeOK(s))continue;
-    if(!passCoedu(s)||!passSize(s))continue;
-    const d=hav(c.lat,c.lon,s.lat,s.lon);
-    if(d<=near.radius){out.push(s);nearDist.set(s.id,d)}
-  }
-  const dkey=s=>isOk(s)?s.dates[0]:(s.dates[0]||'99999999');
-  out.sort(near.sort==='date'?((a,b)=>dkey(a).localeCompare(dkey(b))||nearDist.get(a.id)-nearDist.get(b.id)):((a,b)=>nearDist.get(a.id)-nearDist.get(b.id)));
-  near.list=out;
-  if(near.map){
-    near.layer.clearLayers();
-    const circ=L.circle([c.lat,c.lon],{radius:near.radius*1000,color:'#1f5a43',weight:1.5,fillColor:'#1f5a43',fillOpacity:.06}).addTo(near.layer);
-    L.marker([c.lat,c.lon],{icon:L.divIcon({className:'',html:'<div class="me-dot"></div>',iconSize:[16,16],iconAnchor:[8,8]}),interactive:false}).addTo(near.layer);
-    for(const s of out.slice(0,250)){
-      const ok=isOk(s);
-      L.circleMarker([s.lat,s.lon],{radius:7,color:'#fff',weight:2,fillColor:isUniv(s)?'#b45309':ok?'#1f5a43':'#9aa59e',fillOpacity:.95})
-        .bindTooltip(s.name+(ok?' · '+fmt(s.dates[0]):''),{direction:'top'}).on('click',()=>openSheet(s.id)).addTo(near.layer);
-    }
-    if(fit)near.map.fitBounds(circ.getBounds(),{padding:[10,10]});
-  }
-  renderNearList();
-}
-function renderNearList(){
-  if(!near.center){$('nlist').innerHTML='';$('nmore').hidden=true;return}
-  const L2=near.list,more=L2.length-near.shown;
-  $('nsort').hidden=false;$('nsort').textContent=near.sort==='date'?'빠른 날짜순':'가까운 순';
-  const rl=rangeLabel();
-  $('nc').innerHTML=`<b>${esc(near.center.label)}</b> 기준 · <b>${L2.length.toLocaleString('ko-KR')}</b>개 학교 · 반경 ${near.radius}km${rl?' · 졸업 '+esc(rl):''}${near.onlyOk?' · 날짜 등록만':''}${near.univ?' · 대학 포함':''}`;
-  $('nlist').innerHTML=L2.slice(0,near.shown).map(cardHtml).join('')||`<div class="empty"><span class="big">🔍</span>이 반경에는 ${near.onlyOk?'날짜가 등록된 ':''}학교가 없어요.<br>반경을 넓히거나 ‘날짜 등록만’을 꺼 보세요.</div>`;
-  $('nmore').hidden=more<=0;if(more>0)$('nmore').textContent=`더 보기 (${Math.min(20,more)}개 더 · 남은 ${more.toLocaleString('ko-KR')}개)`;
-}
+$('allKr').addEventListener('click',()=>{shopEditing=false;setLoc(null)});
 $('locate').addEventListener('click',()=>{
-  if(!navigator.geolocation){toast('이 브라우저는 위치 기능을 지원하지 않아요. 지도를 눌러 보세요');return}
-  $('locate').disabled=true;$('locate').textContent='위치 확인 중…';
+  if(!navigator.geolocation){toast('이 브라우저는 위치 기능을 지원하지 않아요. 동네 이름으로 찾아 주세요');$('placeQ').focus();return}
+  const b=$('locate');b.disabled=true;b.textContent='위치 확인 중…';
   navigator.geolocation.getCurrentPosition(pos=>{
-    $('locate').disabled=false;$('locate').textContent='📍 내 위치로 다시 찾기';
-    setCenter(pos.coords.latitude,pos.coords.longitude,true);
+    b.disabled=false;b.textContent='📍 내 위치로 보기';
+    setLoc({lat:pos.coords.latitude,lon:pos.coords.longitude,kind:'me',label:'내 위치'});
   },err=>{
-    $('locate').disabled=false;$('locate').textContent='📍 내 위치로 찾기';
-    toast(err.code===1?'위치 권한이 꺼져 있어요. 지도를 눌러 기준 위치를 정해 보세요':'위치를 가져오지 못했어요. 지도를 눌러 보세요');
+    b.disabled=false;b.textContent='📍 내 위치로 보기';
+    toast(err.code===1?'위치 사용이 꺼져 있어요. 동네나 가게 이름으로 찾아 주세요':'위치를 가져오지 못했어요. 동네나 가게 이름으로 찾아 주세요');
+    $('placeQ').focus();
   },{enableHighAccuracy:false,timeout:10000,maximumAge:60000});
 });
-$('radii').addEventListener('click',e=>{
-  const b=e.target.closest('.chip');if(!b)return;
-  if(b.id==='onlyOk'){near.onlyOk=!near.onlyOk;b.setAttribute('aria-pressed',near.onlyOk)}
-  else if(b.id==='showUniv'){near.univ=!near.univ;b.setAttribute('aria-pressed',near.univ)}
-  else if(b.dataset.r){near.radius=+b.dataset.r;document.querySelectorAll('#radii [data-r]').forEach(x=>x.setAttribute('aria-pressed',x===b))}
-  if(near.center)near.shown=20,runNear(true);
-});
-$('nsort').addEventListener('click',()=>{near.sort=near.sort==='date'?'dist':'date';near.shown=20;runNear(false)});
 /* 장소 검색: 카카오 장소·주소 검색(JavaScript 키, 서버 불필요) */
 $('placeForm').addEventListener('submit',e=>{
   e.preventDefault();const q=$('placeQ').value.trim();const box=$('placeList');
   if(!q){box.innerHTML='';return}
-  if(!KAKAO_KEY){box.innerHTML='<p class="hint">장소 검색을 준비 중이에요. 지도를 눌러 기준 위치를 정해 주세요.</p>';return}
+  if(!KAKAO_KEY){box.innerHTML='<p class="hint">장소 검색을 준비 중이에요. 지도에서 골라 주세요.</p>';return}
   box.innerHTML='<p class="hint">찾는 중…</p>';
   loadKakao().then(()=>{
     const ps=new kakao.maps.services.Places(),gc=new kakao.maps.services.Geocoder();
     const show=list=>{
       if(!list.length){box.innerHTML='<p class="hint">찾는 곳이 없어요. 동네 이름이나 도로명 주소로 다시 검색해 보세요.</p>';return}
       box.innerHTML=list.slice(0,5).map((p,i)=>`<button type="button" data-pi="${i}">${esc(p.name)}<small>${esc(p.addr)}</small></button>`).join('');
-      box.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>{const p=list[+b.dataset.pi];box.innerHTML='';$('placeQ').blur();setCenter(p.lat,p.lon,false,p.name)});
-      if(list.length===1)box.querySelector('[data-pi]').click();
+      box.querySelectorAll('[data-pi]').forEach(b=>b.onclick=()=>{const p=list[+b.dataset.pi];box.innerHTML='';$('placeQ').blur();
+        setLoc({lat:p.lat,lon:p.lon,kind:'place',label:p.name,addr:p.short||''})});
     };
+    const short=a=>String(a||'').split(' ').slice(1,3).join(' ');
     ps.keywordSearch(q,(data,status)=>{
-      if(status===kakao.maps.services.Status.OK)return show(data.map(d=>({name:d.place_name,addr:d.road_address_name||d.address_name,lat:+d.y,lon:+d.x})));
-      gc.addressSearch(q,(d2,s2)=>show(s2===kakao.maps.services.Status.OK?d2.map(d=>({name:d.address_name,addr:'주소',lat:+d.y,lon:+d.x})):[]));
+      if(status===kakao.maps.services.Status.OK)return show(data.map(d=>({name:d.place_name,addr:d.road_address_name||d.address_name,short:short(d.address_name),lat:+d.y,lon:+d.x})));
+      gc.addressSearch(q,(d2,s2)=>show(s2===kakao.maps.services.Status.OK?d2.map(d=>({name:d.address_name,addr:'주소',short:short(d.address_name),lat:+d.y,lon:+d.x})):[]));
     },{size:5});
-  }).catch(()=>{box.innerHTML='<p class="hint">장소 검색을 불러오지 못했어요. 지도를 눌러 기준 위치를 정해 주세요.</p>'});
+  }).catch(()=>{box.innerHTML='<p class="hint">장소 검색을 불러오지 못했어요. 지도에서 골라 주세요.</p>'});
 });
-$('nmore').addEventListener('click',()=>{near.shown+=20;renderNearList()});
+/* 우리 가게로 저장할까요? (가게를 아직 저장하지 않았을 때, 위치를 정하면 한 번) */
+function saveShop(l){
+  SHOP={lat:+l.lat.toFixed(6),lon:+l.lon.toFixed(6),addr:l.addr||'',name:l.kind==='place'?l.label:''};
+  try{localStorage.setItem(SHOP_KEY,JSON.stringify(SHOP))}catch{toast('이 브라우저에는 저장할 수 없어요');SHOP=null;return false}
+  return true;
+}
+function paintShopAsk(){
+  const b=$('shopAsk');
+  if(!LOC||LOC.kind==='shop'||SHOP||shopAskOff||DEMO){b.innerHTML='';return}
+  const where=LOC.kind==='place'?LOC.label:(LOC.addr||'');
+  b.innerHTML=`<div class="shopask"><span>🏪 여기를 <b>우리 가게</b>로 저장할까요?${where?` <small>(${esc(where)})</small>`:''}<br><small>다음부터 열면 가게 주변 졸업식부터 보여드려요. 대강 맞아도 괜찮아요.</small></span><span class="shop-btns"><button class="btn sm" type="button" data-ask-save>저장</button><button class="linkbtn muted" type="button" data-ask-no>괜찮아요</button></span></div>`;
+}
+$('shopAsk').addEventListener('click',e=>{
+  if(e.target.closest('[data-ask-save]')&&LOC){if(saveShop(LOC)){LOC=shopLoc();paintLoc();paintShopAsk();toast('우리 가게로 저장했어요. 위쪽 위치 줄에서 언제든 고칠 수 있어요')}return}
+  if(e.target.closest('[data-ask-no]')){shopAskOff=true;paintShopAsk()}
+});
+/* 처음 한 번: 필터 위치 알려주기 */
+function showCoach(){
+  if(!LOC||flag('fp-coach')||DEMO)return;flag('fp-coach','1');
+  const c=$('coach');c.hidden=false;clearTimeout(c._t);c._t=setTimeout(()=>{c.hidden=true},4500);
+}
+$('coach').addEventListener('click',()=>{$('coach').hidden=true});
+
+/* ===== 목록 | 지도 ===== */
+const MAP={map:null,layer:null,pick:false};
+$('viewseg').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(!b)return;setView(b.dataset.view)});
+function setView(v){
+  VIEW=v;[...$('viewseg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.view===v));
+  $('mapwrap').hidden=v!=='map';$('list').hidden=v==='map';$('more').hidden=v==='map'||$('more').hidden;
+  if(v==='map'){initMap();setTimeout(()=>{if(MAP.map){MAP.map.invalidateSize();renderMap(true)}},60)}else{MAP.pick=false;$('pickbar').hidden=true;render(false)}
+}
+function initMap(){
+  if(MAP.map)return;
+  if(!window.L){$('map').innerHTML='<div class="empty" style="padding:70px 16px">지도를 불러오지 못했어요.<br>목록으로 볼 수 있어요.</div>';return}
+  MAP.map=L.map('map',{zoomControl:true,attributionControl:true}).setView([36.4,127.8],7);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(MAP.map);
+  MAP.layer=L.layerGroup().addTo(MAP.map);
+  MAP.map.on('click',e=>{
+    if(MAP.pick){MAP.pick=false;$('pickbar').hidden=true;setLoc({lat:e.latlng.lat,lon:e.latlng.lng,kind:'map',label:'지도에서 고른 곳'});return}
+    $('mapcard').innerHTML='';
+  });
+}
+function renderMap(fit){
+  if(!MAP.map)return;
+  MAP.layer.clearLayers();$('mapcard').innerHTML='';
+  const pts=[];
+  if(LOC){
+    const circ=L.circle([LOC.lat,LOC.lon],{radius:RADIUS*1000,color:'#1f5a43',weight:1.5,fillColor:'#1f5a43',fillOpacity:.05,interactive:false}).addTo(MAP.layer);
+    L.marker([LOC.lat,LOC.lon],{icon:L.divIcon({className:'',html:`<div class="me-dot ${LOC.kind==='shop'?'shop-dot':''}">${LOC.kind==='shop'?'🏪':''}</div>`,iconSize:[22,22],iconAnchor:[11,11]}),interactive:false}).addTo(MAP.layer);
+    if(fit)MAP.map.fitBounds(circ.getBounds(),{padding:[8,8]});
+  }
+  for(const s of st.list.slice(0,400)){
+    if(!Number.isFinite(s.lat))continue;const ok=isOk(s);pts.push([s.lat,s.lon]);
+    L.circleMarker([s.lat,s.lon],{radius:8,color:'#fff',weight:2,fillColor:isUniv(s)?'#b45309':ok?'#1f5a43':'#9aa59e',fillOpacity:.95})
+      .bindTooltip(s.name+(ok?' · '+fmt(s.dates[0]):''),{direction:'top'})
+      .on('click',ev=>{L.DomEvent.stopPropagation(ev);$('mapcard').innerHTML=cardHtml(s)}).addTo(MAP.layer);
+  }
+  if(fit&&!LOC&&pts.length)MAP.map.fitBounds(pts,{padding:[20,20],maxZoom:13});
+}
+$('pickMap').addEventListener('click',()=>{closePanels();setView('map');MAP.pick=true;$('pickbar').hidden=false;toast('지도를 눌러 기준 위치를 정해 주세요')});
+$('pickCancel').addEventListener('click',()=>{MAP.pick=false;$('pickbar').hidden=true;if(shopEditing){shopEditing=false}});
 
 /* 체험 모드(?demo=1): 가상의 '테스트중학교'로 날짜 변경 알림을 미리 볼 수 있어요. 실제 일정과 섞이지 않아요. */
 const DEMO_OLD='20261211',DEMO_NEW='20261218';
