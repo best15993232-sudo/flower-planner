@@ -303,6 +303,36 @@ details summary::after{content:" ▾"}
 .onb-ic{font-size:40px}
 .onb h3{margin:6px 0 8px;font-size:21px;line-height:1.35}
 .onb p{margin:0;color:var(--ink2);font-size:14px;line-height:1.6}
+
+/* 학교 카드: 날짜를 맨 위, 정보는 고르게 */
+.card{gap:6px;padding:15px 16px}
+.c-top{display:flex;align-items:center;gap:8px}
+.c-date{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;min-width:0}
+.c-date b{font-size:17px;font-weight:800;letter-spacing:-.4px}
+.c-date.none b{font-size:15px;color:var(--ink2)}.c-date.warn b{font-size:15px;color:var(--amber)}
+.c-date .dd{font-size:12.5px;font-weight:800;color:var(--rose)}.c-date .dd.far{color:var(--ink3);font-weight:700}
+.c-date .sus{margin:0;font-size:11px;padding:1px 7px}
+.c-top .km{margin-left:auto;font-size:13px;font-weight:800;color:var(--brand);flex:none}
+.card .name{font-size:17px;margin-top:2px}
+.c-meta{display:flex;align-items:center;gap:6px;min-width:0;font-size:12.5px;color:var(--ink3)}
+.c-addr{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.c-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.c-size{font-size:13px;color:var(--ink2)}.c-size b{color:var(--ink)}
+.card .add{height:44px;min-width:104px}
+/* 내 일정: 얇은 카드, 눌러서 펼치기 */
+.scard.slim{padding:12px 12px 12px 14px}
+.sl-row{display:flex;align-items:center;gap:10px}
+.sl-main{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;gap:2px;padding:2px 0}
+.sl-main .name{font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-main .name::after{content:"▾";font-size:12px;color:var(--ink3);margin-left:5px;display:inline-block;transition:transform .15s}
+.scard.open .sl-main .name::after{transform:rotate(180deg)}
+.sl-meta{font-size:12.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sl-meta b{color:var(--ink)}
+.memo-dot{font-size:12px}
+.stepper.sm{flex:none;gap:2px}.stepper.sm button{width:36px;height:36px;font-size:18px}.stepper.sm input{width:44px;height:36px;font-size:16px}
+.sl-more{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.sl-info{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:8px}
+.sl-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.sl-acts .btn{width:100%;margin:0;text-decoration:none}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -339,13 +369,6 @@ details summary::after{content:" ▾"}
   <button class="more" id="more" hidden>더 보기</button>
   <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
 </section>
-  </div>
-  <div class="count"><span id="rc">불러오는 중…</span><button class="linkbtn" id="sort">빠른 날짜순</button></div>
-  <div class="list" id="list"></div>
-  <button class="more" id="more" hidden>더 보기</button>
-  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
-</section>
-
 <section class="panel" id="p-plan">
   <div class="top">
     <div class="brand">📅 내 판매 일정</div>
@@ -531,21 +554,27 @@ function filtered(){
   return m;
 }
 
+const shortAddr=a=>String(a||'').split(' ').slice(1).join(' ');   // 시·도는 빼고
+const kmText=km=>km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km';
+const sizeShort=s=>s.size&&s.size.students?`${s.size.grads?`졸업 <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명`:'';
 function cardHtml(s){
   const ok=isOk(s),[label,tone]=stText(s);
-  let dateHtml,btn;
+  let top,btn;
   if(ok){
-    const d=s.dates[0],[dd,far]=dday(d);
-    dateHtml=`<div class="date"><b>${fmt(d)}</b><small class="${far?'far':''}">${dd}</small>${suspect(s)?'<br><span class="sus">⚠ 날짜 확인 필요</span>':''}</div>`;
-    const on=!!find(s.id,d);
+    const d=s.dates[0],[dd,far]=dday(d),on=!!find(s.id,d);
+    top=`<div class="c-date"><b>${fmt(d)}</b><span class="dd ${far?'far':''}">${dd}</span>${suspect(s)?'<span class="sus">⚠ 확인 필요</span>':''}</div>`;
     btn=`<button class="add ${on?'done':''}" data-add="${esc(s.id)}" aria-pressed="${on}">${on?'✓ 담김':'＋ 담기'}</button>`;
   }else{
-    const n=anySaved(s.id).length;
-    dateHtml=`<div class="date ${tone==='warn'?'warn':'none'}"><b>${esc(label)}</b><small class="far">${candidateDates(s).length>1?'후보 '+candidateDates(s).length+'개 · 원문 확인':candidateDates(s).length===1?'행사명 원문 확인':'날짜를 직접 입력해요'}</small></div>`;
+    const n=anySaved(s.id).length,c=candidateDates(s).length;
+    top=`<div class="c-date ${tone==='warn'?'warn':'none'}"><b>${esc(label)}</b><span class="dd far">${c>1?'후보 '+c+'개':c===1?'원문 확인':'직접 입력'}</span></div>`;
     btn=`<button class="add alt ${n?'done':''}" data-open="${esc(s.id)}">${n?'✓ 담김':'날짜 입력'}</button>`;
   }
-  const km=LOC?dist.get(s.id):null;
-  return `<article class="card" data-card="${esc(s.id)}"><div><div class="meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[genderOf(s)]?`<span class="badge g-${genderOf(s)}">${GENDER_LABEL[genderOf(s)]}</span>`:''}<span>${esc(s.region)}</span>${km!=null?`<span style="margin-left:auto;font-weight:800;color:var(--brand)">${km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km'}</span>`:''}</div><div class="name" style="margin-top:8px">${esc(s.name)}</div><div class="addr">${esc(s.address)}</div>${sizeLine(s)}${isOk(s)?`<div class="src">${isUniv(s)?'학교 학사일정':'나이스 학사일정'}${s.checked?' · '+esc(s.checked.slice(5).replace('-','/'))+' 확인':''}</div>`:''}</div><div class="card-foot">${dateHtml}${btn}</div></article>`;
+  const km=LOC?dist.get(s.id):null,g=genderOf(s);
+  return `<article class="card" data-card="${esc(s.id)}">
+  <div class="c-top">${top}${km!=null?`<span class="km">${kmText(km)}</span>`:''}</div>
+  <div class="name">${esc(s.name)}</div>
+  <div class="c-meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[g]?`<span class="badge g-${g}">${GENDER_LABEL[g]}</span>`:''}<span class="c-addr">${esc(shortAddr(s.address))}</span></div>
+  <div class="c-foot"><span class="c-size">${sizeShort(s)}</span>${btn}</div></article>`;
 }
 
 function render(reset=true){
@@ -693,6 +722,7 @@ function planSummary(g,keys,total){
     <div class="sum"><div><b>${saved.length}곳</b><span>담은 학교</span></div><div><b>${total.toLocaleString('ko-KR')}개</b><span>전체 꽃다발 수량</span></div></div>
     ${up.length?`<div class="plansum"><h4>일정 한눈에<small>${busy.length?`같은 날 여러 곳: ${busy.length}일`:'날짜를 누르면 이동해요'}</small></h4>${rows}${past?`<p class="hint" style="margin:8px 0 0">지난 일정 ${past}일은 아래에 있어요.</p>`:''}</div>`:''}`;
 }
+const OPEN_R=new Set();   // 내 일정에서 펼쳐 둔 카드
 function renderPlan(){
   const el=$('plan');
   if(!saved.length){el.innerHTML=`<div class="empty"><span class="big">🌷</span>아직 담은 일정이 없어요.<br>학교를 찾아 ‘담기’를 눌러 보세요.<br><button class="btn" data-go="find" style="max-width:240px;margin-left:auto;margin-right:auto">학교 찾으러 가기</button></div>${backupHtml()}`;return}
@@ -704,10 +734,17 @@ function renderPlan(){
   [...keys.filter(d=>daysFromToday(d)>=0),...keys.filter(d=>daysFromToday(d)<0).reverse()].map((d,i,arr)=>{const [dd]=dday(d);const pastHead=daysFromToday(d)<0&&(i===0||daysFromToday(arr[i-1])>=0)?'<h3 class="pasthead">지난 일정</h3>':'';return `${pastHead}<section class="group" id="day-${d}"><h3>${fmt(d)}<small>${dd} · ${g[d].length}곳</small></h3>${g[d].map(r=>{
     const s=BY.get(r.schoolId);const ch=changeOf(r);
     const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
-    return `<article class="scard ${ch?'changed':''}">${chHtml}<div class="scard-h"><div><div class="name">${esc(s?s.name:'학교 정보 없음')}</div><div class="evl">${esc(s&&isUniv(s)?'학위수여식':'졸업식')}</div><div class="addr">${esc(s?s.address:'')}</div></div><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력':'학사일정')}</span></div>
-    <div class="qty"><label for="q-${esc(r.id)}">꽃다발 준비 수량</label><div class="stepper"><button data-q="-1" data-id="${esc(r.id)}" aria-label="수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}"><button data-q="1" data-id="${esc(r.id)}" aria-label="수량 늘리기">＋</button></div></div>
-    <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
-    <div class="sactions"><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button><button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div></article>`}).join('')}</section>`}).join('')+backupHtml();
+    const open=OPEN_R.has(r.id)||!!ch,g=s?genderOf(s):'co';
+    const meta=s?[s.kind.replace('학교',''),{co:'남녀공학',m:'남학교',f:'여학교'}[g]].join(' · '):'',sz=s?sizeShort(s):'';
+    return `<article class="scard slim ${ch?'changed':''} ${open?'open':''}">${chHtml}
+    <div class="sl-row"><button type="button" class="sl-main" data-toggle="${esc(r.id)}" aria-expanded="${open}"><span class="name">${esc(s?s.name:'학교 정보 없음')}${r.note?' <span class="memo-dot" title="메모 있음">📝</span>':''}</span><span class="sl-meta">${meta}</span>${sz?`<span class="sl-meta">${sz}</span>`:''}</button>
+      <div class="stepper sm"><button data-q="-1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}" aria-label="꽃다발 준비 수량"><button data-q="1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 늘리기">＋</button></div></div>
+    <div class="sl-more" ${open?'':'hidden'}>
+      <div class="sl-info">${esc(s?s.address:'')}<br><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력한 날짜':s&&isUniv(s)?'학교 학사일정':'나이스 학사일정')}</span> ${esc(s&&isUniv(s)?'학위수여식':'졸업식')}</div>
+      <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
+      <div class="sl-acts">${s?`<a class="btn line sm" href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗 길찾기</a><button class="btn line sm" data-mapview="${esc(r.schoolId)}">🗺 지도·로드뷰</button><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button>`:''}<button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div>
+    </div>
+    </article>`}).join('')}</section>`}).join('')+backupHtml();
 }
 function backupHtml(){return `<div class="backup"><b style="font-size:14px">일정 백업</b><p>일정은 이 기기의 브라우저에만 저장돼요. 기록을 지우면 사라질 수 있으니 가끔 백업해 두세요.</p><div class="row"><button class="btn soft sm" data-export>⬇ 백업하기</button><button class="btn line sm" data-import>⬆ 불러오기</button></div></div>`}
 function setQty(id,v){const r=saved.find(x=>x.id===id);if(!r)return;r.qty=Math.max(0,Math.min(9999,Math.floor(+v||0)));persist();return r.qty}
@@ -729,6 +766,9 @@ $('plan').addEventListener('click',e=>{
   const d=e.target.closest('[data-del]');
   if(d){const r=saved.find(x=>x.id===d.dataset.del);const bak=r;saved=saved.filter(x=>x.id!==d.dataset.del);persist();renderPlan();toast('일정을 삭제했어요','되돌리기',()=>{saved.push(bak);persist();renderPlan()});return}
   const o=e.target.closest('[data-detail]');if(o){lastFocus=null;openSheet(o.dataset.detail);return}
+  const mv2=e.target.closest('[data-mapview]');if(mv2){lastFocus=null;openSheet(mv2.dataset.mapview);const k=$('sheet').querySelector('[data-kopen]');if(k){k.click();setTimeout(()=>$('kwrap')&&$('kwrap').scrollIntoView({block:'center'}),80)}return}
+  const tg=e.target.closest('[data-toggle]');if(tg){const id=tg.dataset.toggle,card=tg.closest('.scard'),more=card.querySelector('.sl-more'),open=more.hidden;
+    more.hidden=!open;card.classList.toggle('open',open);tg.setAttribute('aria-expanded',open);open?OPEN_R.add(id):OPEN_R.delete(id);return}
   if(e.target.closest('[data-go]'))return setTab('find');
   if(e.target.closest('[data-export]'))return exportData();
   if(e.target.closest('[data-import]'))return $('file').click();
