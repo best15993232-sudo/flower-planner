@@ -17,6 +17,7 @@ data/schools.json 구조 (수집 작업 파일)
 scripts/update_schools.py : 나이스 학사일정을 조회해 data/schools.json 갱신 (키는 환경변수 NEIS_KEY)
 scripts/build_events.py    : 작업 파일 → places.json · events.json (매일 갱신 뒤 자동 실행)
 scripts/build_place_sizes.py : 학교알리미 학생 수 → data/place_sizes.json (1년에 1번)
+scripts/check_websites.py : 학교·대학 홈페이지가 열리는지 확인 → data/website_status.json, docs/reports/websites_failed.txt (매달 1·15일)
 scripts/test_classify.py  : 분류 규칙 테스트
 .github/workflows/update-data.yml : GitHub에 올렸을 때 매주 자동 실행 (Secrets에 NEIS_KEY 등록)
 처음 한 번 (인터넷·키 없이 가능): 기존 수집 결과와 분류가 같은지 대조

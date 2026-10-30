@@ -50,15 +50,14 @@ def school_gender(c):
 
 
 def site_of(raw, st):
-    """홈페이지 점검 결과 반영: 열린 주소(https·http)로 바꾸고, 도메인이 없는 상태가 두 번 확인되면 비워요(→ '학교 검색' 버튼)."""
+    """홈페이지 점검 결과 반영. 열린 주소(https·http)로 바꿔 쓰고, 다른 날 두 번 연속 안 열린 곳은 '안 열릴 수 있음' 표시만 해요.
+    주소를 지우지는 않아요: 해외 서버(GitHub)에서는 막혀도 국내에서는 열리는 학교가 있어서요(예: 도메인 조회가 국내에서만 되는 대학)."""
     raw = re.sub(r"[\s\ufeff\u200b-\u200d]+", "", raw or "")
     if not st:
-        return raw
+        return raw, False
     if st.get("ok"):
-        return st.get("url") or raw
-    if st.get("dns") and st.get("fails", 0) >= 2:   # 도메인이 없는 상태가 다른 날 두 번 확인되면
-        return ""
-    return raw   # 시간 초과 등은 지우지 않아요 (해외 접속 차단·잠깐의 장애일 수 있어서)
+        return st.get("url") or raw, False
+    return raw, st.get("fails", 0) >= 2
 
 
 def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
@@ -68,10 +67,11 @@ def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
 
     for s in schools_doc["schools"]:
         p = {"id": s["id"], "type": "school", "name": s["name"], "kind": s["kind"], "region": s["region"],
-             "address": s["address"], "gender": school_gender(s.get("coedu")), "website": site_of(s.get("website"), webst.get(s["id"])),
+             "address": s["address"], "gender": school_gender(s.get("coedu")), "website": site_of(s.get("website"), webst.get(s["id"]))[0],
              "lat": s.get("lat"), "lon": s.get("lon")}
         z = size_of(sizes, s["id"])
         if z: p["size"] = z
+        if p["website"] and site_of(s.get("website"), webst.get(s["id"]))[1]: p["siteWarn"] = 1
         places.append(p)
 
         status = STATUS.get(s["status"], "not_queried")
@@ -102,9 +102,10 @@ def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
         name = u["name"] + ("" if camp == "본교" else f" ({re.sub('캠퍼$', '캠퍼스', camp)})")
         p = {"id": u["id"], "type": "campus", "name": name, "kind": u["kind"], "region": region,
              "address": u["address"], "gender": "f" if "여자대학" in u["name"] else "co",
-             "website": site_of(u.get("website"), webst.get(u["id"])), "lat": u.get("lat"), "lon": u.get("lon")}
+             "website": site_of(u.get("website"), webst.get(u["id"]))[0], "lat": u.get("lat"), "lon": u.get("lon")}
         z = size_of(sizes, u["id"])
         if z: p["size"] = z
+        if p["website"] and site_of(u.get("website"), webst.get(u["id"]))[1]: p["siteWarn"] = 1
         places.append(p)
 
         dates = u.get("dates") or []

@@ -8,8 +8,8 @@
 
 build_events.py 가 이 파일을 보고
   - http 로만 열리면 http 주소로 바꿔 쓰고
-  - 도메인이 아예 없는 상태가 2번 연속(다른 날) 나오면 주소를 비워요 → 사이트에는 '학교 검색' 버튼이 나와요.
-그 밖의 실패(시간 초과·연결 끊김 등)는 해외 접속 차단이나 잠깐의 장애일 수 있어 주소를 지우지 않고 보고서에만 남겨요.
+  - 다른 날 2번 연속 안 열리면 상세 화면에 '안 열리면 카카오맵에서 학교 검색' 안내를 같이 보여줘요.
+주소는 지우지 않아요. 해외 서버에서는 막혀도 국내에서는 열리는 곳이 있어요(도메인 조회까지 국내에서만 되는 대학도 있음).
 
 주의: 해외 서버(GitHub Actions)에서 보면 해외 접속을 막는 학교가 있어 실패로 보일 수 있어요.
 실패가 너무 많으면(전체의 30% 이상) 결과를 저장하지 않고 멈춰요.
@@ -113,7 +113,7 @@ def main():
                 res.setdefault(p, "skip")
         ex.shutdown(wait=False, cancel_futures=True)
 
-    run([p for p, _ in items], 96, 12, 30 * 60)
+    run([p for p, _ in items], 48, 12, 35 * 60)   # 한 서버에 학교가 수백 곳 모인 경우가 있어 너무 많이 동시에 붙지 않아요
     # 실패한 곳은 한 번 더, 천천히
     retry = [p for p, r in res.items() if isinstance(r, dict) and not r["ok"] and not r.get("dns")]
     run(retry, 16, 25, 8 * 60)

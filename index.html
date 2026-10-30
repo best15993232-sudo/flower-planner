@@ -408,7 +408,7 @@ function joinPlaces(places,events){
     if(g.rawNames)RAW_EVENTS[p.id]=g.rawNames;
     const h=(g.history||[])[0];
     return {id:p.id,ptype:p.type,name:p.name,kind:p.kind,region:p.region,address:p.address,gender:p.gender,coedu:GENDER_TEXT[p.gender]||'',
-      website:p.website||'',lat:p.lat,lon:p.lon,size:p.size||null,
+      website:p.website||'',siteWarn:!!p.siteWarn,lat:p.lat,lon:p.lon,size:p.size||null,
       status,dates:g.date?[g.date]:[],checked:(g.source||{}).checked||null,winter:g.winterStart,
       prevDates:h?h.from:undefined,changedAt:h?h.at:undefined,
       dateLabel:camp?g.label:'',dateUrl:(g.source||{}).url||'',ev:g,events:evs};
@@ -598,6 +598,7 @@ function openSheet(id,keep){
       <a href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗<br>길찾기</a>
       ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>학교 홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>학교 검색</a>`}
     </div>
+    ${site&&s.siteWarn?`<p class="hint" style="margin:8px 2px 0">학교 홈페이지가 요즘 잘 안 열려요. 안 열리면 <a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎 카카오맵에서 학교 검색</a></p>`:''}
     <p class="notice">※ 목록에 있다고 해서 판매가 허용되는 장소는 아니에요. 판매 가능 여부는 직접 확인해 주세요. 지도 좌표는 출입구와 다를 수 있어요.</p></div>`;
   $('toast').classList.remove('on');$('sheet').classList.add('on');$('scrim').classList.add('on');document.body.style.overflow='hidden';
   if(!keep)$('sheet').scrollTop=0;
