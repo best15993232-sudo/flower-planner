@@ -333,6 +333,20 @@ details summary::after{content:" ▾"}
 .sl-info{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:8px}
 .sl-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .sl-acts .btn{width:100%;margin:0;text-decoration:none}
+
+/* 학교 카드: 담기 버튼을 이름·주소 줄 옆으로 올려 높이 줄이기 */
+.card{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:4px;align-items:center}
+.card .c-top{grid-column:1 / -1}
+.card .name,.card .c-meta,.card .c-foot{grid-column:1}
+.card .c-foot{margin-top:2px}
+.card .c-foot .add{grid-column:2}
+.card > .add{grid-column:2;grid-row:2 / span 3;align-self:center}
+.c-meta .badge{white-space:nowrap;flex:none}
+.sl-km{font-size:13px;font-weight:700;color:var(--brand)}
+.sl-main .name::after{display:none}
+.sl-main .name{display:block}
+.caret2{display:inline-block;font-size:12px;color:var(--ink3);margin-left:5px;transition:transform .15s}
+.scard.open .caret2{transform:rotate(180deg)}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -574,7 +588,7 @@ function cardHtml(s){
   <div class="c-top">${top}${km!=null?`<span class="km">${kmText(km)}</span>`:''}</div>
   <div class="name">${esc(s.name)}</div>
   <div class="c-meta"><span class="badge">${esc(s.kind)}</span>${GENDER_LABEL[g]?`<span class="badge g-${g}">${GENDER_LABEL[g]}</span>`:''}<span class="c-addr">${esc(shortAddr(s.address))}</span></div>
-  <div class="c-foot"><span class="c-size">${sizeShort(s)}</span>${btn}</div></article>`;
+  <div class="c-foot"><span class="c-size">${sizeShort(s)}</span></div>${btn}</article>`;
 }
 
 function render(reset=true){
@@ -735,14 +749,15 @@ function renderPlan(){
     const s=BY.get(r.schoolId);const ch=changeOf(r);
     const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
     const open=OPEN_R.has(r.id)||!!ch,g=s?genderOf(s):'co';
+    const km=LOC&&s&&Number.isFinite(s.lat)?hav(LOC.lat,LOC.lon,s.lat,s.lon):null,site=s?safeUrl(s.website):'';
     const meta=s?[s.kind.replace('학교',''),{co:'남녀공학',m:'남학교',f:'여학교'}[g]].join(' · '):'',sz=s?sizeShort(s):'';
     return `<article class="scard slim ${ch?'changed':''} ${open?'open':''}">${chHtml}
-    <div class="sl-row"><button type="button" class="sl-main" data-toggle="${esc(r.id)}" aria-expanded="${open}"><span class="name">${esc(s?s.name:'학교 정보 없음')}${r.note?' <span class="memo-dot" title="메모 있음">📝</span>':''}</span><span class="sl-meta">${meta}</span>${sz?`<span class="sl-meta">${sz}</span>`:''}</button>
-      <div class="stepper sm"><button data-q="-1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 줄이기">−</button><input id="q-${esc(r.id)}" type="number" inputmode="numeric" min="0" max="9999" value="${+r.qty||0}" data-qty="${esc(r.id)}" aria-label="꽃다발 준비 수량"><button data-q="1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 늘리기">＋</button></div></div>
+    <div class="sl-row"><button type="button" class="sl-main" data-toggle="${esc(r.id)}" aria-expanded="${open}"><span class="name">${esc(s?s.name:'학교 정보 없음')}${km!=null?`<span class="sl-km"> · ${kmText(km)}</span>`:''}${r.note?' <span class="memo-dot" title="메모 있음">📝</span>':''}<span class="caret2" aria-hidden="true">▾</span></span><span class="sl-meta">${meta}</span>${sz?`<span class="sl-meta">${sz}</span>`:''}</button>
+      <div class="stepper sm"><button data-q="-1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 줄이기">−</button><input id="q-${esc(r.id)}" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" value="${+r.qty||0}" data-qty="${esc(r.id)}" aria-label="꽃다발 준비 수량"><button data-q="1" data-id="${esc(r.id)}" aria-label="꽃다발 수량 늘리기">＋</button></div></div>
     <div class="sl-more" ${open?'':'hidden'}>
       <div class="sl-info">${esc(s?s.address:'')}<br><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력한 날짜':s&&isUniv(s)?'학교 학사일정':'나이스 학사일정')}</span> ${esc(s&&isUniv(s)?'학위수여식':'졸업식')}</div>
       <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
-      <div class="sl-acts">${s?`<a class="btn line sm" href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗 길찾기</a><button class="btn line sm" data-mapview="${esc(r.schoolId)}">🗺 지도·로드뷰</button><button class="btn line sm" data-detail="${esc(r.schoolId)}">학교 정보</button>`:''}<button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div>
+      <div class="sl-acts">${s?`<a class="btn line sm" href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗 길찾기</a><button class="btn line sm" data-mapview="${esc(r.schoolId)}">🗺 지도·로드뷰</button>${site?`<a class="btn line sm" href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫 학교 홈페이지</a>`:`<a class="btn line sm" href="https://map.kakao.com/link/search/${encodeURIComponent(s.name+' '+s.address)}" target="_blank" rel="noopener noreferrer">🔎 학교 검색</a>`}`:''}<button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div>
     </div>
     </article>`}).join('')}</section>`}).join('')+backupHtml();
 }
@@ -773,10 +788,17 @@ $('plan').addEventListener('click',e=>{
   if(e.target.closest('[data-export]'))return exportData();
   if(e.target.closest('[data-import]'))return $('file').click();
 });
+/* 수량 칸을 누르면 숫자가 통째로 선택돼서 바로 새로 쓸 수 있어요. 비워 두고 나가면 0 */
+const selAll=q=>{try{q.setSelectionRange(0,q.value.length)}catch{}};
+$('plan').addEventListener('focusin',e=>{const q=e.target.closest('[data-qty]');if(!q)return;q._fresh=true;if(q.value==='0')q.value='';selAll(q)});
+$('plan').addEventListener('mouseup',e=>{const q=e.target.closest('[data-qty]');if(q&&q._fresh){e.preventDefault();selAll(q)}});
+$('plan').addEventListener('touchend',e=>{const q=e.target.closest('[data-qty]');if(q&&q._fresh)setTimeout(()=>selAll(q),0)});
+$('plan').addEventListener('keydown',e=>{const q=e.target.closest('[data-qty]');if(q)q._fresh=false});
+$('plan').addEventListener('focusout',e=>{const q=e.target.closest('[data-qty]');if(q&&q.value==='')q.value='0'});
 $('plan').addEventListener('input',e=>{
   const m=e.target.closest('[data-memo]');if(m){const r=saved.find(x=>x.id===m.dataset.memo);if(r){r.note=m.value;persist();
     const ind=document.querySelector(`[data-ind="${CSS.escape(r.id)}"]`);if(ind){ind.classList.add('on');clearTimeout(ind._t);ind._t=setTimeout(()=>ind.classList.remove('on'),1600)}}return}
-  const q=e.target.closest('[data-qty]');if(q){setQty(q.dataset.qty,q.value);updateTotal()}
+  const q=e.target.closest('[data-qty]');if(q){const v=q.value.replace(/\D/g,'').slice(0,4);if(v!==q.value)q.value=v;setQty(q.dataset.qty,v||0);updateTotal()}
 });
 function exportData(){
   const b=new Blob([JSON.stringify({app:'flower-planner-preview',version:1,exportedAt:new Date().toISOString(),items:saved},null,2)],{type:'application/json;charset=utf-8'});
