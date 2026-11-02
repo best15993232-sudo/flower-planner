@@ -348,6 +348,13 @@ details summary::after{content:" ▾"}
 .card > .add{grid-column:2;grid-row:2 / span 3;align-self:center}
 .c-meta .badge{white-space:nowrap;flex:none}
 .count #rc{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
+.loc-cta{margin-top:8px;height:48px}
+.locbar.empty .loc-ch{display:none}
+.fnote{font-size:12px;color:var(--ink3);font-weight:600;margin-left:6px}
+.promo{display:grid;gap:4px;position:relative;padding:15px 16px;border-radius:var(--r);background:#fff8f3;border:1px solid #f3dccb;text-decoration:none;color:var(--ink);font-size:13px}
+.promo b{font-size:15px}.promo span{color:var(--ink2)}.promo u{color:var(--brand);font-weight:700;text-decoration:none;margin-top:2px}
+.promo .promo-l{position:absolute;top:12px;right:14px;font-size:11px;color:var(--ink3)}
+#p-plan .promo{margin-bottom:14px}
 .rchip{height:34px;padding:0 12px;border-radius:17px;background:#fff;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--brand)}
 .sl-km{font-size:13px;font-weight:700;color:var(--brand)}
 .sl-main .name::after{display:none}
@@ -366,6 +373,7 @@ details summary::after{content:" ▾"}
     <div class="brand">🌸 꽃 판매 플래너</div>
   </div>
   <button type="button" class="locbar" id="locbar" aria-label="기준 위치 바꾸기"><span class="loc-ic" id="locIc">📍</span><span class="loc-tx"><b id="locTitle">위치를 정해 주세요</b><small id="locSub">주변 학교 졸업식부터 보여드려요</small></span><span class="loc-ch">바꾸기</span></button>
+  <button type="button" class="btn loc-cta" id="locCta" hidden>📍 내 주변 졸업식 찾기</button>
   <div class="sticky">
     <label class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -376,7 +384,7 @@ details summary::after{content:" ▾"}
       <button class="fbtn" id="sort" type="button">빠른 날짜순</button>
       <div class="viewseg" id="viewseg" role="group" aria-label="보기 방식"><button type="button" data-view="list" aria-pressed="true">목록</button><button type="button" data-view="map" aria-pressed="false">지도</button></div>
     </div>
-    <div class="coach" id="coach" hidden>학교급·기간·졸업생 수는 <b>필터</b>에서 바꿀 수 있어요</div>
+    <div class="coach" id="coach" hidden>학교급·기간·학생 수는 <b>필터</b>에서 바꿀 수 있어요</div>
     <div class="active-chips" id="activeChips"></div>
   </div>
   <div id="shopAsk"></div>
@@ -422,9 +430,9 @@ details summary::after{content:" ▾"}
 </div>
 <div class="sheet fsheet" id="fsheet" role="dialog" aria-modal="true" aria-labelledby="fTitle">
   <button class="sheet-x" type="button" data-fclose aria-label="닫기">✕</button><div class="grab"></div>
-  <h3 id="fTitle">필터</h3>
+  <h3 id="fTitle">필터 <small class="fnote">고르는 즉시 목록에 적용돼요</small></h3>
   <div class="fsec" id="fsRadius"><h4>거리 <small>기준 위치에서 직선거리</small></h4><div class="pillrow" id="radii"><button type="button" data-r="1">1km</button><button type="button" data-r="2">2km</button><button type="button" data-r="3">3km</button><button type="button" data-r="5">5km</button><button type="button" data-r="10">10km</button><button type="button" data-r="20">20km</button></div></div>
-  <div class="fsec"><h4>학교급 <small>여러 개 고를 수 있어요</small></h4><div class="pillrow" id="kinds"><button type="button" data-k="초등학교">초등</button><button type="button" data-k="중학교">중학</button><button type="button" data-k="고등학교">고등</button><button type="button" data-k="대학">대학</button></div></div>
+  <div class="fsec"><h4>학교급 <small>누르면 그것만, 더 누르면 함께 봐요</small></h4><div class="pillrow" id="kinds"><button type="button" data-k="">전체</button><button type="button" data-k="초등학교">초등</button><button type="button" data-k="중학교">중학</button><button type="button" data-k="고등학교">고등</button><button type="button" data-k="대학">대학</button></div></div>
   <div class="fsec"><h4>졸업식 날짜</h4><div class="seg" id="seg" role="group" aria-label="졸업일 상태"><button type="button" data-v="confirmed" aria-pressed="true">날짜 나온 곳</button><button type="button" data-v="pending" aria-pressed="false">확인 필요</button><button type="button" data-v="all" aria-pressed="false">전체</button></div></div>
   <div class="fsec"><h4>졸업식 기간 <button class="linkbtn" id="resetRange" type="button">지우기</button></h4>
     <div class="range-pills pillrow" id="rangePills" role="group" aria-label="빠른 기간 선택"><button type="button" data-days="1" aria-pressed="false">내일</button><button type="button" data-days="3" aria-pressed="false">3일</button><button type="button" data-days="7" aria-pressed="false">일주일</button><button type="button" data-days="30" aria-pressed="false">한 달</button></div>
@@ -432,8 +440,8 @@ details summary::after{content:" ▾"}
     <p id="rangeHint" class="hint">기간을 정하면 그 사이에 졸업식이 있는 학교만 보여줘요.</p>
   </div>
   <div class="fsec"><h4>남녀 <small>안 볼 곳은 눌러서 빼세요</small></h4><div class="pillrow" id="genders"><button type="button" data-g="co">남녀공학</button><button type="button" data-g="f">여학교</button><button type="button" data-g="m">남학교</button></div></div>
-  <div class="fsec"><h4>졸업생 수</h4><div class="chips row2">
-    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">졸업생 수 전체</option><option value="50">졸업 50명+</option><option value="100">졸업 100명+</option><option value="200">졸업 200명+</option><option value="300">졸업 300명+</option></select></span>
+  <div class="fsec"><h4>최종학년 학생 수 <small>초 6학년 · 중고 3학년</small></h4><div class="chips row2">
+    <span class="chip-select"><select class="size-sel" aria-label="졸업생 수"><option value="">전체</option><option value="50">50명 이상</option><option value="100">100명 이상</option><option value="200">200명 이상</option><option value="300">300명 이상</option></select></span>
   </div></div>
   <div class="fsec" id="fsRegion"><h4>지역 <small>전국에서 볼 때만</small></h4><div class="chips row2"><span class="chip-select"><select id="region" aria-label="지역"><option value="">전국</option></select></span></div></div>
   <div class="ffoot"><button type="button" class="btn line" id="freset">초기화</button><button type="button" class="btn" id="fapply">보기</button></div>
@@ -459,7 +467,7 @@ const passCoedu=s=>GENDERS.has(genderOf(s));
 let MINGRAD=0;   // 졸업생 수 조건 (학교 찾기·내 주변 같이 써요). 대학은 규모 자료가 없어 늘 보여줘요
 const gradsOf=s=>s.size&&s.size.grads||0;
 const passSize=s=>!MINGRAD||isUniv(s)||gradsOf(s)>=MINGRAD;
-const sizeLine=s=>s.size&&s.size.students?`<div class="size">${s.size.grads?`졸업 학년 <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명</div>`:'';
+const sizeLine=s=>s.size&&s.size.students?`<div class="size">${s.size.grads?`${topGrade(s)} <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명</div>`:'';
 const isUniv=s=>s.ptype==='campus';
 const UNIV_KINDS=['대학교','전문대학'];
 const SIDO_SHORT={'서울특별시':'서울','부산광역시':'부산','대구광역시':'대구','인천광역시':'인천','대전광역시':'대전','울산광역시':'울산','세종특별자치시':'세종','경기도':'경기','강원특별자치도':'강원','강원도':'강원','충청북도':'충북','충청남도':'충남','전북특별자치도':'전북','전라북도':'전북','전라남도':'전남','경상북도':'경북','경상남도':'경남','제주특별자치도':'제주','광주광역시':'광주'};
@@ -577,7 +585,11 @@ function filtered(){
 
 const shortAddr=a=>String(a||'').split(' ').slice(1).join(' ');   // 시·도는 빼고
 const kmText=km=>km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km';
-const sizeShort=s=>s.size&&s.size.students?`${s.size.grads?`졸업 <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명`:'';
+/* 자사몰 배너: 주소(url)를 넣으면 목록 6번째 자리와 내 일정 요약 아래에 나와요. 비워 두면 안 보여요 */
+const PROMO={url:'',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'졸업식 특별전 보기',label:'자사몰'};
+const promoHtml=where=>safeUrl(PROMO.url)?`<a class="promo" href="${esc(safeUrl(PROMO.url))}" target="_blank" rel="noopener sponsored" data-promo="${where}"><span class="promo-l">${esc(PROMO.label)}</span><b>💐 ${esc(PROMO.title)}</b><span>${esc(PROMO.sub)}</span><u>${esc(PROMO.cta)} ↗</u></a>`:'';
+const topGrade=s=>s.kind==='초등학교'?'6학년':/중학교|고등학교/.test(s.kind)?'3학년':'최종학년';   // 졸업생 수 대신 정확한 '최종학년 학생 수'
+const sizeShort=s=>s.size&&s.size.students?`${s.size.grads?`${topGrade(s)} <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명`:'';
 function cardHtml(s){
   const ok=isOk(s),[label,tone]=stText(s);
   let top,btn;
@@ -604,11 +616,11 @@ function render(reset=true){
   $('rc').innerHTML=`<span><b>${L.length.toLocaleString('ko-KR')}</b>곳${LOC&&q?' · 전국에서 검색':''}${st.status==='confirmed'?' · 날짜 나온 곳':''}</span>${LOC&&!q?`<button type="button" class="rchip" data-openf aria-label="거리 바꾸기">반경 ${RADIUS}km <span aria-hidden="true">▾</span></button>`:''}`;
   $('sort').textContent=SORT_NAME[st.sort]||'빠른 날짜순';
   const nextR=[1,2,3,5,10,20].find(r=>r>RADIUS),wider=LOC&&nextR?`<button class="btn sm" type="button" data-wider style="margin:14px auto 0">${nextR}km로 넓혀 보기</button>`:'';
-  $('list').innerHTML=L.slice(0,st.shown).map(cardHtml).join('')||
+  $('list').innerHTML=L.slice(0,st.shown).map((x,i)=>cardHtml(x)+(i===4?promoHtml('list'):'')).join('')||
    `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${LOC&&!q?`${RADIUS}km 안에는 없어요. 거리를 넓히거나 필터를 바꿔 보세요.`:st.status==='confirmed'?'필터에서 ‘졸업식 날짜: 전체’로 바꾸면 날짜가 아직 안 나온 학교도 보여요.':'검색어나 필터를 바꿔 보세요.'}${wider}</div>`;
   const rest=L.length-st.shown;
   $('more').hidden=rest<=0||VIEW==='map';
-  if(rest>0)$('more').textContent=`더 보기 (${Math.min(PAGE,rest)}개 더 · 남은 ${rest.toLocaleString('ko-KR')}개)`;
+  if(rest>0)$('more').textContent=`${Math.min(PAGE,rest)}곳 더 보기 (아직 ${rest.toLocaleString('ko-KR')}곳 더 있어요)`;
   if(VIEW==='map'&&reset)renderMap(false);
 }
 $('list').addEventListener('click',e=>{if(e.target.closest('[data-wider]')){setRadius([1,2,3,5,10,20].find(r=>r>RADIUS)||20);paintLoc();render();if(VIEW==='map')renderMap(true)}});
@@ -618,7 +630,7 @@ function refreshCards(){render(false)}
 function add(s,date,source){
   if(find(s.id,date)){toast('이미 담은 일정이에요');return false}
   saved.push({id:s.id+'@'+date,schoolId:s.id,eventId:evIdOf(s.id),type:'graduation',date,source,note:'',qty:0,savedAt:new Date().toISOString()});
-  persist();updateCount(true);toast(`${s.name} 담았어요`,'내 일정 보기',()=>setTab('plan'));return true;
+  persist();updateCount(true);toast(`${s.name} 담았어요`,'내 일정 보기',()=>setTab('plan'));if(typeof paintShopAsk==='function')paintShopAsk();return true;
 }
 function remove(s,date){saved=saved.filter(r=>!(r.schoolId===s.id&&r.date===date));persist();toast('일정에서 뺐어요')}
 
@@ -757,7 +769,7 @@ function renderPlan(){
   const keys=Object.keys(g).sort();
   const total=saved.reduce((a,r)=>a+(+r.qty||0),0);
   const first=keys.find(k=>dday(k)[0]!=='지남')||keys[0];
-  el.innerHTML=`<div id="psum">${planSummary(g,keys,total)}</div>`+
+  el.innerHTML=`<div id="psum">${planSummary(g,keys,total)}</div>${promoHtml('plan')}`+
   [...keys.filter(d=>daysFromToday(d)>=0),...keys.filter(d=>daysFromToday(d)<0).reverse()].map((d,i,arr)=>{const [dd]=dday(d);const pastHead=daysFromToday(d)<0&&(i===0||daysFromToday(arr[i-1])>=0)?'<h3 class="pasthead">지난 일정</h3>':'';return `${pastHead}<section class="group" id="day-${d}"><h3>${fmt(d)}<small>${dd} · ${g[d].length}곳</small></h3>${g[d].map(r=>{
     const s=BY.get(r.schoolId);const ch=changeOf(r);
     const chHtml=ch?`<div class="chg"><b>⚠ 나이스 일정이 바뀌었어요</b><p>담아둔 날짜 <b style="display:inline">${esc(fmt(r.date))}</b> → ${ch.gone?'지금은 <b style="display:inline">졸업식 날짜가 한 개로 확인되지 않아요</b>':'새 날짜 <b style="display:inline">'+esc(fmt(ch.to))+'</b>'}${ch.when?` (${esc(ch.when.slice(5).replace('-','/'))} 변경 확인)`:''}<br>학교 공지로 실제 날짜를 확인해 주세요.</p><div class="sactions">${ch.gone?'':`<button class="btn sm" data-move="${esc(r.id)}">${esc(fmt(ch.to))}로 옮기기</button>`}<button class="btn line sm" data-ack="${esc(r.id)}">그대로 둘게요</button></div></div>`:'';
@@ -857,14 +869,17 @@ function filtersChanged(){render();paintActive();paintFilters()}
 function paintFilters(){
   $('fsRadius').hidden=!LOC;$('fsRegion').hidden=!!LOC;
   document.querySelectorAll('#radii [data-r]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.r===RADIUS));
-  document.querySelectorAll('#kinds [data-k]').forEach(x=>x.setAttribute('aria-pressed',st.kinds.has(x.dataset.k)));
+  const allK=ALL_KINDS.every(k=>st.kinds.has(k));document.querySelectorAll('#kinds [data-k]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===''?allK:!allK&&st.kinds.has(x.dataset.k)));
   [...$('seg').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===st.status));
   document.querySelectorAll('#genders [data-g]').forEach(x=>x.setAttribute('aria-pressed',GENDERS.has(x.dataset.g)));
-  $('fapply').textContent=`${st.list.length.toLocaleString('ko-KR')}곳 보기`;
+  $('fapply').textContent=`${st.list.length.toLocaleString('ko-KR')}곳 결과 보기`;
 }
 $('radii').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;setRadius(+b.dataset.r);filtersChanged();if(VIEW==='map')renderMap(true)});
 $('kinds').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;
-  if(st.kinds.has(k)){if(st.kinds.size===1){toast('학교급은 하나 이상 골라야 해요');return}st.kinds.delete(k)}else st.kinds.add(k);
+  const allOn=ALL_KINDS.every(x=>st.kinds.has(x));
+  if(k==='')st.kinds=new Set(ALL_KINDS);                       // 전체
+  else if(allOn)st.kinds=new Set([k]);                          // 전체 상태에서 누르면 그것만
+  else{st.kinds.has(k)?st.kinds.delete(k):st.kinds.add(k);if(!st.kinds.size)st.kinds=new Set(ALL_KINDS)}   // 그다음은 더하기·빼기, 다 빼면 전체
   if(st.kinds.size===1&&st.kinds.has('대학')&&st.status==='confirmed')toast('대학은 아직 날짜가 나온 곳이 적어요. ‘졸업식 날짜: 전체’로 보면 다 보여요');
   filtersChanged()});
 $('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.status=b.dataset.v;filtersChanged()});
@@ -873,7 +888,7 @@ $('genders').addEventListener('click',e=>{const b=e.target.closest('[data-g]');i
 document.querySelectorAll('.size-sel').forEach(sel=>sel.addEventListener('change',e=>{MINGRAD=+e.target.value||0;e.target.classList.toggle('on',!!MINGRAD);filtersChanged()}));
 $('region').addEventListener('change',e=>{st.region=e.target.value;e.target.classList.toggle('on',!!st.region);filtersChanged()});
 const SORTS_LOC=['date','dist','size'],SORTS_ALL=['date','size','name'];
-const SORT_NAME={date:'빠른 날짜순',dist:'가까운 순',size:'졸업생 많은 순',name:'가나다순'};
+const SORT_NAME={date:'빠른 날짜순',dist:'가까운 순',size:'학생 많은 순',name:'가나다순'};
 $('sort').addEventListener('click',()=>{const L=LOC?SORTS_LOC:SORTS_ALL;st.sort=L[(L.indexOf(st.sort)+1)%L.length];render()});
 /* 빠른 기간: 내일 = 내일 하루, 3일·일주일·한 달 = 오늘부터 그 기간 안 */
 const isoDay=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
@@ -898,7 +913,7 @@ document.addEventListener('click',e=>{
   const b=e.target.closest('.range-pills button[data-days]');if(!b)return;
   const n=+b.dataset.days;
   if(RANGE_DAYS===n){$('fromDate').value='';$('toDate').value='';setPill(0);rangeChanged();return}   // 한 번 더 누르면 해제
-  $('fromDate').value=n===1?isoDay(1):isoDay(0);$('toDate').value=isoDay(n);setPill(n);rangeChanged();
+  $('fromDate').value=n===1?isoDay(1):isoDay(0);$('toDate').value=n===1?isoDay(1):isoDay(n-1);setPill(n);rangeChanged();   // 내일=내일 하루, 3일·일주일·한 달=오늘 포함 3·7·30일
 });
 ['fromDate','toDate'].forEach(id=>$(id).addEventListener('change',()=>{setPill(0);rangeChanged()}));
 $('resetRange').addEventListener('click',()=>{setPill(0);$('fromDate').value='';$('toDate').value='';rangeChanged()});
@@ -916,7 +931,7 @@ function paintActive(){
   if(!ALL_KINDS.every(k=>st.kinds.has(k)))items.push(['kinds',ALL_KINDS.filter(k=>st.kinds.has(k)).map(k=>KIND_SHORT[k]).join('·')]);
   if(st.status!=='confirmed')items.push(['status',st.status==='pending'?'날짜 확인 필요':'날짜 없는 곳 포함']);
   const rl=rangeLabel();if(rl)items.push(['range','졸업 '+rl]);
-  if(MINGRAD)items.push(['size','졸업생 '+MINGRAD+'명+']);
+  if(MINGRAD)items.push(['size','최종학년 '+MINGRAD+'명+']);
   if(GENDERS.size<3)items.push(['coedu',GENDERS.size===2&&!GENDERS.has('m')?'남학교 빼기':ALL_G.filter(g=>GENDERS.has(g)).map(g=>({co:'남녀공학',f:'여학교',m:'남학교'})[g]).join('·')]);
   if(!LOC&&st.region)items.push(['region',st.region]);
   $('activeChips').innerHTML=items.map(([k,l])=>`<button type="button" class="achip" data-clear="${k}" aria-label="${esc(l)} 조건 빼기">${esc(l)} <span aria-hidden="true">✕</span></button>`).join('');
@@ -968,7 +983,6 @@ async function boot(){
   if(SHOP&&!DEMO&&!locChosen){LOC=shopLoc();if(!SHOP.addr&&!SHOP.name)reverseAddr(LOC)}   // 가게를 저장했으면 가게 주변부터
   updateCount();render();paintActive();paintLoc();
   if(st.tab==='plan')renderPlan();
-  if(!LOC&&!DEMO&&!locChosen&&!flag('fp-onboarded'))openLoc(true);   // 처음 온 분께 위치부터 물어봐요
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
 }
@@ -1030,6 +1044,7 @@ const sameSpot=(a,b)=>a&&b&&Math.abs(a.lat-b.lat)<2e-4&&Math.abs(a.lon-b.lon)<2e
 function setLoc(l){
   if(l&&shopEditing&&l.kind!=='shop'){saveShop(l);shopEditing=false;l=shopLoc();toast('가게 위치를 고쳤어요')}
   LOC=l;locChosen=true;st.shown=PAGE;
+  if(l&&l.kind!=='shop'){const today=new Date().toISOString().slice(0,10);if(flag('fp-locday')!==today){flag('fp-locday',today);flag('fp-locdays',String((+flag('fp-locdays')||0)+1))}}
   if(!l&&st.sort==='dist')st.sort='date';
   if(l&&!l.addr)reverseAddr(l);
   closePanels();paintLoc();render();paintActive();paintShopAsk();showCoach();
@@ -1048,7 +1063,8 @@ function reverseAddr(l){
 }
 function paintLoc(){
   const ic=$('locIc'),t=$('locTitle'),sub=$('locSub');
-  if(!LOC){ic.innerHTML='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a978e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.4"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5" stroke-dasharray="none"/></svg>';t.textContent='위치를 정해 주세요';sub.textContent='지금은 전국 졸업식을 보여드려요';$('locbar').classList.add('empty');return}
+  if(!LOC){ic.innerHTML='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#8a978e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.4"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5" stroke-dasharray="none"/></svg>';t.textContent='전국 학교를 보고 있어요';sub.textContent='위치를 정하면 주변 학교만 찾아드려요';$('locbar').classList.add('empty');$('locCta').hidden=false;return}
+  $('locCta').hidden=true;
   $('locbar').classList.remove('empty');
   ic.textContent=LOC.kind==='shop'?'💐':'📍';
   if(LOC.approx){t.textContent='내 위치(대략)';sub.textContent=`오차 약 ${LOC.approx}km · 동네 이름으로 찾으면 더 정확해요`;return}
@@ -1058,6 +1074,7 @@ function paintLoc(){
   sub.textContent=(where?where+' 주변':'주변')+' 졸업식';
 }
 $('locbar').addEventListener('click',()=>openLoc(false));
+$('locCta').addEventListener('click',()=>openLoc(true));
 function openLoc(first){
   onboarding=!!first;
   $('lHead').innerHTML=first?`<div class="onb"><div class="onb-ic">🌸</div><h3 id="lTitle">내 주변 학교 졸업식을<br>바로 보여드릴게요</h3><p>위치를 알려주시면 가까운 학교 졸업식부터 날짜순으로 보여드려요.</p></div>`:`<h3 id="lTitle">어디 주변 졸업식을 볼까요?</h3>`;
@@ -1124,7 +1141,8 @@ function saveShop(l){
 }
 function paintShopAsk(){
   const b=$('shopAsk');
-  if(!LOC||LOC.kind==='shop'||LOC.approx||SHOP||shopAskOff||DEMO){b.innerHTML='';return}   // 대략적인 위치는 가게로 저장하라고 하지 않아요
+  const ready=saved.length>0||(+flag('fp-locdays')||0)>=2;   // 처음 위치를 정한 직후엔 묻지 않아요. 일정을 담았거나, 다른 날 다시 위치를 정했을 때
+  if(!LOC||LOC.kind==='shop'||LOC.approx||SHOP||shopAskOff||DEMO||!ready){b.innerHTML='';return}   // 대략적인 위치는 가게로 저장하라고 하지 않아요
   const where=LOC.kind==='place'?LOC.label:(LOC.addr||'');
   b.innerHTML=`<div class="shopask"><span>💐 여기를 <b>우리 가게</b>로 저장할까요?${where?` <small>(${esc(where)})</small>`:''}<br><small>다음부터 열면 가게 주변 졸업식부터 보여드려요. 대강 맞아도 괜찮아요.</small></span><span class="shop-btns"><button class="btn sm" type="button" data-ask-save>저장</button><button class="linkbtn muted" type="button" data-ask-no>괜찮아요</button></span></div>`;
 }
