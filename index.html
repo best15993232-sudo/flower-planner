@@ -355,6 +355,7 @@ details summary::after{content:" ▾"}
 .promo b{font-size:15px}.promo span{color:var(--ink2)}.promo u{color:var(--brand);font-weight:700;text-decoration:none;margin-top:2px}
 .promo .promo-l{position:absolute;top:12px;right:14px;font-size:11px;color:var(--ink3)}
 #p-plan .promo{margin-bottom:14px}
+.pricelink{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:#ffffff22;border-radius:14px;padding:6px 12px;text-decoration:none}
 .rchip{height:34px;padding:0 12px;border-radius:17px;background:#fff;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--brand)}
 .sl-km{font-size:13px;font-weight:700;color:var(--brand)}
 .sl-main .name::after{display:none}
@@ -586,7 +587,8 @@ function filtered(){
 const shortAddr=a=>String(a||'').split(' ').slice(1).join(' ');   // 시·도는 빼고
 const kmText=km=>km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km';
 /* 자사몰 배너: 주소(url)를 넣으면 목록 6번째 자리와 내 일정 요약 아래에 나와요. 비워 두면 안 보여요 */
-const PROMO={url:'',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'졸업식 특별전 보기',label:'자사몰'};
+const PROMO={url:'https://www.bestflowershop.co.kr/',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'부자재몰 둘러보기',label:'자사몰'};   // 졸업식 특별전이 생기면 url·cta 를 특별전 단축링크로 바꿔요
+const PRICE_URL='https://m.site.naver.com/2k3wW';   // 양재 꽃 경매 시세 (단축링크)
 const promoHtml=where=>safeUrl(PROMO.url)?`<a class="promo" href="${esc(safeUrl(PROMO.url))}" target="_blank" rel="noopener sponsored" data-promo="${where}"><span class="promo-l">${esc(PROMO.label)}</span><b>💐 ${esc(PROMO.title)}</b><span>${esc(PROMO.sub)}</span><u>${esc(PROMO.cta)} ↗</u></a>`:'';
 const topGrade=s=>s.kind==='초등학교'?'6학년':/중학교|고등학교/.test(s.kind)?'3학년':'최종학년';   // 졸업생 수 대신 정확한 '최종학년 학생 수'
 const sizeShort=s=>s.size&&s.size.students?`${s.size.grads?`${topGrade(s)} <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명`:'';
@@ -757,6 +759,7 @@ function planSummary(g,keys,total){
       <div>${NEED_DAYS===1?'내일까지':`앞으로 ${label} 안에`} 만들 꽃다발</div>
       <div class="big2">${needQty.toLocaleString('ko-KR')}개</div>
       <p>${needSchools?`${needSchools}곳 졸업식 기준이에요.`:'이 기간에 담은 졸업식이 없어요.'}${noQty?` 수량을 아직 안 적은 학교가 ${noQty}곳 있어요.`:''} 장 보는 주기에 맞춰 기간을 골라 보세요.</p>
+      <a class="pricelink" href="${PRICE_URL}" target="_blank" rel="noopener">🌷 요즘 꽃값은? 양재 꽃 경매 시세 보기 ↗</a>
     </div>
     <div class="sum"><div><b>${saved.length}곳</b><span>담은 학교</span></div><div><b>${total.toLocaleString('ko-KR')}개</b><span>전체 꽃다발 수량</span></div></div>
     ${up.length?`<div class="plansum"><h4>일정 한눈에<small>${busy.length?`같은 날 여러 곳: ${busy.length}일`:'날짜를 누르면 이동해요'}</small></h4>${rows}${past?`<p class="hint" style="margin:8px 0 0">지난 일정 ${past}일은 아래에 있어요.</p>`:''}</div>`:''}`;
