@@ -587,7 +587,7 @@ function filtered(){
 const shortAddr=a=>String(a||'').split(' ').slice(1).join(' ');   // 시·도는 빼고
 const kmText=km=>km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km';
 /* 자사몰 배너: 주소(url)를 넣으면 목록 6번째 자리와 내 일정 요약 아래에 나와요. 비워 두면 안 보여요 */
-const PROMO={url:'https://www.bestflowershop.co.kr/',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'부자재몰 둘러보기',label:'자사몰'};   // 졸업식 특별전이 생기면 url·cta 를 특별전 단축링크로 바꿔요
+const PROMO={url:'https://m.site.naver.com/2k46q',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'졸업식 특별전 보기',label:'자사몰'};   // 졸업식 특별전 (네이버 단축링크, 클릭 수 확인용)
 const PRICE_URL='https://m.site.naver.com/2k3wW';   // 양재 꽃 경매 시세 (단축링크)
 const promoHtml=where=>safeUrl(PROMO.url)?`<a class="promo" href="${esc(safeUrl(PROMO.url))}" target="_blank" rel="noopener sponsored" data-promo="${where}"><span class="promo-l">${esc(PROMO.label)}</span><b>💐 ${esc(PROMO.title)}</b><span>${esc(PROMO.sub)}</span><u>${esc(PROMO.cta)} ↗</u></a>`:'';
 const topGrade=s=>s.kind==='초등학교'?'6학년':/중학교|고등학교/.test(s.kind)?'3학년':'최종학년';   // 졸업생 수 대신 정확한 '최종학년 학생 수'
