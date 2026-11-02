@@ -417,7 +417,7 @@ details summary::after{content:" ▾"}
   <div class="placelist" id="placeList"></div>
   <p class="hint okhint">정확하지 않아도 괜찮아요. 동네만 맞으면 주변 학교를 찾아드려요.</p>
   <div id="lShop"></div>
-  <div class="lalt"><button type="button" class="btn line sm" id="pickMap">🗺 지도에서 고르기</button><button type="button" class="btn line sm" id="allKr">전국에서 보기</button></div>
+  <div class="lalt"><button type="button" class="btn line sm" id="pickMap">📌 지도에서 고르기</button><button type="button" class="btn line sm" id="allKr">전국에서 보기</button></div>
   <p class="near-note">위치는 이 기기 안에서 거리 계산에만 쓰고 저장하지 않아요. ‘우리 가게로 저장’한 위치만 이 기기 브라우저에 남아요. 길찾기를 누를 때만 출발 위치가 카카오맵으로 전달돼요. <a href="privacy.html">개인정보 안내</a></p>
 </div>
 <div class="sheet fsheet" id="fsheet" role="dialog" aria-modal="true" aria-labelledby="fTitle">
@@ -681,7 +681,7 @@ function openSheet(id,keep){
     ${body}${mineHtml}
     <div class="sec"><h4>학교 위치 · 정보</h4>
       <div class="links four">
-      ${loc&&KAKAO_KEY?`<button type="button" data-kv="map" aria-pressed="false">🗺️<br>지도</button><button type="button" data-kv="rv" aria-pressed="false">👀<br>로드뷰</button>`:''}
+      ${loc&&KAKAO_KEY?`<button type="button" data-kv="map" aria-pressed="false">📍<br>지도</button><button type="button" data-kv="rv" aria-pressed="false">👀<br>로드뷰</button>`:''}
       <a href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗<br>길찾기</a>
       ${site?`<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫<br>홈페이지</a>`:`<a href="${esc(search)}" target="_blank" rel="noopener noreferrer">🔎<br>학교 검색</a>`}
     </div>
@@ -770,7 +770,7 @@ function renderPlan(){
     <div class="sl-more" ${open?'':'hidden'}>
       <div class="sl-info">${esc(s?s.address:'')}<br><span class="tag ${r.source==='직접 입력'?'manual':''}">${esc(r.source==='직접 입력'?'직접 입력한 날짜':s&&isUniv(s)?'학교 학사일정':'나이스 학사일정')}</span> ${esc(s&&isUniv(s)?'학위수여식':'졸업식')}</div>
       <textarea class="memo" data-memo="${esc(r.id)}" placeholder="메모를 적으면 자동으로 저장돼요 (예: 10시 시작, 정문 앞 혼잡)">${esc(r.note||'')}</textarea><div class="memo-ok" data-ind="${esc(r.id)}">✓ 자동 저장됨</div>
-      <div class="sl-acts">${s?`<a class="btn line sm" href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗 길찾기</a><button class="btn line sm" data-mapview="${esc(r.schoolId)}">🗺 지도·로드뷰</button>${site?`<a class="btn line sm" href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫 학교 홈페이지</a>`:`<a class="btn line sm" href="https://map.kakao.com/link/search/${encodeURIComponent(s.name+' '+s.address)}" target="_blank" rel="noopener noreferrer">🔎 학교 검색</a>`}`:''}<button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div>
+      <div class="sl-acts">${s?`<a class="btn line sm" href="${esc(wayUrl(s))}" target="_blank" rel="noopener noreferrer">🚗 길찾기</a><button class="btn line sm" data-mapview="${esc(r.schoolId)}">📍 지도·로드뷰</button>${site?`<a class="btn line sm" href="${esc(site)}" target="_blank" rel="noopener noreferrer">🏫 학교 홈페이지</a>`:`<a class="btn line sm" href="https://map.kakao.com/link/search/${encodeURIComponent(s.name+' '+s.address)}" target="_blank" rel="noopener noreferrer">🔎 학교 검색</a>`}`:''}<button class="btn danger sm" data-del="${esc(r.id)}">삭제</button></div>
     </div>
     </article>`}).join('')}</section>`}).join('')+backupHtml();
 }
