@@ -363,6 +363,14 @@ details summary::after{content:" ▾"}
 .sl-main .name{display:block}
 .caret2{display:inline-block;font-size:12px;color:var(--ink3);margin-left:5px;transition:transform .15s}
 .scard.open .caret2{transform:rotate(180deg)}
+
+/* 버튼 역할 나누기: 찾기(위치 정하기)=진한 먹색, 담기=초록 테두리, 담긴 상태=초록 채움 */
+.btn.loc-cta,#locate{background:var(--ink);color:#fff}
+.card .add{background:#fff;color:var(--brand);border:1.5px solid var(--brand)}
+.card .add.done{background:var(--brand);color:#fff;border-color:var(--brand)}
+.card .add.alt{border-style:dashed}
+.card .add.alt.done{border-style:solid}
+.promo .promo-l{position:static;order:-1;font-size:11px}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
