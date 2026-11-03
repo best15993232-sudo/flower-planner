@@ -1054,6 +1054,1578 @@
     "label": "2026학년도 전기 학위수여식",
     "checked": "2026-11-02"
    }
+  },
+  {
+   "name": "가톨릭관동대학교",
+   "campus": "본교",
+   "url": "https://www.cku.ac.kr/cku_kr/5668/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경동대학교",
+   "campus": "제3캠퍼",
+   "url": "https://www.kduniv.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN096&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위수여식(2026학년도)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경동대학교",
+   "campus": "제2캠퍼",
+   "url": "https://www.kduniv.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN096&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위수여식(2026학년도)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경동대학교",
+   "campus": "본교",
+   "url": "https://www.kduniv.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN096&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위수여식(2026학년도)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경동대학교",
+   "campus": "제4캠퍼",
+   "url": "https://www.kduniv.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN096&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위수여식(2026학년도)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "상지대학교",
+   "campus": "본교",
+   "url": "https://www.sangji.ac.kr/prog/schafsSchdul/onestop/sub01_02/A/scheduleList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "연세대학교(미래)",
+   "campus": "분교",
+   "url": "https://mirae.yonsei.ac.kr/wj/1517/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270222",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "춘천교육대학교",
+   "campus": "본교",
+   "url": "https://www.cnue.ac.kr/cnue/info/schedule.do?mode=list&cYear=2027&month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "학위수여식(2026학년도 전기)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한라대학교",
+   "campus": "본교",
+   "url": "https://www.halla.ac.kr/kr/100/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "가천대학교",
+   "campus": "본교",
+   "url": "https://www.gachon.ac.kr/kor/1075/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "강남대학교",
+   "campus": "본교",
+   "url": "https://web.kangnam.ac.kr/menu/02be162adc07170ec7ee034097d627e9.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경기대학교",
+   "campus": "본교",
+   "url": "https://www.kyonggi.ac.kr/www/selectTnSchafsSchdulListUS.do?key=5695&sc1=10&sc3=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경기대학교",
+   "campus": "제2캠퍼",
+   "url": "https://www.kyonggi.ac.kr/www/selectTnSchafsSchdulListUS.do?key=5695&sc1=10&sc3=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대진대학교",
+   "campus": "본교",
+   "url": "https://www.daejin.ac.kr/daejin/969/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 겨울 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "루터대학교",
+   "campus": "본교",
+   "url": "http://www.ltu.ac.kr/schedule.php",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "전기 학위 수여식(예정)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울신학대학교",
+   "campus": "본교",
+   "url": "https://www.stu.ac.kr/CmsHome/stu05_02_01.eznic",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "성결대학교",
+   "campus": "본교",
+   "url": "https://www.sungkyul.ac.kr/skukr/313/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "아주대학교",
+   "campus": "본교",
+   "url": "https://www.ajou.ac.kr/kr/bachelor/schedule.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270222",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "안양대학교",
+   "campus": "본교",
+   "url": "https://www.anyang.ac.kr/main/academic/academic-schedule.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "안양대학교",
+   "campus": "제2캠퍼",
+   "url": "https://www.anyang.ac.kr/main/academic/academic-schedule.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한세대학교",
+   "campus": "본교",
+   "url": "https://hansei.ac.kr/view.do?no=10302&dateY=2027&dateM=1&tab=",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270216",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한신대학교",
+   "campus": "본교",
+   "url": "https://www.hs.ac.kr/kor/4837/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2026학년도 전기학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "협성대학교",
+   "campus": "본교",
+   "url": "https://www.uhs.ac.kr/uhs/121/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 학위수여식(전기)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "화성의과학대학교",
+   "campus": "본교",
+   "url": "https://www.hsmu.ac.kr/web/contents/HSMU20301000.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "가야대학교(김해)",
+   "campus": "본교",
+   "url": "https://www.kaya.ac.kr/Home/Contents.mbz?action=MAPP_0000000059",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "가야대학교(고령)",
+   "campus": "제2캠퍼",
+   "url": "https://www.kaya.ac.kr/Home/Contents.mbz?action=MAPP_0000000059",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경남대학교",
+   "campus": "본교",
+   "url": "https://www.kyungnam.ac.kr/ko/4293/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식(제78회)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경상국립대학교",
+   "campus": "본교",
+   "url": "https://www.gnu.ac.kr/main/ps/schdul/selectSchdulMainList.do?mi=1084",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270225",
+    "label": "[학부] 2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립창원대학교",
+   "campus": "본교",
+   "url": "https://www.changwon.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=10980",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026-전기(2027년 2월) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "부산장신대학교",
+   "campus": "본교",
+   "url": "https://www.bpu.ac.kr/Board/Calendar.aspx?BoardMstNo=1&year=2027&month=2&day=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270205",
+    "label": "학위수여식(예정)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "인제대학교",
+   "campus": "본교",
+   "url": "https://www.inje.ac.kr/kor/setRoute/B_Page.asp?pCode=IF010010000&varCat=&setYear=2027&viewType=vy&setMonth=1",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "진주교육대학교",
+   "campus": "본교",
+   "url": "https://www.cue.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN052&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "2026학년도 전기학위수여식(61회)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "창신대학교",
+   "campus": "본교",
+   "url": "https://www.cs.ac.kr/schedule/university",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2027년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립경국대학교",
+   "campus": "본교",
+   "url": "https://www.gknu.ac.kr/main/module/schedule/index.do?menu_idx=300&category1=101",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위 수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "김천대학교",
+   "campus": "본교",
+   "url": "https://www.gimcheon.ac.kr/site/gimcheon/html/sub4/0401.html?&menu_dvs_cd=0401&groups=university&year=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "제47회 전기졸업식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대구사이버대학교",
+   "campus": "본교",
+   "url": "https://www.dcu.ac.kr/academic/schedule_0101.htm",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270220",
+    "label": "2026학년도 전기 학위수여식 및 2027학년도 입학식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대구예술대학교",
+   "campus": "본교",
+   "url": "https://www.dgau.ac.kr/cldr/index.php",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대구한의대학교",
+   "campus": "본교",
+   "url": "https://www.dhu.ac.kr/pages/sub.htm?nav_code=dhu1572570288",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "제42회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동국대학교(WISE)",
+   "campus": "분교",
+   "url": "https://wise.dongguk.ac.kr/schedule/detail?schedule_info_seq=22&schedule_start_date=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2027년 봄 학위수여식(WISE캠퍼스)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동양대학교",
+   "campus": "본교",
+   "url": "https://www.dyu.ac.kr/college-life/scheduled/",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "전기 학위수여식(본교)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "위덕대학교",
+   "campus": "본교",
+   "url": "https://www.uu.ac.kr/home/bbs/board.php?bo_table=time_table&gYear=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "광주과학기술원",
+   "campus": "본교",
+   "url": "https://www.gist.ac.kr/kr/html/sub05/0501.html",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "광주대학교",
+   "campus": "본교",
+   "url": "https://www.gwangju.ac.kr/page/?site=gwangju&mn=491",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "광주여자대학교",
+   "campus": "본교",
+   "url": "https://www.kwu.ac.kr/mod/schedule/scheduleM.do?schdulKndCd=SCHDUL01",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "송원대학교",
+   "campus": "본교",
+   "url": "https://www.songwon.ac.kr/pgm/SE_Schedule.asp?pgKey=40",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "제52회 졸업식 (예정)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "전남대학교",
+   "campus": "본교",
+   "url": "https://events.jnu.ac.kr/Schedule.aspx?mode=1&YY=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270226",
+    "label": "제75회 전기('27년 2월) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "전남대학교",
+   "campus": "제2캠퍼",
+   "url": "https://events.jnu.ac.kr/Schedule.aspx?mode=1&YY=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270226",
+    "label": "제75회 전기('27년 2월) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "조선대학교",
+   "campus": "본교",
+   "url": "https://scho.chosun.ac.kr/chosun/224/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270225",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "호남대학교",
+   "campus": "본교",
+   "url": "https://www.honam.ac.kr/AcademicCalendar",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270223",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "호남신학대학교",
+   "campus": "본교",
+   "url": "https://htus.ac.kr/schedule/monthly.php",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270216",
+    "label": "제65회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "계명대학교",
+   "campus": "본교",
+   "url": "https://www.kmu.ac.kr/page.jsp?mnu_uid=3373",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학부 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대구경북과학기술원",
+   "campus": "본교",
+   "url": "https://www.dgist.ac.kr/prog/schafsSchdul/kor/sub05_01_01/list.do?searchYear=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "학위수여기준일/학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대구교육대학교",
+   "campus": "본교",
+   "url": "https://www.dnue.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN119&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립한밭대학교",
+   "campus": "본교",
+   "url": "https://www.hanbat.ac.kr/prog/schafsSchdul/kor/sub05_0201/A/scheduleList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한밭대학교(산업대)",
+   "campus": "본교",
+   "url": "https://www.hanbat.ac.kr/prog/schafsSchdul/kor/sub05_0201/A/scheduleList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "대전신학대학교",
+   "campus": "본교",
+   "url": "https://daejeon.ac.kr/contents_new/contents_400.php",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270201",
+    "label": "제70회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "우송대학교",
+   "campus": "본교",
+   "url": "https://www.wsu.ac.kr/page/index.jsp?code=campus0101",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2026학년도 전기 학위수여식(졸업식)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "우송대학교(산업대)",
+   "campus": "본교",
+   "url": "https://www.wsu.ac.kr/page/index.jsp?code=campus0101",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2026학년도 전기 학위수여식(졸업식)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "충남대학교",
+   "campus": "본교",
+   "url": "https://plus.cnu.ac.kr/_prog/academic_calendar/?site_dvs_cd=kr&menu_dvs_cd=05020101&year=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270225",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국과학기술원",
+   "campus": "본교",
+   "url": "https://www.kaist.ac.kr/kr/html/edu/03110101.html",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2027년 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국침례신학대학교",
+   "campus": "본교",
+   "url": "https://www.kbtus.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN313&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2026학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립부경대학교",
+   "campus": "본교",
+   "url": "https://www.pknu.ac.kr/main/31",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2027년 2월 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동서대학교",
+   "campus": "본교",
+   "url": "https://www.dongseo.ac.kr/kr/index.php?pCode=dscalendar&mode=listall&y=2027&m=all",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "제32회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동의대학교",
+   "campus": "본교",
+   "url": "https://www.deu.ac.kr/www/scheduleList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2026학년도 전기 학위 수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "부산교육대학교",
+   "campus": "본교",
+   "url": "https://www.bnue.ac.kr/calendar/life01",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "신라대학교",
+   "campus": "본교",
+   "url": "https://www.silla.ac.kr/ko/index.php?pCode=sillacalendar&mode=list.year&y=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "영산대학교(해운대)",
+   "campus": "제2캠퍼",
+   "url": "https://www.ysu.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN186&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "강서대학교",
+   "campus": "본교",
+   "url": "https://gangseo.ac.kr/kcua/scheduleList?menuCode=MC0401",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2027학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "고려사이버대학교",
+   "campus": "본교",
+   "url": "https://www.koreacu.ac.kr/cms/FrCon/index.do?MENU_ID=8070",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270220",
+    "label": "제23회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동덕여자대학교",
+   "campus": "본교",
+   "url": "https://www.dongduk.ac.kr/www/contents/kor-calendar.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270222",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "디지털서울문화예술대학교",
+   "campus": "본교",
+   "url": "https://www.scau.ac.kr/Application/14_Schdule/SD_Main.aspx?MRID=110&URID=51",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기학위수여식(예정)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서강대학교",
+   "campus": "본교",
+   "url": "https://www.sogang.ac.kr/ko/academic-support/calendar",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "제64회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서경대학교",
+   "campus": "본교",
+   "url": "https://www.skuniv.ac.kr/academic-calendar",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "제 77회 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울과학기술대학교",
+   "campus": "본교",
+   "url": "https://www.seoultech.ac.kr/life/sch/common?mon=2&year=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270223",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울교육대학교",
+   "campus": "본교",
+   "url": "https://www.snue.ac.kr/snue/sm/schdul/schdulList.do?mi=1281",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270222",
+    "label": "2027년 동계 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울기독대학교",
+   "campus": "본교",
+   "url": "https://www.scu.ac.kr/info/student/school-guide/undergraduate-schedule",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2025학년도 후기 및 2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울디지털대학교",
+   "campus": "본교",
+   "url": "https://www.sdu.ac.kr/ko/cms/FR_CON/index.do?MENU_ID=70",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "전기 학위수여",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울시립대학교",
+   "campus": "본교",
+   "url": "https://www.uos.ac.kr/korCalendarYear/list.do?list_id=CA1&menuid=2000003003001000000",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270223",
+    "label": "2027년 2월(2026학년도 전기) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울여자대학교",
+   "campus": "본교",
+   "url": "https://www.swu.ac.kr/swu/927/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 졸업일",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "서울한영대학교",
+   "campus": "본교",
+   "url": "https://www.shyu.ac.kr/fro_end/html/dep_03/3170.php?url=&req_date=2027-02-01",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "세종대학교",
+   "campus": "본교",
+   "url": "https://www.sejong.ac.kr/kor/academics/academic-calendar.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "제 85회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "세종사이버대학교",
+   "campus": "본교",
+   "url": "https://home.sjcu.ac.kr/ko/academic/academic-schedule.do?mode=mList&date=2027-02-01",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270220",
+    "label": "제24회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "숭실대학교",
+   "campus": "본교",
+   "url": "https://ssu.ac.kr/%ED%95%99%EC%82%AC/%ED%95%99%EC%82%AC%EC%9D%BC%EC%A0%95/?years=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "숭실사이버대학교",
+   "campus": "본교",
+   "url": "https://www.kcu.ac/schedule/scheduleList",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270227",
+    "label": "2027년 2월(2026학년도 전기) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국방송통신대학교",
+   "campus": "본교",
+   "url": "https://www.knou.ac.kr/knou/47/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270223",
+    "label": "2027년도 학위수여식(예정)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한성대학교",
+   "campus": "본교",
+   "url": "https://www.hansung.ac.kr/hansung/6096/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한양대학교",
+   "campus": "본교",
+   "url": "https://www.hanyang.ac.kr/-33",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식(서울)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "고려대학교(세종)",
+   "campus": "분교",
+   "url": "https://gpa.korea.ac.kr/koreaSejong/7935/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270225",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "울산대학교",
+   "campus": "본교",
+   "url": "https://www.ulsan.ac.kr/kor/CMS/ScheduleMgr/MonthList.do?mCode=MN080&calendar_year=2027&calendar_month=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "제 54회 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "인천대학교",
+   "campus": "본교",
+   "url": "https://www.inu.ac.kr/inu/651/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2027년 2월 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립목포대학교",
+   "campus": "본교",
+   "url": "https://mokpo.ac.kr/www/148/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립목포해양대학교",
+   "campus": "본교",
+   "url": "https://www.mmu.ac.kr/main/acschedule",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "해양공과대학 및 대학원 등 2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립순천대학교",
+   "campus": "본교",
+   "url": "https://www.scnu.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=1416",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270225",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "동신대학교",
+   "campus": "본교",
+   "url": "https://www.dsu.ac.kr/kr/?pCode=schedule&mode=listall&y=2027&m=2",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270223",
+    "label": "2026학년도 학위수여식(전기)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "목포가톨릭대학교",
+   "campus": "본교",
+   "url": "https://www.mcu.ac.kr/include/schedule.php?pageID=mcu0501000000&category=001",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "세한대학교",
+   "campus": "본교",
+   "url": "https://www.sehan.ac.kr/sehan/117/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "초당대학교",
+   "campus": "본교",
+   "url": "https://www.cdu.ac.kr/mod/page/view.do?MID=KR_04010100",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국에너지공과대학교",
+   "campus": "본교",
+   "url": "https://kentech.ac.kr/CalendarList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "졸업식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "예수대학교",
+   "campus": "본교",
+   "url": "https://jesus.ac.kr/main/?date=2027-02-01&menu=52",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "우석대학교",
+   "campus": "본교",
+   "url": "https://www.woosuk.ac.kr/main/?menu=84",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270224",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "원광대학교",
+   "campus": "본교",
+   "url": "https://www.wku.ac.kr/campus-life/academic-calendar.html",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "동계 학위수여식(2026학년도 전기)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "전북대학교",
+   "campus": "본교",
+   "url": "https://www.jbnu.ac.kr/web/academic/schedule.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270222",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한일장신대학교",
+   "campus": "본교",
+   "url": "https://www.hanil.ac.kr/portal/default/bbs/list.do?menuId=M0003000100000000",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270203",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "호원대학교",
+   "campus": "본교",
+   "url": "https://www.howon.ac.kr/web/_guide/index.html?sm=schedule",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "26학년도 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "제주대학교",
+   "campus": "본교",
+   "url": "https://www.jejunu.ac.kr/admission/eduguide/degree/academyschedule/academic.htm?year=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식(제71회)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "공주교육대학교",
+   "campus": "본교",
+   "url": "https://www.gjue.ac.kr/kor/13/schedules/list?year=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기학위수여식(제62회)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립공주대학교",
+   "campus": "본교",
+   "url": "https://www.kongju.ac.kr/KNU/16834/subview.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270212",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "글로벌사이버대학교",
+   "campus": "본교",
+   "url": "https://www.global.ac.kr/user/nd89141.do?ymVal=202702&menuId=nd89141",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270221",
+    "label": "졸업식 / 입학식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "나사렛대학교",
+   "campus": "본교",
+   "url": "https://www.kornu.ac.kr/user/academicCalenderList.mbs?year=2027&month=2&academicIdx=3886500&id=kornukr_050100000000",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위 수여",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "남서울대학교",
+   "campus": "본교",
+   "url": "https://nsu.ac.kr/?m1=page%25&menu_id=218%25",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270204",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "남서울대학교(산업대)",
+   "campus": "본교",
+   "url": "https://nsu.ac.kr/?m1=page%25&menu_id=218%25",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270204",
+    "label": "학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "순천향대학교",
+   "campus": "본교",
+   "url": "https://home.sch.ac.kr/sch/05/010000.jsp?board_no=20110224223754285127&defparam-year_month=2027-02",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2027년 2월 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국전통문화대학교",
+   "campus": "본교",
+   "url": "https://www.knuh.ac.kr/mep/ots/schedule/view.do?year=2027&mnuBaseId=MNU0000072&topBaseId=MNU0000007",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "가톨릭꽃동네대학교",
+   "campus": "본교",
+   "url": "https://www.kkot.ac.kr/base/schedule/calendar?scheduleManagementNo=1&year=2027&month=2&menuLevel=2&menuNo=354",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270217",
+    "label": "전기 학위 수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "국립한국교통대학교",
+   "campus": "본교",
+   "url": "https://www.ut.ac.kr/prog/schedule/kor/sub05_01/1/scheduleList.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 학위수여식(전기)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "극동대학교",
+   "campus": "본교",
+   "url": "https://www.kdu.ac.kr/home/sub.do?mncd=154&code1=20270201",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "순복음총회신학교",
+   "campus": "본교",
+   "url": "https://kcc.ac.kr/main/sub.html?pageCode=33",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270216",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "유원대학교",
+   "campus": "본교",
+   "url": "https://www.u1.ac.kr/u1/academic/academic-calendar.do",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270216",
+    "label": "2026학년도 전기 학위수여식(영동캠퍼스)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "청주교육대학교",
+   "campus": "본교",
+   "url": "https://www.cje.ac.kr/web/schedule/list.do?menu_cd=000059",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "청주대학교",
+   "campus": "본교",
+   "url": "https://www.cju.ac.kr/www/selectTnSchafsSchdulListUS.do?key=4498",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270219",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "충북대학교",
+   "campus": "본교",
+   "url": "https://www.chungbuk.ac.kr/www/selectWebSchdulList.do?key=455&schdulSeNo=1&nextYear=2027",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "26학년도 전기 학위 수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "강릉영동대학교",
+   "campus": "본교",
+   "url": "https://www.gyu.ac.kr/gyu/selectSchdulWebList.do?key=308&searchYear=2027&searchMonth=2&viewTy=cldr",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "2027 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "세경대학교",
+   "campus": "본교",
+   "url": "https://www.saekyung.ac.kr/sch/bachelor/calendar.php",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270202",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "송곡대학교",
+   "campus": "본교",
+   "url": "https://www.songgok.ac.kr/kor/CMS/HaksaSchedule/haksaSchedule.do?mCode=MN045",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270204",
+    "label": "학위수여식(2027년도 동계 학위수여식)",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "송호대학교",
+   "campus": "본교",
+   "url": "https://www.songho.ac.kr/songho/scheduleView/index.do?menu_idx=83",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270211",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국골프과학기술대학교",
+   "campus": "본교",
+   "url": "https://www.kg.ac.kr/fro_end/html/dep_03/3100.php?url=&req_date=2027-02-01&yymm=2027-02",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도 전기 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국폴리텍 III 대학 원주캠퍼스",
+   "campus": "본교",
+   "url": "https://www.kopo.ac.kr/wonju/content.do?menu=3033",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270203",
+    "label": "[2년제학위과정]26년도 전기 졸업식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "한국폴리텍 III 대학 춘천캠퍼스",
+   "campus": "본교",
+   "url": "https://www.kopo.ac.kr/chuncheon/content.do?menu=4797",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270203",
+    "label": "[공통]학위수여식 및 수료식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "경기과학기술대학교",
+   "campus": "본교",
+   "url": "https://www.gtec.ac.kr/emu/cms/FrCon/index.do?MENU_ID=60",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "제27회 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "계원예술대학교",
+   "campus": "본교",
+   "url": "https://www.kaywon.ac.kr/CmsHome/aca_01.aspx?w=2027-02-01&c3=L",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "2026학년도(전기) 학위수여식",
+    "checked": "2026-11-03"
+   }
+  },
+  {
+   "name": "김포대학교",
+   "campus": "본교",
+   "url": "https://ukp.ac.kr/%EC%9D%B4%EC%9A%A9%EA%B0%80%EC%9D%B4%EB%93%9C/%ED%95%99%EC%82%AC%EC%A0%95%EB%B3%B4/%ED%95%99%EC%82%AC%EC%9D%BC%EC%A0%95",
+   "format": "html",
+   "note": "2차(브라우저) 조사 2026-11-02 → 2026-11-03 검토",
+   "confirmed": {
+    "date": "20270218",
+    "label": "전기 학위수여식",
+    "checked": "2026-11-03"
+   }
   }
  ]
 }
