@@ -17,13 +17,17 @@ h3{font-size:15px;margin:20px 0 4px}
 ul{padding-left:20px;margin:6px 0}
 .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0}
 .back{display:inline-block;margin-bottom:6px;font-weight:700;text-decoration:none}
+/* 정식 오픈 전에 채울 빈칸: 채우면 class="blank" 와 대괄호를 지워 주세요 */
+.blank{background:#fff3d9;color:#9a6a14;border-radius:4px;padding:0 4px;font-weight:700}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:8px 0}dt{color:var(--ink2)}dd{margin:0}
 </style>
 </head>
 <body>
 <main>
 <a class="back" href="./">← 꽃 판매 플래너로 돌아가기</a>
 <h1>개인정보처리방침 · 이용약관</h1>
-<p class="sub">시행일 2026년 11월 16일 · 2026년 10월 29일 서비스 동작 기준으로 작성</p>
+<!-- 빈칸 2곳(운영자 상호, 시행일)은 정식 오픈 때 채워요. "blank" 로 검색하면 다 찾을 수 있어요 -->
+<p class="sub">시행일 <span class="blank">[시행일]</span> · 2026년 11월 4일 서비스 동작 기준으로 작성</p>
 
 <div class="box"><b>한눈에 보기</b>
 <ul>
@@ -31,6 +35,7 @@ ul{padding-left:20px;margin:6px 0}
 <li>담은 일정·메모·수량은 <b>이용자 휴대폰(브라우저)에만</b> 저장돼요. 운영자도 볼 수 없어요.</li>
 <li>내 위치는 이용자가 허용할 때만 기기 안에서 거리 계산에 쓰고 저장하지 않아요. ‘가게로 저장’을 누른 위치만 이 기기 브라우저에 저장돼요.</li>
 <li>졸업식 날짜는 공공데이터와 학교 자료를 옮긴 정보라 틀릴 수 있어요. 꼭 학교 공지로 확인하세요.</li>
+<li>문의: <a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a></li>
 </ul></div>
 
 <h2>1. 개인정보처리방침</h2>
@@ -42,6 +47,7 @@ ul{padding-left:20px;margin:6px 0}
 <ul>
 <li>"내 일정"에 담은 학교·날짜, 메모, 예상 수량은 이용자 브라우저의 저장 공간(localStorage)에만 저장됩니다. 운영자에게 전송되지 않습니다.</li>
 <li>브라우저 기록·사이트 데이터를 지우거나 다른 기기·브라우저를 쓰면 저장된 일정이 보이지 않을 수 있습니다. "일정 백업" 기능으로 만든 파일은 이용자 기기에만 저장됩니다.</li>
+<li>휴대폰 "홈 화면에 추가"로 만든 아이콘으로 열면, 기기(특히 아이폰)에 따라 브라우저와 저장 공간이 따로 쓰여 담은 일정이 따로 보일 수 있습니다. 이때는 백업 파일로 옮겨 주세요. 홈 화면 아이콘을 지우면 그 안에 저장된 일정도 지워질 수 있습니다.</li>
 <li>메모에는 다른 사람의 개인정보(전화번호 등)를 적지 않는 것을 권장합니다.</li>
 </ul>
 
@@ -64,10 +70,16 @@ ul{padding-left:20px;margin:6px 0}
 <li>Cloudflare Web Analytics(Cloudflare, Inc.): 방문 통계(방문 수·유입 경로·기기 종류). 쿠키를 쓰지 않고 개별 이용자를 식별하지 않습니다.</li>
 <li>네이버 단축링크(네이버㈜): 부자재몰·특별전·꽃시세 바로가기 클릭 수 집계</li>
 </ul>
+<p>서비스 주소를 카카오톡 등으로 공유하면, 그 메신저가 미리보기(제목·설명·그림)를 만들기 위해 서비스의 공개 페이지를 읽어 갑니다. 이때 이용자의 일정·위치 등 기기에 저장된 정보는 전달되지 않습니다.</p>
 <p>서비스는 추적용 쿠키나 광고 추적 도구를 사용하지 않습니다. 방문 통계는 개인을 식별하지 않는 위 도구로만 집계합니다.</p>
 
-<h3>5) 문의</h3>
-<p>개인정보 관련 문의처는 정식 오픈 전에 이 페이지에 안내합니다.</p>
+<h3>5) 운영자 및 문의처</h3>
+<p>개인정보 관련 문의, 서비스 오류 신고, 학교 일정 정정 요청은 아래로 보내 주세요.</p>
+<dl>
+<dt>운영자</dt><dd><span class="blank">[운영자 상호]</span></dd>
+<dt>개인정보 문의</dt><dd><a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a></dd>
+</dl>
+<p>서비스는 개인정보를 수집·보관하지 않으므로 운영자가 열람·정정·삭제해 드릴 개인정보가 없습니다. 기기에 저장된 일정은 이용자가 직접 지우거나 브라우저 기록 삭제로 지울 수 있습니다.</p>
 
 <h2>2. 이용약관</h2>
 
@@ -96,7 +108,7 @@ ul{padding-left:20px;margin:6px 0}
 <h3>6) 책임의 제한</h3>
 <p>운영자는 무료로 제공되는 정보의 오류나 지연, 외부 서비스(카카오맵 등)의 장애로 생긴 손해에 대해 고의 또는 중대한 과실이 없는 한 책임지지 않습니다.</p>
 
-<p class="sub" style="margin-top:30px">이 방침과 약관이 바뀌면 시행일과 함께 이 페이지에 안내합니다.</p>
+<p class="sub" style="margin-top:30px">이 방침과 약관이 바뀌면 시행일과 함께 이 페이지에 안내합니다.<br>운영자: <span class="blank">[운영자 상호]</span> · 문의: <a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a> · 시행일: <span class="blank">[시행일]</span></p>
 </main>
 </body>
 </html>
