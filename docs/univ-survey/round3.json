@@ -1,0 +1,1826 @@
+{
+ "note": "3차(12월) 재확인: 1·2차에서 날짜를 못 정한 곳(recheck-december.md). 방법은 ROUND3.md. 결과는 round3-N.csv",
+ "batches": [
+  {
+   "batch": 1,
+   "universities": [
+    {
+     "name": "경인교육대학교",
+     "kind": "대학교",
+     "website": "www.ginue.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경인교육대학교|경기도 안양시 만안구 삼막로 155",
+       "campus": "제2캠퍼",
+       "address": "경기도 안양시 만안구 삼막로 155",
+       "tried_url": "https://www.ginue.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN058",
+       "why": "대학학사일정은 2026년(역년)만 표시, 2027년 2월 학위수여식 미게시/접근 불가"
+      },
+      {
+       "id": "U:경인교육대학교|인천광역시 계양구 계산로 62",
+       "campus": "본교",
+       "address": "인천광역시 계양구 계산로 62",
+       "tried_url": "https://www.ginue.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN058",
+       "why": "대학학사일정은 2026년(역년)만 표시, 2027년 2월 학위수여식 미게시/접근 불가"
+      }
+     ]
+    },
+    {
+     "name": "국제사이버대학교",
+     "kind": "대학교",
+     "website": "www.gjcu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:국제사이버대학교|경기도 수원시 팔달구 경수대로 490",
+       "campus": "본교",
+       "address": "경기도 수원시 팔달구 경수대로 490",
+       "tried_url": "https://www.gjcu.ac.kr/04_haksa/index?pageNum=1&subNum=1",
+       "why": "학사일정 페이지에 2023~2024학년도 항목만 노출, 학위수여식 항목 없음"
+      }
+     ]
+    },
+    {
+     "name": "명지대학교",
+     "kind": "대학교",
+     "website": "www.mju.ac.kr",
+     "campuses": [
+      {
+       "id": "U:명지대학교|경기도 용인시 처인구 명지로 116",
+       "campus": "본교",
+       "address": "경기도 용인시 처인구 명지로 116",
+       "tried_url": "https://www.mju.ac.kr/mjukr/262/subview.do",
+       "why": "2026학년도 학사일정 페이지는 현재월(10월)만 표시되어 2027.2 학위수여식 미확인, PDF 없음"
+      },
+      {
+       "id": "U:명지대학교|서울특별시 서대문구 거북골로 34",
+       "campus": "제2캠퍼",
+       "address": "서울특별시 서대문구 거북골로 34",
+       "tried_url": "https://www.mju.ac.kr/mjukr/262/subview.do",
+       "why": "2026학년도 학사일정 페이지는 현재월(10월)만 표시되어 2027.2 학위수여식 미확인, PDF 없음"
+      }
+     ]
+    },
+    {
+     "name": "한경국립대학교",
+     "kind": "대학교",
+     "website": "www.hknu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한경국립대학교|경기도 안성시 중앙로 327",
+       "campus": "본교",
+       "address": "경기도 안성시 중앙로 327",
+       "tried_url": "https://www.hknu.ac.kr/kor/646/subview.do",
+       "why": "학사일정이 2026년 12월까지만 게시, 2027년 2월 학위수여식 미게시"
+      }
+     ]
+    },
+    {
+     "name": "대구대학교",
+     "kind": "대학교",
+     "website": "www.daegu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대구대학교|경상북도 경산시 진량읍 대구대로 201",
+       "campus": "본교",
+       "address": "경상북도 경산시 진량읍 대구대로 201",
+       "tried_url": "https://www.daegu.ac.kr/schedule/detail?schedule_info_seq=1",
+       "why": "학사일정에 학위수여일(2027.2.19 금, 요일 일치)만 있고 학위수여식(행사) 날짜 표기는 없음"
+      }
+     ]
+    },
+    {
+     "name": "신경주대학교",
+     "kind": "대학교",
+     "website": "sgu.ac.kr/ko/main.php",
+     "campuses": [
+      {
+       "id": "U:신경주대학교|경상북도 경주시 태종로 188",
+       "campus": "본교",
+       "address": "경상북도 경주시 태종로 188",
+       "tried_url": "https://sgu.ac.kr/ko/campus/academic-schedule.php",
+       "why": "2026년도 학사일정 페이지에 3월 항목만 있고 2027년 1~2월·학위수여식 항목 없음(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "한동대학교",
+     "kind": "대학교",
+     "website": "www.handong.edu",
+     "campuses": [
+      {
+       "id": "U:한동대학교|경상북도 포항시 북구 흥해읍 한동로 558",
+       "campus": "본교",
+       "address": "경상북도 포항시 북구 흥해읍 한동로 558",
+       "tried_url": "https://www.handong.edu/ext/bbs/download.dcp?id=15422",
+       "why": "확인 필요로 낮춤(원문 블록에 연도 없음). 후보 날짜 20270219. 2026 학사 일정표(공식 파일) 마지막 2월 블록(27-1학기 개강 3/1 등과 함께 있어 2027년 2월로 판단, 블록에 연도 머리글은 없음). 요일 미기재, 2027-02-19 금요일"
+      }
+     ]
+    },
+    {
+     "name": "배재대학교",
+     "kind": "대학교",
+     "website": "www.pcu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:배재대학교|대전광역시 서구 배재로 155-40",
+       "campus": "본교",
+       "address": "대전광역시 서구 배재로 155-40",
+       "tried_url": "https://www2.pcu.ac.kr/kor/contents/76",
+       "why": "확인 필요로 낮춤(원문에 연도·요일 없음). 후보 날짜 20270218. 홈페이지 학사일정 목록(2026.10 표기 이후 12월→1월→2월 순, 설연휴 2.6~2.8·대체휴일 2.9는 2027년과 일치)로 2027년 판단. 원문에 연도·요일 없음(2027.2.18.은 목요일). 학사일정 상세(CAT072) 페이지는 열람 "
+      }
+     ]
+    },
+    {
+     "name": "부산대학교",
+     "kind": "대학교",
+     "website": "www.pusan.ac.kr",
+     "campuses": [
+      {
+       "id": "U:부산대학교|부산광역시 금정구 부산대학로63번길 2",
+       "campus": "본교",
+       "address": "부산광역시 금정구 부산대학로63번길 2",
+       "tried_url": "https://www.pusan.ac.kr/kor/CMS/Haksailjung/view.do?mCode=MN076",
+       "why": "학사일정(2026.10~2027.02.19 표시)에 학위수여식 항목 없음"
+      }
+     ]
+    },
+    {
+     "name": "부산디지털대학교",
+     "kind": "대학교",
+     "website": "www.bdu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:부산디지털대학교|부산광역시 사상구 주례로 57",
+       "campus": "본교",
+       "address": "부산광역시 사상구 주례로 57",
+       "tried_url": "https://bdu.ac.kr/bduhome/scheduleList.do",
+       "why": "2026년 일정만 게시(2025학년도 학위수여식 2026.2.14), 2027년 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "화신사이버대학교",
+     "kind": "대학교",
+     "website": "www.hscu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:화신사이버대학교|부산광역시 연제구 고분로191번길 1",
+       "campus": "본교",
+       "address": "부산광역시 연제구 고분로191번길 1",
+       "tried_url": "https://www.hscu.ac.kr/home/life_03.jsp",
+       "why": "학사일정 페이지 구버전(2020년), 2026학년도 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "사이버한국외국어대학교",
+     "kind": "대학교",
+     "website": "www.cufs.ac.kr",
+     "campuses": [
+      {
+       "id": "U:사이버한국외국어대학교|서울특별시 동대문구 이문로 107",
+       "campus": "본교",
+       "address": "서울특별시 동대문구 이문로 107",
+       "tried_url": "https://www.cufs.ac.kr/",
+       "why": "2026년 2월(2025학년도) 일정만 게시; 2027년 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "성공회대학교",
+     "kind": "대학교",
+     "website": "www.skhu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:성공회대학교|서울특별시 구로구 연동로 320",
+       "campus": "본교",
+       "address": "서울특별시 구로구 연동로 320",
+       "tried_url": "https://www.skhu.ac.kr/skhu/802/subview.do",
+       "why": "2026학년도 학사일정에 2027.2 학위수여식 미게시(2025-전기는 2026.02.12)"
+      }
+     ]
+    },
+    {
+     "name": "숙명여자대학교",
+     "kind": "대학교",
+     "website": "www.sookmyung.ac.kr",
+     "campuses": [
+      {
+       "id": "U:숙명여자대학교|서울특별시 용산구 청파로47길 90",
+       "campus": "본교",
+       "address": "서울특별시 용산구 청파로47길 90",
+       "tried_url": "https://sunheon.sookmyung.ac.kr/sunheon/college/academic-calendar.do?mode=list",
+       "why": "2026학년도 전기 일정 미게시(2027.2 탭에 2025학년도 행사·2026년 요일로 표기)"
+      }
+     ]
+    },
+    {
+     "name": "태재대학교",
+     "kind": "대학교",
+     "website": "www.taejae.ac.kr",
+     "campuses": [
+      {
+       "id": "U:태재대학교|서울특별시 종로구 창덕궁5길 22-8",
+       "campus": "본교",
+       "address": "서울특별시 종로구 창덕궁5길 22-8",
+       "tried_url": "https://taejae.ac.kr/files/academic/2026%20Fall%20Academic%20Calendar.pdf",
+       "why": "2026 Fall 학사력(~2027.1.8)에 학위수여식 없음; 2027 Spring 미게시"
+      }
+     ]
+    },
+    {
+     "name": "대전가톨릭대학교",
+     "kind": "대학교",
+     "website": "www.dcatholic.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대전가톨릭대학교|세종특별자치시 전의면 가톨릭대학로 30",
+       "campus": "본교",
+       "address": "세종특별자치시 전의면 가톨릭대학로 30",
+       "tried_url": "https://www.dcatholic.ac.kr/bbs/board.php?bo_table=schedule_affair&year=2027&month=2&sc_no=",
+       "why": "2026학년도 일정 미게시(2027.1~2월 학사일정에 학위수여식 없음)"
+      }
+     ]
+    },
+    {
+     "name": "인천가톨릭대학교",
+     "kind": "대학교",
+     "website": "www.iccu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:인천가톨릭대학교|인천광역시 연수구 송도문화로120번길 20",
+       "campus": "제2캠퍼",
+       "address": "인천광역시 연수구 송도문화로120번길 20",
+       "tried_url": "https://shin.iccu.ac.kr/menu_03/menu03_02.php",
+       "why": "2026학년도 학사일정표(2026.1~12월)에 2025학년도 전기만 있음(2026.2.20); 2027년 2월 일정 미게시; 신학대학 페이지"
+      },
+      {
+       "id": "U:인천가톨릭대학교|인천광역시 강화군 양도면 고려왕릉로 53-1",
+       "campus": "본교",
+       "address": "인천광역시 강화군 양도면 고려왕릉로 53-1",
+       "tried_url": "https://shin.iccu.ac.kr/menu_03/menu03_02.php",
+       "why": "2026학년도 학사일정표(2026.1~12월)에 2025학년도 전기만 있음(2026.2.20); 2027년 2월 일정 미게시; 신학대학 페이지"
+      }
+     ]
+    },
+    {
+     "name": "인하대학교",
+     "kind": "대학교",
+     "website": "www.inha.ac.kr",
+     "campuses": [
+      {
+       "id": "U:인하대학교|인천광역시 미추홀구 인하로 100",
+       "campus": "본교",
+       "address": "인천광역시 미추홀구 인하로 100",
+       "tried_url": "https://www.inha.ac.kr/kr/1908/subview.do",
+       "why": "연도별 학사일정 2026년에 2027년 2월 학위수여식 미게시(2027년 페이지 미공개)"
+      }
+     ]
+    },
+    {
+     "name": "세명대학교",
+     "kind": "대학교",
+     "website": "www.semyung.ac.kr",
+     "campuses": [
+      {
+       "id": "U:세명대학교|충청북도 제천시 세명로 65",
+       "campus": "본교",
+       "address": "충청북도 제천시 세명로 65",
+       "tried_url": "https://www.semyung.ac.kr/prog/schedule/kor/sub04_02/123/haksa.do",
+       "why": "2026학년도 페이지는 2026년 2~8월만 있음(2026.2.20 제32회), 2027년 2월 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "강원도립대학교",
+     "kind": "전문대학",
+     "website": "www.gw.ac.kr",
+     "campuses": [
+      {
+       "id": "U:강원도립대학교|강원특별자치도 강릉시 주문진읍 연주로 270",
+       "campus": "본교",
+       "address": "강원특별자치도 강릉시 주문진읍 연주로 270",
+       "tried_url": "https://www.gw.ac.kr/po/portal/educational/calendar",
+       "why": "2026학년도 학사일정에 2025학년도 전기(2026.2.13)·후기만 있음, 2026학년도 전기 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "동우대학",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:동우대학|강원특별자치도 속초시 도리원길 5",
+       "campus": "본교",
+       "address": "강원특별자치도 속초시 도리원길 5",
+       "tried_url": "https://encykorea.aks.ac.kr/Article/E0016702",
+       "why": "2013년 경동대학교로 통폐합된 것으로 보임(백과사전·기사 근거, 학교 공식 페이지 미확인) → 해당 없음 여부 사람 확인"
+      }
+     ]
+    },
+    {
+     "name": "경복대학교",
+     "kind": "전문대학",
+     "website": "www.kbu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경복대학교|경기도 남양주시 진접읍 경복대로 425-44",
+       "campus": "본교",
+       "address": "경기도 남양주시 진접읍 경복대로 425-44",
+       "tried_url": "https://kbu.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN083",
+       "why": "2026년 연간 일정에는 2026.02.20 겨울 학위수여식(2025학년도)·08.21 여름 학위수여식만 있음. 2027년 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "구세군사관학교",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:구세군사관학교|경기도 과천시 관악산길 216",
+       "campus": "본교",
+       "address": "경기도 과천시 관악산길 216",
+       "tried_url": "",
+       "why": "공식 웹사이트 정보 없음. 검색으로 공식 학사일정 못 찾음"
+      }
+     ]
+    },
+    {
+     "name": "서울예술대학교",
+     "kind": "전문대학",
+     "website": "www.seoularts.ac.kr",
+     "campuses": [
+      {
+       "id": "U:서울예술대학교|경기도 안산시 단원구 예술대학로 171",
+       "campus": "본교",
+       "address": "경기도 안산시 단원구 예술대학로 171",
+       "tried_url": "https://eclass.seoularts.ac.kr/ilos/st/schedule/academic_calendar_list_form.acl",
+       "why": "공식 일정에는 2026.02.12(목) 학위수여식만 있음(2025학년도). 2026학년도(2027년 2월) 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "신흥대학교",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:신흥대학교|경기도 의정부시 호암로 95",
+       "campus": "본교",
+       "address": "경기도 의정부시 호암로 95",
+       "tried_url": "https://www.shinhan.ac.kr/kr/143/subview.do",
+       "why": "신흥대학교는 2013년 통합으로 신한대학교가 됨(학교명 확인 필요). 신한대 2026년 일정에 2027년 2월 학위수여식 없음"
+      }
+     ]
+    },
+    {
+     "name": "용인예술과학대학교",
+     "kind": "전문대학",
+     "website": "www.ysc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:용인예술과학대학교|경기도 용인시 처인구 동부로 61",
+       "campus": "본교",
+       "address": "경기도 용인시 처인구 동부로 61",
+       "tried_url": "https://www.ysc.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN088&calendar_year=2027&calendar_month=2",
+       "why": "2026년도 일정표에는 2025학년도 학위수여식(2026-02-12, 2026-08-27)만 있음, 2027년 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "동원과학기술대학교",
+     "kind": "전문대학",
+     "website": "www.dist.ac.kr",
+     "campuses": [
+      {
+       "id": "U:동원과학기술대학교|경상남도 양산시 명곡로 321",
+       "campus": "본교",
+       "address": "경상남도 양산시 명곡로 321",
+       "tried_url": "https://dist.ac.kr/kor/CMS/Academic/Interlock/Schedule/yearList.do?mCode=MN054&year=2026",
+       "why": "학사일정에 학위수여식 행사 없음. '2학기 졸업일자 2027-01-29'만 있음(행사일 아님). 페이지 연도 표기 이상(1752/1753)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 특성화대학 항공캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/kapc",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 특성화대학 항공캠퍼스|경상남도 사천시 대학길 46",
+       "campus": "본교",
+       "address": "경상남도 사천시 대학길 46",
+       "tried_url": "https://www.kopo.ac.kr/kapc/content.do?menu=3799",
+       "why": "학사일정 페이지가 2026년 10월만 보여주고 다른 달 링크가 없어 2027년 1~3월 일정 확인 불가. 학위수여식 줄 없음"
+      }
+     ]
+    },
+    {
+     "name": "경북도립대학교",
+     "kind": "전문대학",
+     "website": "www.gpc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경북도립대학교|경상북도 예천군 예천읍 도립대학길 114",
+       "campus": "본교",
+       "address": "경상북도 예천군 예천읍 도립대학길 114",
+       "tried_url": "https://gpc.ac.kr/main/page.do?mnu_uid=708",
+       "why": "학사일정 페이지에 일정표가 보이지 않고(게시글 1건만 표시) 학위수여식 줄 없음. 2026학년도 일정 확인 불가"
+      }
+     ]
+    },
+    {
+     "name": "구미대학교",
+     "kind": "전문대학",
+     "website": "www.gumi.ac.kr",
+     "campuses": [
+      {
+       "id": "U:구미대학교|경상북도 구미시 야은로 37",
+       "campus": "본교",
+       "address": "경상북도 구미시 야은로 37",
+       "tried_url": "https://www.gumi.ac.kr/pages/sub.htm?nav_code=gum1545995267",
+       "why": "학사일정 페이지는 열렸으나 학위수여식 줄이 보이지 않음. 2026학년도 전기 일정 미게시 또는 표시 안 됨"
+      }
+     ]
+    },
+    {
+     "name": "대경대학교",
+     "kind": "전문대학",
+     "website": "www.tk.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대경대학교|경상북도 경산시 자인면 단북1길 65",
+       "campus": "본교",
+       "address": "경상북도 경산시 자인면 단북1길 65",
+       "tried_url": "",
+       "why": "학교 사이트에서 학사일정 페이지를 못 찾음(대학연혁 페이지만 확인, 학위수여식 일정 없음)"
+      }
+     ]
+    },
+    {
+     "name": "대구미래대학교",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:대구미래대학교|경상북도 경산시 미래로 114",
+       "campus": "본교",
+       "address": "경상북도 경산시 미래로 114",
+       "tried_url": "",
+       "why": "입력에 홈페이지 없음. 위키백과·뉴스에 따르면 2018년 교육부 자진폐지 인가로 폐교되었으나 교육부 등 공식 페이지 근거는 못 찾아 '해당 없음' 대신 확인 필요로 둠"
+      }
+     ]
+    },
+    {
+     "name": "서라벌대학교",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:서라벌대학교|경상북도 경주시 태종로 478-20",
+       "campus": "본교",
+       "address": "경상북도 경주시 태종로 478-20",
+       "tried_url": "",
+       "why": "입력에 웹사이트 없음. 폐교(학교 폐쇄)된 것으로 알려져 있으나 교육부 등 공식 근거 페이지를 찾지 못함"
+      }
+     ]
+    },
+    {
+     "name": "계명문화대학교",
+     "kind": "전문대학",
+     "website": "www.kmcu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:계명문화대학교|대구광역시 달서구 달서대로 675",
+       "campus": "본교",
+       "address": "대구광역시 달서구 달서대로 675",
+       "tried_url": "https://www.kmcu.ac.kr/kr/?pCode=schedule",
+       "why": "공식 학사일정은 2026년 10월 일정까지만 나오고 학위수여식 줄 없음. 2027년 전체 일정 페이지는 일정 미게시(내용 없음). 2026학년도 학위수여식 날짜 아직 안 올라온 것으로 보임"
+      }
+     ]
+    },
+    {
+     "name": "대구공업대학교",
+     "kind": "전문대학",
+     "website": "www.ttc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대구공업대학교|대구광역시 달서구 송현로 205",
+       "campus": "본교",
+       "address": "대구광역시 달서구 송현로 205",
+       "tried_url": "https://www.ttc.ac.kr/schedule.do",
+       "why": "공식 학사일정은 2026년(1~12월)까지만 게시. 2026년 2월 '제49회 학위수여식'은 2025학년도 것. 2027년 1~2월 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "수성대학교",
+     "kind": "전문대학",
+     "website": "www.sc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:수성대학교|대구광역시 수성구 달구벌대로528길 15",
+       "campus": "본교",
+       "address": "대구광역시 수성구 달구벌대로528길 15",
+       "tried_url": "https://www.sc.ac.kr/info/01.sc",
+       "why": "공식 학사일정은 2026년 12월까지만 게시(2025학년도 전기 학위수여식은 2026년 2월 6일). 2027년 1~2월 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "대동대학교",
+     "kind": "전문대학",
+     "website": "www.daedong.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대동대학교|부산광역시 금정구 동부곡로27번길 88",
+       "campus": "본교",
+       "address": "부산광역시 금정구 동부곡로27번길 88",
+       "tried_url": "https://nurs.daedong.ac.kr/www/CMS/ScheduleMgr2/YearList.do?mCode=MN090&calendar_year=2026&calendar_month=11",
+       "why": "공식 학사일정에 2026년 일정만 있고 2027년 1~3월은 아직 미게시. 참고로 전년은 2026.02.12(목) 2025학년도 학위 수여식"
+      }
+     ]
+    },
+    {
+     "name": "군산간호대학교",
+     "kind": "전문대학",
+     "website": "www.kcn.ac.kr",
+     "campuses": [
+      {
+       "id": "U:군산간호대학교|전북특별자치도 군산시 동개정길 7",
+       "campus": "본교",
+       "address": "전북특별자치도 군산시 동개정길 7",
+       "tried_url": "https://www.kcn.ac.kr/haksa/schedule.do",
+       "why": "학사일정 페이지가 2020학년도 것만 보임. 2026학년도 일정 미게시"
+      }
+     ]
+    },
+    {
+     "name": "백제예술대학교",
+     "kind": "전문대학",
+     "website": "www.paekche.ac.kr",
+     "campuses": [
+      {
+       "id": "U:백제예술대학교|전북특별자치도 완주군 봉동읍 백제대학로 171",
+       "campus": "본교",
+       "address": "전북특별자치도 완주군 봉동읍 백제대학로 171",
+       "tried_url": "https://www.paekche.ac.kr/ict/pms/board.php?bo_table=main_life_001&wr_id=1",
+       "why": "학사일정에 2026년 11월~2027년 1월 일정만 보이고 학위수여식 줄 없음(01월 04일 성적 및 졸업사정회까지만)"
+      }
+     ]
+    },
+    {
+     "name": "서울장신대학교",
+     "kind": "대학교",
+     "website": "www.sjs.ac.kr",
+     "campuses": [
+      {
+       "id": "U:서울장신대학교|경기도 광주시 경안로 145",
+       "campus": "본교",
+       "address": "경기도 광주시 경안로 145",
+       "tried_url": "https://www.sjs.ac.kr/ht_ml/w_03ed/3200.php?year=2027",
+       "why": "학사일정 2027년 달력에 일정 없음(2026년 달력엔 2.5 제69회 전기 학위수여식=2025학년도). 2026학년도 전기 미게시"
+      }
+     ]
+    },
+    {
+     "name": "수원가톨릭대학교",
+     "kind": "대학교",
+     "website": "www.suwoncatholic.ac.kr",
+     "campuses": [
+      {
+       "id": "U:수원가톨릭대학교|경기도 화성시 효행구 봉담읍 왕림1길 67",
+       "campus": "본교",
+       "address": "경기도 화성시 효행구 봉담읍 왕림1길 67",
+       "tried_url": "https://www.suwoncatholic.ac.kr/page/06_haksa/pdf/schedule.pdf",
+       "why": "공식 학사일정 PDF(2026년 주요 학사 일정)가 2026.12.25까지만 있음. 2027년 2월 학위수여식 미게시(참고: 2025학년도는 2026.2.25(수))"
+      }
+     ]
+    },
+    {
+     "name": "수원대학교",
+     "kind": "대학교",
+     "website": "www.suwon.ac.kr",
+     "campuses": [
+      {
+       "id": "U:수원대학교|경기도 화성시 효행구 봉담읍 와우안길 17",
+       "campus": "본교",
+       "address": "경기도 화성시 효행구 봉담읍 와우안길 17",
+       "tried_url": "https://www.suwon.ac.kr/index.html?menuno=727",
+       "why": "학사일정에 2027년분은 동계 계절학기(~2027.01.15)만 있고 2027년 2월 학위수여식 미게시(2025학년도는 2026.02.12)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "batch": 2,
+   "universities": [
+    {
+     "name": "신한대학교",
+     "kind": "대학교",
+     "website": "www.shinhan.ac.kr/",
+     "campuses": [
+      {
+       "id": "U:신한대학교|경기도 의정부시 호암로 95",
+       "campus": "제2캠퍼",
+       "address": "경기도 의정부시 호암로 95",
+       "tried_url": "https://www.shinhan.ac.kr/kr/143/subview.do",
+       "why": "신한캘린더 2027년 조회 시 일정 0건(2026년은 12-21 종강까지). 2026학년도 전기 학위수여식 미게시"
+      },
+      {
+       "id": "U:신한대학교|경기도 동두천시 벌마들로40번길 30",
+       "campus": "본교",
+       "address": "경기도 동두천시 벌마들로40번길 30",
+       "tried_url": "https://www.shinhan.ac.kr/kr/143/subview.do",
+       "why": "신한캘린더 2027년 조회 시 일정 0건(2026년은 12-21 종강까지). 2026학년도 전기 학위수여식 미게시"
+      }
+     ]
+    },
+    {
+     "name": "아신대학교",
+     "kind": "대학교",
+     "website": "www.acts.ac.kr",
+     "campuses": [
+      {
+       "id": "U:아신대학교|경기도 양평군 옥천면 경강로 1276",
+       "campus": "본교",
+       "address": "경기도 양평군 옥천면 경강로 1276",
+       "tried_url": "https://www.acts.ac.kr/design/academic_calendar.asp?oa=1&left=grad1_1&thisDate=2027-02",
+       "why": "학사일정 달력 2027년 2월 '일정이 없습니다' 표시. 미게시"
+      }
+     ]
+    },
+    {
+     "name": "중앙대학교",
+     "kind": "대학교",
+     "website": "www.cau.ac.kr",
+     "campuses": [
+      {
+       "id": "U:중앙대학교|경기도 안성시 대덕면 서동대로 4726",
+       "campus": "제2캠퍼",
+       "address": "경기도 안성시 대덕면 서동대로 4726",
+       "tried_url": "https://www.cau.ac.kr/cms/FR_CON/index.do?MENU_ID=590",
+       "why": "공식 학사일정(2027년)에 주간 범위(2.15 월~2.19 금)로만 표기, 단과대별 날짜 미공지"
+      },
+      {
+       "id": "U:중앙대학교|서울특별시 동작구 흑석로 84",
+       "campus": "본교",
+       "address": "서울특별시 동작구 흑석로 84",
+       "tried_url": "https://www.cau.ac.kr/cms/FR_CON/index.do?MENU_ID=590",
+       "why": "공식 학사일정(2027년)에 주간 범위(2.15 월~2.19 금)로만 표기, 단과대별 날짜 미공지"
+      }
+     ]
+    },
+    {
+     "name": "중앙승가대학교",
+     "kind": "대학교",
+     "website": "admission.sangha.ac.kr",
+     "campuses": [
+      {
+       "id": "U:중앙승가대학교|경기도 김포시 승가로 123",
+       "campus": "본교",
+       "address": "경기도 김포시 승가로 123",
+       "tried_url": "https://www.sangha.ac.kr/SANGHA/?ACT=EDU_SCH",
+       "why": "학사일정에 2026년 1~3월만 게시(2025학년도 전기 학위수여식 2.26). 2027년 2월 미게시"
+      }
+     ]
+    },
+    {
+     "name": "차의과학대학교",
+     "kind": "대학교",
+     "website": "www.cha.ac.kr",
+     "campuses": [
+      {
+       "id": "U:차의과학대학교|경기도 포천시 해룡로 120",
+       "campus": "본교",
+       "address": "경기도 포천시 해룡로 120",
+       "tried_url": "https://www.cha.ac.kr/대학생활/학사일정/리스트/",
+       "why": "국문 학사일정 리스트 페이지가 브라우저에서도 빈 화면(일정 미표시), 영문 달력은 2024년 자료뿐"
+      }
+     ]
+    },
+    {
+     "name": "칼빈대학교",
+     "kind": "대학교",
+     "website": "www.calvin.ac.kr",
+     "campuses": [
+      {
+       "id": "U:칼빈대학교|경기도 용인시 기흥구 마북로 184",
+       "campus": "본교",
+       "address": "경기도 용인시 기흥구 마북로 184",
+       "tried_url": "http://www.calvin.ac.kr/main/contentsInfo.do?brd_mgrno=0&menu_no=2248",
+       "why": "학사일정 이미지(2026학년도)가 2026년 1~12월만 포함(2.12 학위수여식=2025학년도). 2027년 2월 미게시"
+      }
+     ]
+    },
+    {
+     "name": "국립창원대학교(거창캠퍼스)",
+     "kind": "대학교",
+     "website": "www.changwon.ac.kr",
+     "campuses": [
+      {
+       "id": "U:국립창원대학교(거창캠퍼스)|경상남도 거창군 거창읍 거창대학로 72",
+       "campus": "제2캠퍼",
+       "address": "경상남도 거창군 거창읍 거창대학로 72",
+       "tried_url": "https://www.changwon.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=10980",
+       "why": "창원대 통합 학사일정엔 2027.2.19(금) 학위수여식. 이 캠퍼스(옛 도립대)가 같은 날 행사하는지 미확인"
+      }
+     ]
+    },
+    {
+     "name": "국립창원대학교(남해캠퍼스)",
+     "kind": "대학교",
+     "website": "www.changwon.ac.kr",
+     "campuses": [
+      {
+       "id": "U:국립창원대학교(남해캠퍼스)|경상남도 남해군 남해읍 화전로78번길 30",
+       "campus": "제3캠퍼",
+       "address": "경상남도 남해군 남해읍 화전로78번길 30",
+       "tried_url": "https://www.changwon.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=10980",
+       "why": "창원대 통합 학사일정엔 2027.2.19(금) 학위수여식. 이 캠퍼스(옛 도립대)가 같은 날 행사하는지 미확인"
+      }
+     ]
+    },
+    {
+     "name": "인제대학교",
+     "kind": "대학교",
+     "website": "www.inje.ac.kr",
+     "campuses": [
+      {
+       "id": "U:인제대학교|부산광역시 부산진구 복지로 75",
+       "campus": "제2캠퍼",
+       "address": "부산광역시 부산진구 복지로 75",
+       "tried_url": "https://www.inje.ac.kr/kor/setRoute/B_Page.asp?pCode=IF010010000&varCat=&setYear=2027&viewType=vy&setMonth=1",
+       "why": "학부 학사일정엔 2027.2.19(금). 부산(제2) 캠퍼스 별도 행사 여부 미확인"
+      }
+     ]
+    },
+    {
+     "name": "경운대학교",
+     "kind": "대학교",
+     "website": "www.ikw.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경운대학교|경상북도 구미시 산동읍 강동로 730",
+       "campus": "본교",
+       "address": "경상북도 구미시 산동읍 강동로 730",
+       "tried_url": "https://www.ikw.ac.kr/page/2587/1698.tc",
+       "why": "학사일정 달력 2027년 2월에 설날 외 일정 없음(2026년 2.11 제26회 전기 학위 수여식=2025학년도). 미게시"
+      }
+     ]
+    },
+    {
+     "name": "경운대학교(산업대)",
+     "kind": "대학교",
+     "website": "www.ikw.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경운대학교(산업대)|경상북도 구미시 산동읍 강동로 730",
+       "campus": "본교",
+       "address": "경상북도 구미시 산동읍 강동로 730",
+       "tried_url": "https://www.ikw.ac.kr/page/2587/1698.tc",
+       "why": "학사일정 달력 2027년 2월에 설날 외 일정 없음(2026년 2.11 제26회 전기 학위 수여식=2025학년도). 미게시"
+      }
+     ]
+    },
+    {
+     "name": "대신대학교",
+     "kind": "대학교",
+     "website": "www.daeshin.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대신대학교|경상북도 경산시 경청로222길 33",
+       "campus": "본교",
+       "address": "경상북도 경산시 경청로222길 33",
+       "tried_url": "https://www.daeshin.ac.kr/html/03_edu/01_7.php?txtYear=2027&txtMonth=02&txtDay=01",
+       "why": "후보 날짜 20270204(목, 요일 일치). 2027년 2월 달력에 있으나 행사명이 '2025학년도'로 표기되어 학년도 표기 오류인지 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "영남신학대학교",
+     "kind": "대학교",
+     "website": "www.ytus.ac.kr",
+     "campuses": [
+      {
+       "id": "U:영남신학대학교|경상북도 경산시 진량읍 봉회1길 26",
+       "campus": "본교",
+       "address": "경상북도 경산시 진량읍 봉회1길 26",
+       "tried_url": "https://ytus.ac.kr/content/155",
+       "why": "학사일정 달력 2027년 1·2월 넘겨 봄, 2027년 1월 이후 일정 아직 미입력(2026학년도 학위수여식 미게시)"
+      }
+     ]
+    },
+    {
+     "name": "광신대학교",
+     "kind": "대학교",
+     "website": "www.kwangshin.ac.kr",
+     "campuses": [
+      {
+       "id": "U:광신대학교|광주광역시 북구 양산택지소로 36",
+       "campus": "본교",
+       "address": "광주광역시 북구 양산택지소로 36",
+       "tried_url": "http://kwangshin.ac.kr/",
+       "why": "https://www.kwangshin.ac.kr 접속 실패, http 주소는 로그인 안내 화면만 보여 학사일정 메뉴 못 찾음"
+      }
+     ]
+    },
+    {
+     "name": "광주교육대학교",
+     "kind": "대학교",
+     "website": "www.gnue.ac.kr",
+     "campuses": [
+      {
+       "id": "U:광주교육대학교|광주광역시 북구 필문대로 55",
+       "campus": "본교",
+       "address": "광주광역시 북구 필문대로 55",
+       "tried_url": "https://www.gnue.ac.kr/index.9is?contentUid=4a9f18ab5c48fe8c015caa0228a707eb",
+       "why": "학사일정 2026학년도 2학기(2027년 1~2월 포함)에 학위수여식 항목 아직 없음(정시 입학전형만). 미게시"
+      }
+     ]
+    },
+    {
+     "name": "건양대학교",
+     "kind": "대학교",
+     "website": "www.konyang.ac.kr",
+     "campuses": [
+      {
+       "id": "U:건양대학교|대전광역시 서구 관저동로 158",
+       "campus": "제2캠퍼",
+       "address": "대전광역시 서구 관저동로 158",
+       "tried_url": "https://www.konyang.ac.kr/prog/schedule/kor/sub06_01_01_01/3/haksa.do",
+       "why": "후보 날짜 20270211(목, 2026학년도 표의 2027년 2월). 원문이 '학위수여식'이 아닌 '학위수여일'이라 식 개최일인지 확인 필요. 두 캠퍼스 공통 학사일정"
+      },
+      {
+       "id": "U:건양대학교|충청남도 논산시 대학로 121",
+       "campus": "본교",
+       "address": "충청남도 논산시 대학로 121",
+       "tried_url": "https://www.konyang.ac.kr/prog/schedule/kor/sub06_01_01_01/3/haksa.do",
+       "why": "후보 날짜 20270211(목, 2026학년도 표의 2027년 2월). 원문이 '학위수여식'이 아닌 '학위수여일'이라 식 개최일인지 확인 필요. 두 캠퍼스 공통 학사일정"
+      }
+     ]
+    },
+    {
+     "name": "한남대학교",
+     "kind": "대학교",
+     "website": "www.hannam.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한남대학교|대전광역시 대덕구 한남로 70",
+       "campus": "본교",
+       "address": "대전광역시 대덕구 한남로 70",
+       "tried_url": "https://www.hannam.ac.kr/kor/guide/guide_01_1_2.html",
+       "why": "후보 날짜 20270212(금, 2027년 2월 칸, 요일 일치). 원문이 '학위수여식'이 아닌 '학위수여'로만 표기되어 식 개최일인지 확인 필요(1차와 같음)"
+      }
+     ]
+    },
+    {
+     "name": "국립한국해양대학교",
+     "kind": "대학교",
+     "website": "www.kmou.ac.kr",
+     "campuses": [
+      {
+       "id": "U:국립한국해양대학교|부산광역시 영도구 태종로 727",
+       "campus": "본교",
+       "address": "부산광역시 영도구 태종로 727",
+       "tried_url": "https://www.kmou.ac.kr/onestop/cm/cntnts/cntntsView.do?mi=74&cntntsId=1755",
+       "why": "학사일정 페이지는 열리나 일정이 '2026학년도 학사일정표' 내려받기 파일로만 제공(파일은 권한 오류 401). 내려받기 금지 규칙으로 원문 미확인"
+      }
+     ]
+    },
+    {
+     "name": "동아대학교",
+     "kind": "대학교",
+     "website": "www.donga.ac.kr",
+     "campuses": [
+      {
+       "id": "U:동아대학교|부산광역시 사하구 낙동대로550번길 37",
+       "campus": "본교",
+       "address": "부산광역시 사하구 낙동대로550번길 37",
+       "tried_url": "https://www.donga.ac.kr/community/academic-calendar",
+       "why": "본교 학사일정에 기간(2.22~2.26, 단과대별 개최로 보임)만 있어 하루 확정 불가. 단과대별 날짜 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "감리교신학대학교",
+     "kind": "대학교",
+     "website": "www.mtu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:감리교신학대학교|서울특별시 서대문구 독립문로 56",
+       "campus": "본교",
+       "address": "서울특별시 서대문구 독립문로 56",
+       "tried_url": "https://www.mtu.ac.kr/mtu/calendar/list.do?mId=116&year=2027&month=1",
+       "why": "후보 날짜 20270211(목). 학사일정 달력 2027년 2월에 [대학원] 표기 항목만 있고 학부 일정은 아직 미입력. 학부 공통 여부 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "덕성여자대학교",
+     "kind": "대학교",
+     "website": "www.duksung.ac.kr",
+     "campuses": [
+      {
+       "id": "U:덕성여자대학교|서울특별시 도봉구 삼양로144길 33",
+       "campus": "본교",
+       "address": "서울특별시 도봉구 삼양로144길 33",
+       "tried_url": "https://www.duksung.ac.kr/academic/calendar.do?menuId=1116",
+       "why": "학사일정 2027년 1·2월 달력에 일정 없음(2026학년도 전기 학위수여식 미게시)"
+      }
+     ]
+    },
+    {
+     "name": "장로회신학대학교",
+     "kind": "대학교",
+     "website": "www.puts.ac.kr",
+     "campuses": [
+      {
+       "id": "U:장로회신학대학교|서울특별시 광진구 광장로5길 25-1",
+       "campus": "본교",
+       "address": "서울특별시 광진구 광장로5길 25-1",
+       "tried_url": "https://www.puts.ac.kr/www/sub/lounge/sub.asp?m1=7&m2=1&m3=1",
+       "why": "학사일정 2월 탭은 요일상 2026년 2월(2025학년도분, 02.12 목)만 있고 2027년 2월 일정 미게시, 연도 선택 없음"
+      }
+     ]
+    },
+    {
+     "name": "정석대학",
+     "kind": "대학교",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:정석대학|서울특별시 강서구 오정로 576",
+       "campus": "본교",
+       "address": "서울특별시 강서구 오정로 576",
+       "tried_url": "",
+       "why": "공식 사이트 주소 없음(사내대학), 브라우저로 열 학사일정 페이지 없음"
+      }
+     ]
+    },
+    {
+     "name": "총신대학교",
+     "kind": "대학교",
+     "website": "www.chongshin.ac.kr",
+     "campuses": [
+      {
+       "id": "U:총신대학교|서울특별시 동작구 사당로 143",
+       "campus": "본교",
+       "address": "서울특별시 동작구 사당로 143",
+       "tried_url": "https://www.csu.ac.kr/gate",
+       "why": "도메인이 csu.ac.kr로 바뀜; 첫 화면(gate)의 '대학 홈페이지' 바로가기가 브라우저에서 넘어가지 않아 학사일정 페이지 못 찾음"
+      }
+     ]
+    },
+    {
+     "name": "한국성서대학교",
+     "kind": "대학교",
+     "website": "www.bible.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국성서대학교|서울특별시 노원구 동일로214길 32",
+       "campus": "본교",
+       "address": "서울특별시 노원구 동일로214길 32",
+       "tried_url": "https://www.bible.ac.kr/ko/life/haksa_schedule",
+       "why": "학사일정 메뉴가 2012년 게시글 하나뿐인 게시판, 2026학년도 일정표 없음(첨부파일은 내려받지 않음)"
+      }
+     ]
+    },
+    {
+     "name": "한국열린사이버대학교",
+     "kind": "대학교",
+     "website": "www.ocu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국열린사이버대학교|서울특별시 중랑구 망우로 353, C동 9층",
+       "campus": "본교",
+       "address": "서울특별시 중랑구 망우로 353, C동 9층",
+       "tried_url": "https://www.ocu.ac.kr/Haksa.do?cmd=viewHaksaSchedule",
+       "why": "학사일정 2027.02에 '학위수여 인정일'(02.20 토)만 있고 학위수여식(행사) 항목 없음"
+      }
+     ]
+    },
+    {
+     "name": "한국체육대학교",
+     "kind": "대학교",
+     "website": "www.knsu.ac.kr/",
+     "campuses": [
+      {
+       "id": "U:한국체육대학교|서울특별시 송파구 양재대로 1239",
+       "campus": "본교",
+       "address": "서울특별시 송파구 양재대로 1239",
+       "tried_url": "https://www.knsu.ac.kr/knsu/academic/academic-schedule.do",
+       "why": "학부 학사일정 달력 2027년 2월에 일정 없음(2026학년도 전기 학위수여식 미게시)"
+      }
+     ]
+    },
+    {
+     "name": "홍익대학교",
+     "kind": "대학교",
+     "website": "www.hongik.ac.kr",
+     "campuses": [
+      {
+       "id": "U:홍익대학교|세종특별자치시 조치원읍 세종로 2639",
+       "campus": "제2캠퍼",
+       "address": "세종특별자치시 조치원읍 세종로 2639",
+       "tried_url": "https://www.hongik.ac.kr/kr/education/academic-schedule001.do",
+       "why": "대학 학사일정(통합)에는 2027-02-22(월) 학위수여식 하나뿐이고 캠퍼스 구분 없음. 세종캠퍼스 별도 식 여부는 사이트에서 확인 안 됨(같은 날로 볼지 사람 확인 필요)"
+      }
+     ]
+    },
+    {
+     "name": "광주가톨릭대학교",
+     "kind": "대학교",
+     "website": "www.gjc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:광주가톨릭대학교|전라남도 나주시 남평읍 중남길 12-25",
+       "campus": "본교",
+       "address": "전라남도 나주시 남평읍 중남길 12-25",
+       "tried_url": "https://www.gjc.ac.kr/sub/2311",
+       "why": "공식 사이트 학사정보 메뉴(학사안내·교육과정 등)에 학사일정 페이지가 없음"
+      }
+     ]
+    },
+    {
+     "name": "영산선학대학교",
+     "kind": "대학교",
+     "website": "www.youngsan.ac.kr",
+     "campuses": [
+      {
+       "id": "U:영산선학대학교|전라남도 영광군 백수읍 성지로 1357",
+       "campus": "본교",
+       "address": "전라남도 영광군 백수읍 성지로 1357",
+       "tried_url": "https://youngsan.ac.kr/bbs/content.php?co_id=4_1",
+       "why": "학사일정(구글 달력) 2027년 1·2월에 학위수여식 항목 없음(2월 초 이후 일정 비어 있음, 미게시로 보임)"
+      }
+     ]
+    },
+    {
+     "name": "원광디지털대학교",
+     "kind": "대학교",
+     "website": "www.wdu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:원광디지털대학교|전북특별자치도 익산시 익산대로 460",
+       "campus": "본교",
+       "address": "전북특별자치도 익산시 익산대로 460",
+       "tried_url": "https://www.wdu.ac.kr/informationD/schedule/scheduleAll.do",
+       "why": "학사일정 전체보기가 2026년 1~12월만 게시(2027년 2월 미게시). 참고: 2026.2.21(토) 학위 수여식"
+      }
+     ]
+    },
+    {
+     "name": "전주교육대학교",
+     "kind": "대학교",
+     "website": "www.jnue.kr",
+     "campuses": [
+      {
+       "id": "U:전주교육대학교|전북특별자치도 전주시 완산구 서학로 50",
+       "campus": "본교",
+       "address": "전북특별자치도 전주시 완산구 서학로 50",
+       "tried_url": "https://www.jnue.kr/portal/jnue/bbs/list.do?menuId=M0004000600000000",
+       "why": "학사일정 달력 2027년 2월·2026년 2월·11월 모두 '등록된 정보가 없습니다'(달력에 일정 자체가 안 올라옴)"
+      }
+     ]
+    },
+    {
+     "name": "제주국제대학교",
+     "kind": "대학교",
+     "website": "www.jeju.ac.kr",
+     "campuses": [
+      {
+       "id": "U:제주국제대학교|제주특별자치도 제주시 516로 2870",
+       "campus": "본교",
+       "address": "제주특별자치도 제주시 516로 2870",
+       "tried_url": "https://www.jeju.ac.kr/life/bachelor/schedule.htm?pc=true&act=view&seq=29710",
+       "why": "2026학년도 학사일정은 게시판 첨부 PDF(내려받기 링크)로만 있어 브라우저에서 열람 못 함(파일 저장 금지)"
+      }
+     ]
+    },
+    {
+     "name": "선문대학교",
+     "kind": "대학교",
+     "website": "www.sunmoon.ac.kr",
+     "campuses": [
+      {
+       "id": "U:선문대학교|충청남도 아산시 탕정면 선문로221번길 70",
+       "campus": "본교",
+       "address": "충청남도 아산시 탕정면 선문로221번길 70",
+       "tried_url": "https://lily.sunmoon.ac.kr/Page2/Story/SMEvents.aspx",
+       "why": "본교 캘린더 2027년 2월에 '2026-전기 졸업일 02.18(목)'만 있고 학위수여식(행사) 표기 없음. 졸업일=행사일인지 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "건국대학교(글로컬)",
+     "kind": "대학교",
+     "website": "www.kku.ac.kr",
+     "campuses": [
+      {
+       "id": "U:건국대학교(글로컬)|충청북도 충주시 충원대로 268",
+       "campus": "분교",
+       "address": "충청북도 충주시 충원대로 268",
+       "tried_url": "https://www.kku.ac.kr/cms/FR_CON/index.do?MENU_ID=1350&SCH_GBN=SUM&SCH_YEAR=2027",
+       "why": "연간주요일정 2027년 목록에 '동계방학'만 있고 학위수여식 미게시(2026년 2월엔 02.20 전기 학위수여식 있었음)"
+      }
+     ]
+    },
+    {
+     "name": "중원대학교",
+     "kind": "대학교",
+     "website": "www.jwu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:중원대학교|충청북도 괴산군 괴산읍 문무로 85",
+       "campus": "본교",
+       "address": "충청북도 괴산군 괴산읍 문무로 85",
+       "tried_url": "https://www.jwu.ac.kr/academic-affairs/academic-calendar/undergraduate-calendar",
+       "why": "새 홈페이지 학부일정(연간) 2027년 2월 '등록된 일정이 없습니다'. 2026년에도 학위수여식 표기 없음(입시 일정 위주). 구 홈페이지는 502 오류"
+      }
+     ]
+    },
+    {
+     "name": "강원관광대학교",
+     "kind": "전문대학",
+     "website": "www.kt.ac.kr",
+     "campuses": [
+      {
+       "id": "U:강원관광대학교|강원특별자치도 태백시 대학길 97",
+       "campus": "본교",
+       "address": "강원특별자치도 태백시 대학길 97",
+       "tried_url": "https://main.kt.ac.kr/kt2012/graduate/schedule.asp",
+       "why": "내장 브라우저에서도 사이트 열기 실패(main.kt.ac.kr·www.kt.ac.kr, http/https 모두 접속 안 됨)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 III 대학 강릉캠퍼스",
+     "kind": "전문대학",
+     "website": "kopo.ac.kr/gangneung",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 III 대학 강릉캠퍼스|강원특별자치도 강릉시 남산초교길 121",
+       "campus": "본교",
+       "address": "강원특별자치도 강릉시 남산초교길 121",
+       "tried_url": "https://www.kopo.ac.kr/gangneung/content.do?menu=2680",
+       "why": "학사일정 달력 2027년 1·2월에 학위수여식 없음(2027.1월은 현장실습만, 2월은 일정 없음) — 2026학년도 학위수여식 미게시"
+      }
+     ]
+    },
+    {
+     "name": "한림성심대학교",
+     "kind": "전문대학",
+     "website": "www.hsc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한림성심대학교|강원특별자치도 춘천시 동면 장학길 48",
+       "campus": "본교",
+       "address": "강원특별자치도 춘천시 동면 장학길 48",
+       "tried_url": "https://www.hsc.ac.kr/site/hsc/schedule.do?key=97&syear=2027&smonth=2&code=hsc",
+       "why": "학사일정 달력 2027년 1·2월 모두 '일정이 존재하지 않습니다'(2026학년도 학위수여식 미게시)"
+      }
+     ]
+    },
+    {
+     "name": "ICT폴리텍대학",
+     "kind": "전문대학",
+     "website": "www.ict.ac.kr",
+     "campuses": [
+      {
+       "id": "U:ICT폴리텍대학|경기도 광주시 순암로 16-26",
+       "campus": "본교",
+       "address": "경기도 광주시 순암로 16-26",
+       "tried_url": "https://www.ict.ac.kr/calendar/schedule",
+       "why": "학사일정 달력 2027년 1·2월에 동계방학·현장실습만 있고 학위수여식 미게시"
+      }
+     ]
+    },
+    {
+     "name": "국제대학교",
+     "kind": "전문대학",
+     "website": "www.kookje.ac.kr",
+     "campuses": [
+      {
+       "id": "U:국제대학교|경기도 평택시 장안웃길 56",
+       "campus": "본교",
+       "address": "경기도 평택시 장안웃길 56",
+       "tried_url": "https://www.kookje.ac.kr/kor/index.php?pCode=schedule&mode=listall&y=2027&m=2&vtype=list",
+       "why": "학사일정 2027년 2월 '등록된 일정이 없습니다'. 2026년 전체 목록에도 학위수여식 없음(달력에 일정이 거의 안 올라옴)"
+      }
+     ]
+    },
+    {
+     "name": "동서울대학교",
+     "kind": "전문대학",
+     "website": "www.du.ac.kr",
+     "campuses": [
+      {
+       "id": "U:동서울대학교|경기도 성남시 수정구 복정로 76",
+       "campus": "본교",
+       "address": "경기도 성남시 수정구 복정로 76",
+       "tried_url": "https://www.du.ac.kr/submenu.do?menuUrl=mk%2F8AIUzCNRzSS+QycenWQ%3D%3D",
+       "why": "학사일정 달력이 달력연도 기준, 2026년엔 02-12(목) 학위수여식(2025학년도분)만, 2027년 달력은 비어 있음(미게시)"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "batch": 3,
+   "universities": [
+    {
+     "name": "동아방송예술대학교",
+     "kind": "전문대학",
+     "website": "www.dima.ac.kr",
+     "campuses": [
+      {
+       "id": "U:동아방송예술대학교|경기도 안성시 삼죽면 동아예대길 47",
+       "campus": "본교",
+       "address": "경기도 안성시 삼죽면 동아예대길 47",
+       "tried_url": "https://www.dima.ac.kr/?p=78",
+       "why": "학사일정이 2026년(1~12월)만 게시, 2027년 2월 미게시. 참고: 02.24 2025학년도 전기 학위수여식"
+      }
+     ]
+    },
+    {
+     "name": "부천대학교",
+     "kind": "전문대학",
+     "website": "www.bc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:부천대학교|경기도 부천시 원미구 신흥로56번길 25",
+       "campus": "본교",
+       "address": "경기도 부천시 원미구 신흥로56번길 25",
+       "tried_url": "https://bc.ac.kr/bcu/academic/schedule.do",
+       "why": "월별 학사일정 달력을 2027년 1~3월로 넘겨 봤으나 일정 없음(2026년 12월까지만 게시)"
+      }
+     ]
+    },
+    {
+     "name": "서정대학교",
+     "kind": "전문대학",
+     "website": "www.seojeong.ac.kr",
+     "campuses": [
+      {
+       "id": "U:서정대학교|경기도 양주시 은현면 서정로 27",
+       "campus": "본교",
+       "address": "경기도 양주시 은현면 서정로 27",
+       "tried_url": "https://seojeong.ac.kr/main/campus-life/academic-information.do?cYear=2027&month=&mode=list",
+       "why": "학사일정 2027년 목록이 '등록된 일정이 없습니다'(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "웅지세무대학교",
+     "kind": "전문대학",
+     "website": "www.wat.ac.kr",
+     "campuses": [
+      {
+       "id": "U:웅지세무대학교|경기도 파주시 탄현면 웅지로144번길 73",
+       "campus": "본교",
+       "address": "경기도 파주시 탄현면 웅지로144번길 73",
+       "tried_url": "https://wat.ac.kr/ko/academic/schedule/",
+       "why": "2학기 일정은 2026.12.31까지만, 2027년 2월 월간은 '등록된 일정이 없습니다'(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "한국관광대학교",
+     "kind": "전문대학",
+     "website": "www.ktc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국관광대학교|경기도 이천시 신둔면 이장로311번길 197-73",
+       "campus": "본교",
+       "address": "경기도 이천시 신둔면 이장로311번길 197-73",
+       "tried_url": "http://www.ktc.ac.kr/board/view/202108170007/202607294817",
+       "why": "학사공지 '2026학년도 2학기 학사일정 안내'에 '2027년 전기 졸업 2027.02.11(목)'(목요일 일치)만 있고 '학위수여식' 표현 없음 → 졸업일인지 행사일인지 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 II 대학 화성캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/hwaseong",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 II 대학 화성캠퍼스|경기도 화성시 만세구 팔탄면 제암고주로 108",
+       "campus": "본교",
+       "address": "경기도 화성시 만세구 팔탄면 제암고주로 108",
+       "tried_url": "https://www.kopo.ac.kr/hwaseong/content.do?menu=7044",
+       "why": "학사일정(menu=7044)은 첨부 문서뿐이고 '2026학년도 전문기술과정 학사일정'(수료식 12.17.)만 있음, 학위과정 학위수여식 정보 없음"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 특성화대학 반도체융합캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/semi",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 특성화대학 반도체융합캠퍼스|경기도 안성시 공도읍 송원길 41-12",
+       "campus": "본교",
+       "address": "경기도 안성시 공도읍 송원길 41-12",
+       "tried_url": "https://www.kopo.ac.kr/semi/content.do?menu=3273",
+       "why": "학사일정 달력에 일정 자체가 안 올라옴(2026년 11월·2027년 1~2월 모두 '등록된 일정이 없습니다')"
+      }
+     ]
+    },
+    {
+     "name": "마산대학교",
+     "kind": "전문대학",
+     "website": "www.masan.ac.kr",
+     "campuses": [
+      {
+       "id": "U:마산대학교|경상남도 창원시 마산회원구 내서읍 함마대로 2640",
+       "campus": "본교",
+       "address": "경상남도 창원시 마산회원구 내서읍 함마대로 2640",
+       "tried_url": "https://www.masan.ac.kr/kor/CMS/ScheduleMgr/YearList.do?mCode=MN021&calendar_year=2027&calendar_month=2",
+       "why": "연간일정 2027년 2월에 설날·대체휴일만 있고 학위수여식 아직 미게시(2026년엔 제67회 학위수여식 있었음)"
+      }
+     ]
+    },
+    {
+     "name": "한국승강기대학교",
+     "kind": "전문대학",
+     "website": "www.klc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국승강기대학교|경상남도 거창군 거창읍 운정1길 120",
+       "campus": "본교",
+       "address": "경상남도 거창군 거창읍 운정1길 120",
+       "tried_url": "https://klc.ac.kr/klc/web/content.do?proFn=25100000",
+       "why": "학사안내 '2026년 2학기' 학사일정이 2027.01.15까지만 게시, 2027년 2월 학위수여식 미게시"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 VII 대학 진주캠퍼스",
+     "kind": "전문대학",
+     "website": "jinju.kopo.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 VII 대학 진주캠퍼스|경상남도 진주시 모덕로 299",
+       "campus": "본교",
+       "address": "경상남도 진주시 모덕로 299",
+       "tried_url": "https://www.kopo.ac.kr/jinju/content.do?menu=6747",
+       "why": "학사일정 달력 2027년 1~2월에 학위수여식 없음. 2월엔 '02-03 [공통]전문기술.하이테크과정 수료식('24학년도)'만(학위과정 아님, 학년도 표기 이상)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 VII 대학 창원캠퍼스",
+     "kind": "전문대학",
+     "website": "changwon.kopo.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 VII 대학 창원캠퍼스|경상남도 창원시 성산구 외동반림로 51-88",
+       "campus": "본교",
+       "address": "경상남도 창원시 성산구 외동반림로 51-88",
+       "tried_url": "https://www.kopo.ac.kr/changwon/content.do?menu=3369",
+       "why": "학사일정 달력 2027년 1~2월에 학위수여식 없음(동계방학 12-14~02-26, P-TECH 수업기간만), 미게시"
+      }
+     ]
+    },
+    {
+     "name": "문경대학교",
+     "kind": "전문대학",
+     "website": "www.mkc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:문경대학교|경상북도 문경시 호계면 대학길 161",
+       "campus": "본교",
+       "address": "경상북도 문경시 호계면 대학길 161",
+       "tried_url": "https://www.mkc.ac.kr/?page_id=1593&kboard_id&yr=2027&month=2&dy&cid=mc-eebc9a21598585f5d8bea2ab08144d58",
+       "why": "학사일정 달력 2027년 2월에 '2025학년도 전기 학위수여식(5, 예정)' 표기(설연휴 8~9·2027학년도 입학식과 같은 달) → 2027-02-05(금) 유력하나 학년도 표기가 2025로 잘못돼 있어 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "성운대학교",
+     "kind": "전문대학",
+     "website": "www.sw.ac.kr",
+     "campuses": [
+      {
+       "id": "U:성운대학교|경상북도 영천시 신녕면 대학길 105",
+       "campus": "본교",
+       "address": "경상북도 영천시 신녕면 대학길 105",
+       "tried_url": "https://sw.ac.kr/sw/academic/schedule.do?mode=list&siteId=sw&selectedYear=2026",
+       "why": "학사일정 표에 2027년 2월은 '13(토) 졸업일자'만 있고 학위수여식 행사 표기 없음(2026년 8월은 '22(토) 학위수여'가 따로 있음)"
+      }
+     ]
+    },
+    {
+     "name": "영남외국어대학",
+     "kind": "전문대학",
+     "website": "www.yflc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:영남외국어대학|경상북도 경산시 남천면 남천로 780-9",
+       "campus": "본교",
+       "address": "경상북도 경산시 남천면 남천로 780-9",
+       "tried_url": "http://www.yflc.ac.kr/schedule/CA.htm?CA_CLS=CA0001&CUMENUCODE=000000006711",
+       "why": "http 주소로 열림. 학사일정 달력은 연도 선택이 2024년까지뿐이고 2026(DY=2026)도 일정이 비어 있음. '학사일정관리'는 로그인 필요"
+      }
+     ]
+    },
+    {
+     "name": "포항대학교",
+     "kind": "전문대학",
+     "website": "www.pohang.ac.kr",
+     "campuses": [
+      {
+       "id": "U:포항대학교|경상북도 포항시 북구 흥해읍 포항대학로 7",
+       "campus": "본교",
+       "address": "경상북도 포항시 북구 흥해읍 포항대학로 7",
+       "tried_url": "https://www.pohang.ac.kr/main/module/schedule/index.do?nav_code=mai1758228694",
+       "why": "학사력 달력 2027년 1~3월 '등록된 일정이 없습니다'(12월 기말고사까지만). '2026학년도 학사일정 공지'(idx=9628) 첨부 PDF는 다운로드 방식이라 열지 않음"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 VI 대학 영주캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/yeongju",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 VI 대학 영주캠퍼스|경상북도 영주시 가흥로 2",
+       "campus": "본교",
+       "address": "경상북도 영주시 가흥로 2",
+       "tried_url": "https://www.kopo.ac.kr/yeongju/content.do?menu=6210",
+       "why": "2027년 전체 학사일정에 학위수여식 없음. '02-03 [공통][전문기술] 2026학년도 수료식'만 있음(전문기술과정 수료식, 학위과정 여부 확인 필요)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 특성화대학 로봇캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/robot/index.do",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 특성화대학 로봇캠퍼스|경상북도 영천시 로봇캠퍼스로 1",
+       "campus": "본교",
+       "address": "경상북도 영천시 로봇캠퍼스로 1",
+       "tried_url": "https://www.kopo.ac.kr/robot/content.do?menu=9071",
+       "why": "학사일정 달력 2027년 1~3월 '등록된 일정이 없습니다'(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "호산대학교",
+     "kind": "전문대학",
+     "website": "www.hosan.ac.kr",
+     "campuses": [
+      {
+       "id": "U:호산대학교|경상북도 경산시 하양읍 대경로105길 19",
+       "campus": "본교",
+       "address": "경상북도 경산시 하양읍 대경로105길 19",
+       "tried_url": "https://www.hosan.ac.kr/front/bachelor/calendar.php?sc_year=2027&sc_month=2",
+       "why": "학사일정 달력이 열리나 2026년 11월·2027년 2월 모두 '등록된 일정이 없습니다'(달력에 일정 자체가 거의 없음)"
+      }
+     ]
+    },
+    {
+     "name": "대구과학대학교",
+     "kind": "전문대학",
+     "website": "www.tsu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대구과학대학교|대구광역시 북구 영송로 47",
+       "campus": "본교",
+       "address": "대구광역시 북구 영송로 47",
+       "tried_url": "https://www.tsu.ac.kr/tsumain/contents/haksaplan/20/2027",
+       "why": "학사일정 2027년 목록에 학위수여식 아직 없음(휴복학·등록기간만, 미게시). 참고: 2026년 02-12 제63회 학위수여식(2025학년도분)"
+      }
+     ]
+    },
+    {
+     "name": "대구보건대학교",
+     "kind": "전문대학",
+     "website": "www.dhc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:대구보건대학교|대구광역시 북구 영송로 15",
+       "campus": "본교",
+       "address": "대구광역시 북구 영송로 15",
+       "tried_url": "https://www.dhc.ac.kr/dhc/info/info02.jsp",
+       "why": "학사일정이 2026년(1~12월)만 게시, 연도 넘김 없음. 2027년 2월 미게시. 참고: 02월 06일 졸업식(2026년, 2025학년도분)"
+      }
+     ]
+    },
+    {
+     "name": "영진사이버대학교",
+     "kind": "전문대학",
+     "website": "www.ycu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:영진사이버대학교|대구광역시 북구 복현로 35",
+       "campus": "본교",
+       "address": "대구광역시 북구 복현로 35",
+       "tried_url": "https://www.ycc.ac.kr/kor/CMS/ScheduleMgr/MonthList.do?mCode=MN031&calendar_year=2027&calendar_month=2",
+       "why": "사이트 주소가 ycc.ac.kr로 바뀜. 학사일정 2027년 2월 비어 있음(미게시, 2026년 12월까지만 게시)"
+      }
+     ]
+    },
+    {
+     "name": "경남정보대학교",
+     "kind": "전문대학",
+     "website": "www.kit.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경남정보대학교|부산광역시 사상구 주례로 45",
+       "campus": "본교",
+       "address": "부산광역시 사상구 주례로 45",
+       "tried_url": "https://www.kit.ac.kr/storage/public/docs/2026_KIT_academic_guide.pdf",
+       "why": "2026학년도 학사편람 PDF(34쪽)는 브라우저에서 열리나 작은 창에서 글 찾기·읽기가 안 됨. 홈페이지는 내용이 스크립트로만 떠서 학사일정 메뉴 못 찾음"
+      }
+     ]
+    },
+    {
+     "name": "부산여자대학교",
+     "kind": "전문대학",
+     "website": "www.bwc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:부산여자대학교|부산광역시 부산진구 진남로 506",
+       "campus": "본교",
+       "address": "부산광역시 부산진구 진남로 506",
+       "tried_url": "https://www.bwc.ac.kr/sch/sub04/sub0401_10.asp",
+       "why": "2026학년도 학사일정 표에서 2027년 1월·2월 칸이 비어 있음(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "부산예술대학교",
+     "kind": "전문대학",
+     "website": "www.busanarts.ac.kr",
+     "campuses": [
+      {
+       "id": "U:부산예술대학교|부산광역시 남구 못골번영로71번길 74",
+       "campus": "본교",
+       "address": "부산광역시 남구 못골번영로71번길 74",
+       "tried_url": "https://www.pia.ac.kr/page/sub04/sub0201.php?TREE_NO=1188&DEPTH=3&targetYear=2027&targetMonth=02",
+       "why": "사이트 주소가 pia.ac.kr로 바뀜. 학사일정 2027년 02월 일정 비어 있음(미게시). 참고: 2026년 02월 06일(금) 2025학년도 전기 학위수여식"
+      }
+     ]
+    },
+    {
+     "name": "성심외국어대학",
+     "kind": "전문대학",
+     "website": "www.sungsim.ac.kr",
+     "campuses": [
+      {
+       "id": "U:성심외국어대학|부산광역시 해운대구 반송순환로 142",
+       "campus": "본교",
+       "address": "부산광역시 해운대구 반송순환로 142",
+       "tried_url": "http://www.sungsim.ac.kr/",
+       "why": "홈페이지(http)는 열리나 공지사항·학사정보시스템(로그인) 링크뿐이고 학사일정 페이지 없음. 공지 게시판은 '비정상적인 접근'"
+      }
+     ]
+    },
+    {
+     "name": "서울여자간호대학교",
+     "kind": "전문대학",
+     "website": "www.snjc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:서울여자간호대학교|서울특별시 서대문구 간호대로 38",
+       "campus": "본교",
+       "address": "서울특별시 서대문구 간호대로 38",
+       "tried_url": "https://portal.snjc.ac.kr/main/?pages=haksa&sub=haksa09",
+       "why": "학사일정에 2027년 1·2월은 있으나 2월엔 설날·대체공휴일만, 학위수여식 아직 없음(1/11 진급 및 졸업사정회까지). 참고: 2026년 02.11(수) 제70회 학위수여식"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 I 대학 서울강서캠퍼스",
+     "kind": "전문대학",
+     "website": "kangseo.kopo.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 I 대학 서울강서캠퍼스|서울특별시 강서구 우장산로10길 112",
+       "campus": "본교",
+       "address": "서울특별시 강서구 우장산로10길 112",
+       "tried_url": "https://www.kopo.ac.kr/kangseo/content.do?menu=274",
+       "why": "학사일정 달력 2027년 1~3월 '등록된 일정이 없습니다'(미게시). 참고: 다른 폴리텍 캠퍼스 다수는 2027-02-03 학위수여식"
+      }
+     ]
+    },
+    {
+     "name": "한양여자대학교",
+     "kind": "전문대학",
+     "website": "www.hywoman.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한양여자대학교|서울특별시 성동구 살곶이길 200",
+       "campus": "본교",
+       "address": "서울특별시 성동구 살곶이길 200",
+       "tried_url": "https://www.hywoman.ac.kr/ko/cms/FrCon/index.do?MENU_ID=570",
+       "why": "학사일정 2027년으로 넘겨 확인, 학위수여식이 기간(2.11~2.17)으로만 표기되어 하루 날짜 특정 불가(학과별 분산 가능)"
+      }
+     ]
+    },
+    {
+     "name": "한국영상대학교",
+     "kind": "전문대학",
+     "website": "www.pro.ac.kr",
+     "campuses": [
+      {
+       "id": "U:한국영상대학교|세종특별자치시 장군면 대학길 300",
+       "campus": "본교",
+       "address": "세종특별자치시 장군면 대학길 300",
+       "tried_url": "https://www2.pro.ac.kr/koreapro/sv/schdulView/schdulHagsaCalendarView.do?mi=1080",
+       "why": "학사일정 2027년 선택 시 2월엔 설날·대체공휴일만 있고 학위수여식 미게시. 참고: 2026/02/05 2025학년도 전기 학위수여식"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 V 대학 순천캠퍼스",
+     "kind": "전문대학",
+     "website": "kopo.ac.kr/suncheon",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 V 대학 순천캠퍼스|전라남도 순천시 기적의도서관1길 41",
+       "campus": "본교",
+       "address": "전라남도 순천시 기적의도서관1길 41",
+       "tried_url": "https://www.kopo.ac.kr/suncheon/content.do?menu=3563",
+       "why": "학사일정 달력 2027년 전체 '등록된 일정이 없습니다'(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 V 대학 전북캠퍼스",
+     "kind": "전문대학",
+     "website": "www.kopo.ac.kr/jb/index.do",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 V 대학 전북캠퍼스|전북특별자치도 김제시 백학제길 154",
+       "campus": "본교",
+       "address": "전북특별자치도 김제시 백학제길 154",
+       "tried_url": "https://www.kopo.ac.kr/jb/content.do?menu=4444",
+       "why": "학사일정 달력 2027년 전체 '등록된 일정이 없습니다'(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "한국폴리텍 IV 대학 청주캠퍼스",
+     "kind": "전문대학",
+     "website": "kopo.ac.kr/cheongju",
+     "campuses": [
+      {
+       "id": "U:한국폴리텍 IV 대학 청주캠퍼스|충청북도 청주시 흥덕구 산단로 54",
+       "campus": "본교",
+       "address": "충청북도 청주시 흥덕구 산단로 54",
+       "tried_url": "https://www.kopo.ac.kr/cheongju/content.do?menu=6092",
+       "why": "학사일정 달력 2027년 전체에 학위수여식 없음(1월 현장실습 종료까지만 등록)"
+      }
+     ]
+    },
+    {
+     "name": "재능대학교",
+     "kind": "전문대학",
+     "website": "www.jeiu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:재능대학교|인천광역시 동구 재능로 178",
+       "campus": "본교",
+       "address": "인천광역시 동구 재능로 178",
+       "tried_url": "https://jeiu.ac.kr/campus/campus2_2.asp?y=2027&m=2",
+       "why": "학사일정 2027년 2월·전체 '등록된 일정이 없습니다'(미게시). 2026년 화면엔 2025학년도 전기 학위수여식만"
+      }
+     ]
+    },
+    {
+     "name": "목포과학대학교",
+     "kind": "전문대학",
+     "website": "www.msu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:목포과학대학교|전라남도 목포시 영산로 413-1",
+       "campus": "본교",
+       "address": "전라남도 목포시 영산로 413-1",
+       "tried_url": "https://www.msu.ac.kr/base/schedule/calendar?scheduleManagementNo=12&year=2027&month=2&menuLevel=2&menuNo=445",
+       "why": "본교 학사일정 달력 2027년 2월에 등록된 일정 없음(미게시)"
+      }
+     ]
+    },
+    {
+     "name": "전남도립대학교",
+     "kind": "전문대학",
+     "website": "www.dorip.ac.kr",
+     "campuses": [
+      {
+       "id": "U:전남도립대학교|전라남도 담양군 담양읍 죽녹원로 152",
+       "campus": "본교",
+       "address": "전라남도 담양군 담양읍 죽녹원로 152",
+       "tried_url": "https://dorm.dorip.ac.kr/rep/collegelife/academic/schedule.do",
+       "why": "내장 브라우저에서 dorm.dorip.ac.kr·www.dorip.ac.kr 모두 열리지 않음(navigation denied or failed)"
+      }
+     ]
+    },
+    {
+     "name": "원광보건대학교",
+     "kind": "전문대학",
+     "website": "www.wu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:원광보건대학교|전북특별자치도 익산시 익산대로 514",
+       "campus": "본교",
+       "address": "전북특별자치도 익산시 익산대로 514",
+       "tried_url": "https://www.wu.ac.kr/wu/1876/subview.do",
+       "why": "학사일정표(연간·월간) 2026학년도 전부 비어 있음(일정 미등록). 사이트 하단 주소가 원광대학교로 표기돼 원광대 통합 여부 확인 필요"
+      }
+     ]
+    },
+    {
+     "name": "제주한라대학교",
+     "kind": "전문대학",
+     "website": "www.chu.ac.kr",
+     "campuses": [
+      {
+       "id": "U:제주한라대학교|제주특별자치도 제주시 한라대학로 38",
+       "campus": "본교",
+       "address": "제주특별자치도 제주시 한라대학로 38",
+       "tried_url": "https://www.chu.ac.kr/main/sub04/sub02.php?year=2027&month=2",
+       "why": "학사일정 달력 2027년 2월 일정 비어 있음. 2026년 2월도 비어 있어 이 달력은 사실상 안 쓰는 것으로 보임(최근업데이트 2015-12-10 표기)"
+      }
+     ]
+    },
+    {
+     "name": "한국복지대학교",
+     "kind": "전문대학",
+     "website": "",
+     "campuses": [
+      {
+       "id": "U:한국복지대학교|경기도 평택시 삼남로 283",
+       "campus": "본교",
+       "address": "경기도 평택시 삼남로 283",
+       "tried_url": "https://www.hknu.ac.kr/kor/646/subview.do",
+       "why": "반영 보류(11/4): 2차(브라우저); 한경국립대학교(평택캠퍼스로 통합) 학부 학사일정 2027년 화면, 금요일 일치. 평택캠퍼스 따로 행사하는지는 미확인 / 후보 20270219"
+      }
+     ]
+    },
+    {
+     "name": "경남도립거창대학",
+     "kind": "전문대학",
+     "website": "www.gc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경남도립거창대학|경상남도 거창군 거창읍 거창대학로 72",
+       "campus": "본교",
+       "address": "경상남도 거창군 거창읍 거창대학로 72",
+       "tried_url": "https://www.changwon.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=10980",
+       "why": "반영 보류(11/4): 2차(브라우저); 국립창원대학교(거창캠퍼스로 통합) 학사일정 달력 2027년 2월 일정목록, 금요일 일치. 거창캠퍼스 따로 행사하는지는 미확인 / 후보 20270219"
+      }
+     ]
+    },
+    {
+     "name": "경남도립남해대학",
+     "kind": "전문대학",
+     "website": "www.namhae.ac.kr",
+     "campuses": [
+      {
+       "id": "U:경남도립남해대학|경상남도 남해군 남해읍 화전로78번길 30",
+       "campus": "본교",
+       "address": "경상남도 남해군 남해읍 화전로78번길 30",
+       "tried_url": "https://www.changwon.ac.kr/haksa/sv/schdulView/schdulCalendarView.do?mi=10980",
+       "why": "반영 보류(11/4): 2차(브라우저); 국립창원대학교(남해캠퍼스로 통합) 학사일정 달력 2027년 2월 일정목록, 금요일 일치. namhae.ac.kr 접속 실패. 남해캠퍼스 따로 행사하는지는 미확인 / 후보 20270219"
+      }
+     ]
+    },
+    {
+     "name": "조선간호대학교",
+     "kind": "전문대학",
+     "website": "www.cnc.ac.kr",
+     "campuses": [
+      {
+       "id": "U:조선간호대학교|광주광역시 동구 조선대2길 70",
+       "campus": "본교",
+       "address": "광주광역시 동구 조선대2길 70",
+       "tried_url": "https://www.cnc.ac.kr/page/?site=cnc&mn=30&year=2026",
+       "why": "반영 보류(11/4): 2차(브라우저); 2026년(학년도) 학사일정 표 끝부분(12월→01월→02월), 금요일 일치. 같은 표의 설날 02.15~17은 실제 2027 설과 달라 표 일부 오류 가능 / 후보 20270205"
+      }
+     ]
+    },
+    {
+     "name": "동아보건대학교",
+     "kind": "전문대학",
+     "website": "www.duh.ac.kr",
+     "campuses": [
+      {
+       "id": "U:동아보건대학교|전라남도 영암군 학산면 영산로 76-57",
+       "campus": "본교",
+       "address": "전라남도 영암군 학산면 영산로 76-57",
+       "tried_url": "https://www.duh.ac.kr/main/haksa_schedule.htm?g_years=2027&g_months=2",
+       "why": "반영 보류(11/4): 2차(브라우저); 2027년 학사일정 2월 목록에서 확인, 요일 표기 없음(2027-02-13은 토요일이라 확인 권장) / 후보 20270213"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
