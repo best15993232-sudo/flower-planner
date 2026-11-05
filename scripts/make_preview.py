@@ -60,12 +60,45 @@ function cardHtml(s){
     btn=`<button class="add ${n?'done':''}" data-open="${esc(s.id)}">${n?'✓ 담음':'날짜 입력'}</button>`;
   }
   const km=LOC?dist.get(s.id):null;
-  const meta=[km!=null?kmText(km):'',s.size&&s.size.grads?`졸업생 ${s.size.grads.toLocaleString('ko-KR')}명`:''].filter(Boolean).join(' · ');
+  const g=genderOf(s),meta=[esc(s.kind),GENDER_LABEL[g]||'',esc(shortAddr(s.address)),km!=null?kmText(km):''].filter(Boolean).join(' · ');
+  const sz=s.size&&s.size.students?[s.size.grads?`졸업생 ${s.size.grads.toLocaleString('ko-KR')}명`:'',`전체 ${s.size.students.toLocaleString('ko-KR')}명`].filter(Boolean).join(' · '):'';
   return `<article class="card row" data-card="${esc(s.id)}">${dateCol}
-  <div class="rmid"><div class="name">${esc(s.name)}</div><div class="rmeta">${esc(s.kind)}${meta?' · '+meta:''}</div><div class="rbdg">${badge}</div></div>${btn}</article>`;
+  <div class="rmid"><div class="name">${esc(s.name)}</div><div class="rmeta">${meta}</div>${sz?`<div class="rmeta rsize">${sz}</div>`:''}<div class="rbdg">${badge}</div></div>${btn}</article>`;
 }
 
 '''+s[b:]
+# ---- 월별 묶음 + 월 바로가기 (날짜순일 때) ----
+R("else if(st.sort==='date')m.sort((a,b)=>key(a).localeCompare(key(b))","else if(st.sort==='date')m.sort((a,b)=>(isOk(a)?a.dates[0]:'9'+key(a)).localeCompare(isOk(b)?b.dates[0]:'9'+key(b))")
+R("  $('list').innerHTML=L.slice(0,st.shown).map((x,i)=>cardHtml(x)+(i===4?promoHtml('list'):'')).join('')||",
+  "  const MG=monthGroups(L);if(MG)$('rc').innerHTML=`<div class=\"mjump\" id=\"mjump\">${MG.map(g=>`<button type=\"button\" data-jump=\"${g.m}\" aria-pressed=\"false\">${g.label} <span>${g.n.toLocaleString('ko-KR')}</span></button>`).join('')}</div>${LOC&&!q?`<button type=\"button\" class=\"rchip\" data-openf aria-label=\"거리 바꾸기\">반경 ${RADIUS}km <span aria-hidden=\"true\">▾</span></button>`:''}`;\n  $('list').innerHTML=L.slice(0,st.shown).map((x,i)=>(MG&&(i===0||monthOf(L[i-1])!==monthOf(x))?monthHead(MG.find(g=>g.m===monthOf(x))):'')+cardHtml(x)+(i===4?promoHtml('list'):'')).join('')||")
+R("  if(LOC&&reset)paintLoc();\n}","  if(LOC&&reset)paintLoc();\n  if(MG){setStk();onMonthScroll()}\n}\n"+r"""const monthOf=s=>isOk(s)?s.dates[0].slice(0,6):'none';
+function monthGroups(L){
+  if(st.sort!=='date'||VIEW==='map'||!L.length)return null;
+  const G=[];L.forEach((s,i)=>{const m=monthOf(s);let g=G[G.length-1];if(!g||g.m!==m)G.push(g={m,i,n:0,label:m==='none'?'미정':(+m.slice(4,6))+'월',head:m==='none'?'날짜 미정':(+m.slice(4,6))+'월'});g.n++});
+  return G;
+}
+const monthHead=g=>`<i class="manchor" data-anchor="${g.m}"></i><div class="mhead"><b>${g.head}</b><span>· ${g.m==='none'?'':'졸업식 '}${g.n.toLocaleString('ko-KR')}곳</span></div>`;
+function setStk(){const e=document.querySelector('.sticky');document.documentElement.style.setProperty('--stk',(e?e.offsetHeight:0)+'px')}
+let curMonth=null;
+function onMonthScroll(){
+  const bar=$('mjump');if(!bar)return;
+  const stk=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--stk'))||0;
+  const A=[...document.querySelectorAll('#list .manchor')];if(!A.length)return;
+  let m=A[0].dataset.anchor;for(const a of A){if(a.getBoundingClientRect().top<=stk+40)m=a.dataset.anchor;else break}
+  [...bar.children].forEach(b=>{const on=b.dataset.jump===m;b.setAttribute('aria-pressed',on);if(on&&m!==curMonth){const l=b.offsetLeft-bar.offsetLeft;if(l<bar.scrollLeft||l+b.offsetWidth>bar.scrollLeft+bar.clientWidth)bar.scrollLeft=l-12}});
+  curMonth=m;
+}
+let msRaf=0;addEventListener('scroll',()=>{if(msRaf)return;msRaf=requestAnimationFrame(()=>{msRaf=0;onMonthScroll()})},{passive:true});
+addEventListener('resize',()=>{setStk();onMonthScroll()});
+$('rc').addEventListener('click',e=>{
+  const b=e.target.closest('[data-jump]');if(!b)return;
+  const m=b.dataset.jump,G=monthGroups(st.list);if(!G)return;const g=G.find(x=>x.m===m);if(!g)return;
+  if(g.i>=st.shown){st.shown=g.i+PAGE;render(false)}
+  const a=document.querySelector(`#list .manchor[data-anchor="${m}"]`);if(!a)return;
+  const stk=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--stk'))||0;
+  scrollTo({top:a.getBoundingClientRect().top+scrollY-stk,behavior:'smooth'});
+});""")
+R("if(v==='map'){initMap();","if(v==='map'){render(false);initMap();")
 # ---- plan empty ----
 R('<div class="empty"><span class="big">🌷</span>아직 담은 일정이 없어요.','<div class="empty"><img class="emptyimg" src="images/freesia-empty.png" alt="" onerror="this.remove()">아직 담은 일정이 없어요.')
 # ---- css ----
@@ -137,6 +170,24 @@ body{background:var(--bg);color:var(--ink)}
 .bdg.today{background:var(--ink);color:#fff}
 .bdg.past{background:none;color:var(--ink3);border:1px solid var(--line);font-weight:600}
 #sort{color:var(--ink)}
+/* 담기 버튼: 안 담음 = 흰 바탕 + 크라프트 테두리, 담음 = 크라프트 채움 */
+.card.row .add[data-add]{background:#fff;color:var(--kraft-ink);border:1.5px solid var(--kraft)}
+.card.row .add.done{background:var(--kraft);color:var(--kraft-ink);border:1.5px solid var(--kraft)}
+/* 학교 정보 둘째 줄 */
+.rmeta.rsize{margin-top:1px}
+/* 월별 소제목·바로가기 */
+.manchor{display:block;height:0}
+.mhead{position:sticky;top:var(--stk,0px);z-index:5;display:flex;align-items:baseline;gap:6px;background:#F3EADB;margin:0 -14px;padding:9px 14px;border-bottom:1px solid var(--line)}
+.mhead b{color:var(--kraft-ink);font-size:14.5px;font-weight:700}
+.mhead span{color:var(--ink2);font-size:13px}
+.list>.manchor:first-child+.mhead{border-radius:10px 10px 0 0}
+.count #rc{min-width:0}
+.mjump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex:1;min-width:0;padding:2px 0}
+.mjump::-webkit-scrollbar{display:none}
+.mjump button{flex:none;height:34px;padding:0 12px;border-radius:8px;background:#fff;border:1.5px solid var(--line);color:var(--ink);font-size:13px;font-weight:700;white-space:nowrap}
+.mjump button span{font-weight:500;color:var(--ink2);margin-left:2px}
+.mjump button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.mjump button[aria-pressed=true] span{color:#ffffffcc}
 /* 내 일정 */
 .scard,.plansum,.backup{background:#fff;border-color:var(--line);border-radius:10px}
 .need{background:var(--kraft);color:var(--kraft-ink);border-radius:10px}
