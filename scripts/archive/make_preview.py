@@ -1,29 +1,35 @@
-import re
+# 보관용 (2026-11-05): 디자인 개편을 index.html 에 적용할 때 쓴 스크립트예요. 지금 index.html 은 이미 바뀌어 있어서 다시 돌리면 안 돼요.
+# 이전 디자인 원본: design-backup-20261105.html, git 태그 design-before-20261105
+import re,sys
+MAIN='--main' in sys.argv   # --main: 본판(index.html)용. 검색 허용·제목 유지·방문 통계 유지
 s=open('index.html',encoding='utf-8').read()
 def R(a,b,n=1):
     global s
     c=s.count(a); assert c==n,(c,a[:90]); s=s.replace(a,b)
 # ---- head ----
-R('<meta name="theme-color" content="#f6f5f0">','''<meta name="theme-color" content="#F6F1E7">
-<meta name="robots" content="noindex">
-<meta name="description" content="꽃집 사장님을 위한 졸업식 꽃 판매 플래너. 우리 가게 주변 초·중·고·대학 졸업식 날짜를 한눈에 보고 준비 수량까지 적어두세요.">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://best15993232-sudo.github.io/flower-planner/">
-<meta property="og:title" content="언제 졸업해? · 꽃 판매 플래너">
-<meta property="og:description" content="우리 가게 주변 졸업식 날짜를 한눈에. 전국 초·중·고·대학.">
-<meta property="og:image" content="https://best15993232-sudo.github.io/flower-planner/og-image.jpg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="언제 졸업해? · 꽃 판매 플래너">
-<meta name="twitter:description" content="우리 가게 주변 졸업식 날짜를 한눈에. 전국 초·중·고·대학.">
-<meta name="twitter:image" content="https://best15993232-sudo.github.io/flower-planner/og-image.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">''')
-R('<title>언제 졸업해? · 우리 동네 졸업식 날짜</title>','<title>[미리보기] 언제 졸업해? · 꽃 판매 플래너</title>')
-# remove analytics in preview
-s=re.sub(r'<!-- 방문 통계:.*?</script>\n','',s,flags=re.S)
+if MAIN:
+    R('<meta name="theme-color" content="#f6f5f0">','<meta name="theme-color" content="#F6F1E7">\n<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">')
+else:
+    R('<meta name="theme-color" content="#f6f5f0">','''<meta name="theme-color" content="#F6F1E7">
+    <meta name="robots" content="noindex">
+    <meta name="description" content="꽃집 사장님을 위한 졸업식 꽃 판매 플래너. 우리 가게 주변 초·중·고·대학 졸업식 날짜를 한눈에 보고 준비 수량까지 적어두세요.">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://best15993232-sudo.github.io/flower-planner/">
+    <meta property="og:title" content="언제 졸업해? · 꽃 판매 플래너">
+    <meta property="og:description" content="우리 가게 주변 졸업식 날짜를 한눈에. 전국 초·중·고·대학.">
+    <meta property="og:image" content="https://best15993232-sudo.github.io/flower-planner/og-image.jpg">
+    <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="언제 졸업해? · 꽃 판매 플래너">
+    <meta name="twitter:description" content="우리 가게 주변 졸업식 날짜를 한눈에. 전국 초·중·고·대학.">
+    <meta name="twitter:image" content="https://best15993232-sudo.github.io/flower-planner/og-image.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">''')
+    R('<title>언제 졸업해? · 우리 동네 졸업식 날짜</title>','<title>[미리보기] 언제 졸업해? · 꽃 판매 플래너</title>')
+    # remove analytics in preview
+    s=re.sub(r'<!-- 방문 통계:.*?</script>\n','',s,flags=re.S)
 # ---- header ----
 R('''  <div class="top">
     <div class="brand">🌸 언제 졸업해?</div>
@@ -184,5 +190,5 @@ body{background:var(--bg);color:var(--ink)}
 .card.row > .add{grid-column:3;grid-row:1;align-self:center;width:auto;margin:0}
 """
 R("</style>",css+"</style>")
-open('preview.html','w',encoding='utf-8').write(s)
+open('index.html' if MAIN else 'preview.html','w',encoding='utf-8').write(s)
 print('ok')
