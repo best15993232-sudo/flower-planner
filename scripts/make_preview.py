@@ -86,7 +86,9 @@ body{background:var(--bg);color:var(--ink)}
 .hero-sub2{margin:2px 0 0;font-size:12.5px;color:var(--ink2)}
 .hero-r{flex:none;width:120px;height:140px}
 .lace{width:100%;height:100%;border-radius:8px;background:radial-gradient(circle at 8px 8px,#fff 3px,transparent 3.5px) 0 0/16px 16px,var(--paper);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.lace img{width:100%;height:100%;object-fit:contain}
+.lace img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px #3a312822)}
+.lace:has(img){background:none;border:0;overflow:visible}
+.hero-r{width:128px;height:146px;margin-right:-6px}
 /* 위치 줄 */
 .locbar{background:#fff;border:1px solid var(--line);border-radius:10px;min-height:52px;padding:10px 12px}
 .locbar b{font-size:15px}
@@ -128,7 +130,7 @@ body{background:var(--bg);color:var(--ink)}
 .need{background:var(--ink);border-radius:10px}
 .need .pills button[aria-pressed=true]{background:var(--yellow);color:var(--yellow-ink)}
 .group h3 small,.group h3 small.far,.c-date .dd{color:var(--ink2)}
-.emptyimg{display:block;width:110px;height:110px;object-fit:contain;margin:0 auto 10px}
+.emptyimg{display:block;height:130px;width:auto;margin:0 auto 12px;filter:drop-shadow(0 2px 3px #3a312822)}
 /* 시트 */
 .sheet{background:var(--paper)}
 .links a,.links button{background:#fff;border:1px solid var(--line);border-radius:10px}
