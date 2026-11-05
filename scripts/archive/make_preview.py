@@ -1,5 +1,5 @@
 # 보관용 (2026-11-05): 디자인 개편을 index.html 에 적용할 때 쓴 스크립트예요. 지금 index.html 은 이미 바뀌어 있어서 다시 돌리면 안 돼요.
-# 이전 디자인 원본: design-backup-20261105.html, git 태그 design-before-20261105
+# 이전 디자인 원본: design-backup-20261105.html, 그 직전 커밋 051e121
 import re,sys
 MAIN='--main' in sys.argv   # --main: 본판(index.html)용. 검색 허용·제목 유지·방문 통계 유지
 s=open('index.html',encoding='utf-8').read()
