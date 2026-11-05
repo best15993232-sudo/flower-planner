@@ -349,7 +349,11 @@ details summary::after{content:" ▾"}
 .c-meta .badge{white-space:nowrap;flex:none}
 .count #rc{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
 .loc-cta{margin-top:8px;height:48px}
-.locbar.empty .loc-ch{display:none}
+.locbar.empty .loc-ch{visibility:hidden}
+.locbar .loc-ic{width:26px;height:26px;justify-content:center}
+#locSub{min-height:1.4em}
+.count{min-height:36px;display:flex;align-items:center}
+.list:has(.sk){min-height:130vh}
 .fnote{font-size:12px;color:var(--ink3);font-weight:600;margin-left:6px}
 .promo{display:grid;gap:4px;position:relative;padding:15px 16px;border-radius:var(--r);background:#fff8f3;border:1px solid #f3dccb;text-decoration:none;color:var(--ink);font-size:13px}
 .promo b{font-size:15px}.promo span{color:var(--ink2)}.promo u{color:var(--brand);font-weight:700;text-decoration:none;margin-top:2px}
@@ -1062,6 +1066,8 @@ function showLoadError(){
 }
 async function boot(){
   setLoading();
+  if(SHOP&&!DEMO&&!locChosen)LOC=shopLoc();   // 위치 줄을 데이터 오기 전에 미리 그려서 화면이 밀리지 않게
+  paintLoc();
   try{
     let d=window.__INLINE_DATA__;   // 미리보기용(파일 하나로 열 때). 실제 배포에서는 쓰지 않아요
     if(!d){
@@ -1171,7 +1177,7 @@ function paintLoc(){
   const name=LOC.kind==='shop'?'우리 가게':LOC.kind==='me'?'내 위치':LOC.kind==='map'?'지도에서 고른 곳':LOC.label;
   t.textContent=name;   // 위치 줄은 '어디'만. 거리는 목록 위 '반경' 알약과 필터에서 바꿔요
   const where=LOC.kind==='shop'?(LOC.name||LOC.addr):LOC.kind==='place'?(LOC.addr||''):LOC.addr;
-  sub.textContent=where?`${where} 주변 · 반경 ${RADIUS}km`:`반경 ${RADIUS}km 안 ${st.list.length.toLocaleString('ko-KR')}곳`;
+  sub.textContent=where?`${where} 주변 · 반경 ${RADIUS}km`:st.list.length?`반경 ${RADIUS}km 안 ${st.list.length.toLocaleString('ko-KR')}곳`:`반경 ${RADIUS}km`;
 }
 $('locbar').addEventListener('click',()=>openLoc(false));
 $('locCta').addEventListener('click',()=>openLoc(true));
