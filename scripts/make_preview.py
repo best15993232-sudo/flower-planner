@@ -41,7 +41,6 @@ R("  t.textContent=name;   // 위치 줄은 '어디'만. 거리는 목록 위 '�
 R("  sub.textContent=where?`${where} 주변 · 반경 ${RADIUS}km`:st.list.length?`반경 ${RADIUS}km 안 ${st.list.length.toLocaleString('ko-KR')}곳`:`반경 ${RADIUS}km`;",
   "  sub.textContent=where?name:'';")
 # ---- dday: no English ----
-R("return n<0?['지남',true]:n===0?['오늘',false]:['D-'+n,n>14]}","return n<0?['지남',true]:n===0?['오늘',false]:[n+'일 남음',n>14]}")
 # ---- school row ----
 a=s.index('function cardHtml(s){');b=s.index('function render(reset=true){')
 s=s[:a]+r'''const WD=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
@@ -51,7 +50,8 @@ function cardHtml(s){
   if(ok){
     const d=s.dates[0],dt=new Date(+d.slice(0,4),+d.slice(4,6)-1,+d.slice(6,8)),[dd,far]=dday(d),on=!!find(s.id,d);
     dateCol=`<div class="dcol"><span class="dm">${+d.slice(4,6)}월</span><b class="dd2">${+d.slice(6,8)}</b><span class="dw">${WD[dt.getDay()]}</span></div>`;
-    badge=`<span class="bdg ${far?'':'soon'}">${dd}</span>${suspect(s)?'<span class="bdg dash">날짜 확인 필요</span>':''}`;
+    const n0=Math.round((dt-new Date(new Date().toDateString()))/864e5);
+    badge=`<span class="bdg ${n0<0?'past':n0===0?'today':far?'':'soon'}">${n0===0?'오늘 졸업식':dd}</span>${suspect(s)?'<span class="bdg dash">날짜 확인 필요</span>':''}`;
     btn=`<button class="add ${on?'done':''}" data-add="${esc(s.id)}" aria-pressed="${on}">${on?'✓ 담음':'+ 담기'}</button>`;
   }else{
     const n=anySaved(s.id).length;
@@ -73,7 +73,7 @@ css=r"""
 /* ===== 미리보기: 빈티지 압화 다꾸 (꽃시세 사이트와 같은 계열) ===== */
 :root{--bg:#F6F1E7;--card:#FFFFFF;--paper:#FFFDF8;--line:#E2D7C5;--dot:#D9CEBD;--ink:#3A3128;--ink2:#8C7B66;--ink3:#9A8B78;
  --kraft:#C9A77C;--kraft-ink:#3A2A1A;--tape:rgba(232,214,170,.75);--yellow:#F6DE9B;--yellow-ink:#7A5410;--beige:#EFE7DA;
- --brand:#3A3128;--brand-d:#2a231c;--brand-soft:#EFE7DA;--rose:#3A3128;--rose-soft:#EFE7DA;--amber:#7A5410;--amber-soft:#F6DE9B;--muted:#F3ECE0}
+ --brand:#7A5A34;--brand-d:#5E4426;--brand-soft:#F1E6D3;--rose:#3A3128;--rose-soft:#EFE7DA;--amber:#7A5410;--amber-soft:#F6DE9B;--muted:#F3ECE0}
 body{background:var(--bg);color:var(--ink)}
 /* 제목 영역 */
 .hero{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:18px 0 12px;min-height:150px;max-height:170px}
@@ -125,10 +125,23 @@ body{background:var(--bg);color:var(--ink)}
 .card.row .add.alt{border-style:dashed}
 #mapcard .card.row{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
 .promo{background:#fff;border:1px dashed var(--line);border-radius:10px;margin:8px 0}
+/* 색 역할 되살리기: 크라프트 = 담기·내 일정 / 먹색 = 찾기·필터 / 베이지·회색 = 정보 / 노랑 = 14일 안 */
+.card.row .add{background:var(--kraft);color:var(--kraft-ink);border:0;font-weight:700}
+.card.row .add.done{background:#fff;color:var(--brand);border:1.5px solid var(--kraft)}
+.card.row .add[data-open]:not(.done){background:#fff;color:var(--ink);border:1.5px dashed var(--ink3)}
+[data-sheet-toggle],[data-save-candidate],[data-manual]:not(.soft),[data-ask-save],[data-go]{background:var(--kraft);color:var(--kraft-ink)}
+[data-sheet-toggle].soft,[data-manual].soft,.btn.soft{background:var(--brand-soft);color:var(--brand)}
+.search input:focus,.placebox input:focus{border-color:var(--ink)}
+.shop.on{border-color:var(--ink);background:#fff}
+.shop-dot{border-color:var(--ink)}
+.bdg.today{background:var(--ink);color:#fff}
+.bdg.past{background:none;color:var(--ink3);border:1px solid var(--line);font-weight:600}
+#sort{color:var(--ink)}
 /* 내 일정 */
 .scard,.plansum,.backup{background:#fff;border-color:var(--line);border-radius:10px}
-.need{background:var(--ink);border-radius:10px}
-.need .pills button[aria-pressed=true]{background:var(--yellow);color:var(--yellow-ink)}
+.need{background:var(--kraft);color:var(--kraft-ink);border-radius:10px}
+.need .pills button{background:#ffffff99;color:var(--kraft-ink);border-color:transparent}
+.need .pills button[aria-pressed=true]{background:var(--kraft-ink);color:#fff}
 .group h3 small,.group h3 small.far,.c-date .dd{color:var(--ink2)}
 .emptyimg{display:block;height:130px;width:auto;margin:0 auto 12px;filter:drop-shadow(0 2px 3px #3a312822)}
 /* 시트 */
@@ -139,7 +152,7 @@ body{background:var(--bg);color:var(--ink)}
 .tabbar{background:#FFFDF8;backdrop-filter:none;-webkit-backdrop-filter:none;border-top:1px solid var(--line)}
 .tabbar button,.tabbar .tab-shop{color:var(--ink3);font-weight:500}
 .tabbar button[aria-selected=true]{color:var(--ink);font-weight:700}
-#dot{background:var(--yellow);color:var(--yellow-ink)}
+#dot{background:var(--kraft);color:var(--kraft-ink)}
 .toast{background:var(--ink)}
 .toast button{color:var(--yellow)}
 .card.row .dcol{grid-column:1;grid-row:1}

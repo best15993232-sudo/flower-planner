@@ -452,6 +452,7 @@ details.other summary{padding:8px 0}
 
 .links.four a,.links.four button{height:var(--hs);line-height:1}
 @media (min-width:480px){.links.four{grid-template-columns:repeat(4,1fr)}}
+#sort .caret{font-size:11px;margin-left:2px;opacity:.7}
 </style>
 <script src="libs/leaflet/leaflet.js"></script>
 <script src="config.js"></script>
@@ -726,8 +727,8 @@ function cardHtml(s){
 function render(reset=true){
   if(reset){st.list=filtered();st.shown=PAGE}
   const L=st.list,q=$('q').value.trim();
-  $('rc').innerHTML=`<span><b>${L.length.toLocaleString('ko-KR')}</b>곳${LOC&&q?' · 전국에서 검색':''}${st.status==='confirmed'?' · 날짜 나온 곳':''}</span>${LOC&&!q?`<button type="button" class="rchip" data-openf aria-label="거리 바꾸기">반경 ${RADIUS}km <span aria-hidden="true">▾</span></button>`:''}`;
-  $('sort').textContent=SORT_NAME[st.sort]||'빠른 날짜순';
+  $('rc').innerHTML=`<span>${q&&LOC?'전국에서 찾은 ':''}${st.status==='confirmed'?'날짜 나온 학교':st.status==='pending'?'날짜 확인이 필요한 학교':'학교'} <b>${L.length.toLocaleString('ko-KR')}</b>곳</span>${LOC&&!q?`<button type="button" class="rchip" data-openf aria-label="거리 바꾸기">반경 ${RADIUS}km <span aria-hidden="true">▾</span></button>`:''}`;
+  $('sort').innerHTML=`${SORT_NAME[st.sort]||'빠른 날짜순'} <span class="caret" aria-hidden="true">▾</span>`;$('sort').setAttribute('aria-label','정렬 바꾸기: '+(SORT_NAME[st.sort]||'빠른 날짜순'));
   const nextR=[1,2,3,5,10,20].find(r=>r>RADIUS),wider=LOC&&nextR?`<button class="btn sm" type="button" data-wider style="margin:14px auto 0">${nextR}km로 넓혀 보기</button>`:'';
   $('list').innerHTML=L.slice(0,st.shown).map((x,i)=>cardHtml(x)+(i===4?promoHtml('list'):'')).join('')||
    `<div class="empty"><span class="big">🔍</span>조건에 맞는 학교가 없어요.<br>${LOC&&!q?`${RADIUS}km 안에는 없어요. 거리를 넓히거나 필터를 바꿔 보세요.`:st.status==='confirmed'?'필터에서 ‘졸업식 날짜: 전체’로 바꾸면 날짜가 아직 안 나온 학교도 보여요.':'검색어나 필터를 바꿔 보세요.'}${wider}</div>`;
@@ -802,7 +803,7 @@ function openSheet(id,keep){
   const mineHtml=mine.length?`<div class="sec"><h4>담아둔 날짜</h4>${mine.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><b>${fmt(r.date)}</b><button class="btn sm danger" data-rm="${esc(r.date)}">빼기</button></div>`).join('')}</div>`:'';
   $('sheet').innerHTML=`<button class="sheet-x" type="button" data-close aria-label="닫기">✕</button><div class="grab"></div>
     <div class="meta"><span class="badge">${esc(s.kind)}</span><span>${esc(s.region)}${isUniv(s)?'':' · '+esc(s.coedu||'')}</span></div>
-    <h2>${esc(s.name)}</h2><div class="addr">${esc(s.address)}</div>${sizeLine(s)}${s.size&&s.size.students?'<div class="src">학생 수: 교육부 학교알리미 2026년 공시</div>':''}
+    <h2>${esc(s.name)}</h2><div class="addr">${esc(s.address)}</div>${sizeLine(s)}
     <span class="pill ${tone==='ok'?'':tone}">${esc(label)}${isOk(s)&&s.checked?` · ${esc(s.checked.slice(5).replace('-','/'))} 확인`:''}</span>
     ${body}${mineHtml}
     <div class="sec"><h4>학교 위치 · 정보</h4>
@@ -813,7 +814,7 @@ function openSheet(id,keep){
     </div>
     ${loc&&KAKAO_KEY?`<div id="kwrap" hidden><div id="kview" class="kview"></div><p class="hint" id="khint" style="margin-top:6px"></p></div>`:''}
     ${site&&s.siteWarn?`<p class="hint" style="margin:8px 2px 0">학교 홈페이지가 요즘 잘 안 열려요. 안 열리면 <a href="${esc(search)}" target="_blank" rel="noopener noreferrer">카카오맵에서 학교 검색</a></p>`:''}
-    <p class="notice">※ 목록에 있다고 해서 판매가 허용되는 장소는 아니에요. 판매 가능 여부는 직접 확인해 주세요. 지도 좌표는 출입구와 다를 수 있어요.</p></div>`;
+    <p class="notice">※ 목록에 있다고 해서 판매가 허용되는 장소는 아니에요. 판매 가능 여부는 직접 확인해 주세요. 지도 좌표는 출입구와 다를 수 있어요.${s.size&&s.size.students?' 학생 수는 교육부 학교알리미 2026년 공시 자료예요.':''}</p></div>`;
   $('toast').classList.remove('on');$('sheet').classList.add('on');$('scrim').classList.add('on');document.body.style.overflow='hidden';
   if(!keep)$('sheet').scrollTop=0;
 }
