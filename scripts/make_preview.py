@@ -51,7 +51,7 @@ function cardHtml(s){
     const d=s.dates[0],dt=new Date(+d.slice(0,4),+d.slice(4,6)-1,+d.slice(6,8)),[dd,far]=dday(d),on=!!find(s.id,d);
     dateCol=`<div class="dcol"><span class="dm">${+d.slice(4,6)}월</span><b class="dd2">${+d.slice(6,8)}</b><span class="dw">${WD[dt.getDay()]}</span></div>`;
     const n0=Math.round((dt-new Date(new Date().toDateString()))/864e5);
-    badge=`<span class="bdg ${n0<0?'past':n0===0?'today':far?'':'soon'}">${n0===0?'오늘 졸업식':dd}</span>${suspect(s)?'<span class="bdg dash">날짜 확인 필요</span>':''}`;
+    badge=`<span class="bdg ${n0<0?'past':n0===0?'today':far?'':'soon'}">${n0===0?'오늘 졸업식':dd}</span>${s.notice?'<span class="bdg note">학교 공지 확인</span>':''}${suspect(s)?'<span class="bdg dash">날짜 확인 필요</span>':''}`;
     btn=`<button class="add ${on?'done':''}" data-add="${esc(s.id)}" aria-pressed="${on}">${on?'✓ 담음':'+ 담기'}</button>`;
   }else{
     const n=anySaved(s.id).length;

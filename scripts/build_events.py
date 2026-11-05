@@ -60,8 +60,9 @@ def site_of(raw, st):
     return raw, st.get("fails", 0) >= 2
 
 
-def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
+def build(schools_doc, univ_doc, sources_doc, sizes, webst=None, notices=None):
     webst = webst or {}
+    notices = {n["id"]: n for n in (notices or [])}
     places, events = [], []
     raw, rev = schools_doc.get("rawEvents", {}), schools_doc.get("reviewDates", {})
 
@@ -84,6 +85,14 @@ def build(schools_doc, univ_doc, sources_doc, sizes, webst=None):
             cands = dates if dates else rev.get(s["id"], [])
             if cands: e["candidates"] = cands
             if s["id"] in raw: e["rawNames"] = raw[s["id"]]
+        n = notices.get(s["id"])
+        neis_date = e["date"]
+        if n and re.fullmatch(r"\d{8}", n.get("date") or "") and n["date"] != neis_date:
+            # 학교 공지(가정통신문 등)로 운영자가 확인한 날짜. 나이스 날짜가 같아지면 이 블록을 건너뛰어 나이스 표시로 돌아가요
+            e["status"], e["date"] = "confirmed", n["date"]
+            e.pop("candidates", None); e.pop("rawNames", None)
+            e["source"] = {"kind": "school_notice", "title": n.get("title") or "학교 공지", "url": n.get("url") or "",
+                           "checked": n.get("checked"), "neisDate": neis_date, "neisChecked": s.get("checked")}
         if s.get("winter"): e["winterStart"] = s["winter"]
         if s.get("prevDates"):
             e["history"] = [{"from": s["prevDates"], "at": s.get("changedAt")}]
@@ -141,7 +150,8 @@ def main():
     sz = load(D("place_sizes.json"), {}) or {}
     sizes = sz.get("sizes", {})
     webst = (load(D("website_status.json"), {}) or {}).get("sites", {})
-    places, events = build(schools_doc, univ_doc, sources, sizes, webst)
+    notices = (load(D("school_notices.json"), {}) or {}).get("notices", [])
+    places, events = build(schools_doc, univ_doc, sources, sizes, webst, notices)
     validate(places, events)
     upd = schools_doc.get("updatedAt") or date.today().isoformat()
     out = [("places.json", {"version": 1, "updatedAt": upd, "sizeYear": sz.get("year"), "sizeSource": sz.get("source"), "places": places}),
