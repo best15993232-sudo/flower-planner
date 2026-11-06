@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="언제 졸업해">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap">
 <meta name="description" content="꽃집 사장님을 위한 졸업식 꽃 판매 플래너. 우리 가게 주변 초·중·고·대학 졸업식 날짜를 한눈에 보고 준비 수량까지 적어두세요.">
@@ -596,7 +598,7 @@ body{background:var(--bg);color:var(--ink)}
   <div class="list" id="list"></div>
   <button class="more" id="more" hidden>더 보기</button>
   <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
-  <p class="foot contact">제휴·광고 문의 <a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a></p>
+  <p class="foot contact">운영 (주)베스트플라워 · 제휴·광고 문의 <a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a></p>
 </section>
 <section class="panel" id="p-plan">
   <div class="top">
@@ -1070,7 +1072,7 @@ $('plan').addEventListener('input',e=>{
 });
 function exportData(){
   const b=new Blob([JSON.stringify({app:'flower-planner-preview',version:1,exportedAt:new Date().toISOString(),items:saved},null,2)],{type:'application/json;charset=utf-8'});
-  const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='꽃판매_내일정_백업.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);toast('백업 파일을 저장했어요');
+  const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='언제졸업해_내일정_백업_'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);toast('백업 파일을 저장했어요');
 }
 $('file').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;const rd=new FileReader();
