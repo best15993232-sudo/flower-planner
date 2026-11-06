@@ -152,6 +152,9 @@ def main():
     webst = (load(D("website_status.json"), {}) or {}).get("sites", {})
     notices = (load(D("school_notices.json"), {}) or {}).get("notices", [])
     places, events = build(schools_doc, univ_doc, sources, sizes, webst, notices)
+    dongs = (load(D("place_dongs.json"), {}) or {}).get("dongs", {})   # 옛 주소 동 이름(검색용)
+    for p in places:
+        if dongs.get(p["id"]): p["dong"] = dongs[p["id"]]
     validate(places, events)
     upd = schools_doc.get("updatedAt") or date.today().isoformat()
     out = [("places.json", {"version": 1, "updatedAt": upd, "sizeYear": sz.get("year"), "sizeSource": sz.get("source"), "places": places}),

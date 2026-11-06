@@ -576,7 +576,7 @@ body{background:var(--bg);color:var(--ink)}
   <div class="sticky">
     <label class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="학교 이름으로 찾기 (전국)" autocomplete="off" enterkeyhint="search" aria-label="학교 이름 검색">
+      <input id="q" type="search" placeholder="학교 이름·동네로 찾기 (전국)" autocomplete="off" enterkeyhint="search" aria-label="학교 이름 검색">
     </label>
     <div class="toolbar">
       <button class="fbtn" id="fbtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>필터<span id="fcount"></span></button>
@@ -708,7 +708,7 @@ function joinPlaces(places,events){
     if(g.candidates)REVIEW_DATES[p.id]=g.candidates;
     if(g.rawNames)RAW_EVENTS[p.id]=g.rawNames;
     const h=(g.history||[])[0];
-    return {id:p.id,ptype:p.type,name:p.name,kind:p.kind,region:p.region,address:p.address,gender:p.gender,coedu:GENDER_TEXT[p.gender]||'',
+    return {id:p.id,ptype:p.type,name:p.name,kind:p.kind,region:p.region,address:p.address,dong:p.dong||'',gender:p.gender,coedu:GENDER_TEXT[p.gender]||'',
       website:p.website||'',siteWarn:!!p.siteWarn,lat:p.lat,lon:p.lon,size:p.size||null,
       status,dates:g.date?[g.date]:[],checked:(g.source||{}).checked||null,winter:g.winterStart,
       prevDates:h?h.from:undefined,changedAt:h?h.at:undefined,
@@ -786,13 +786,13 @@ const ALL_KINDS=['초등학교','중학교','고등학교','대학'];
 const st={status:'confirmed',kinds:new Set(ALL_KINDS),region:'',sort:'date',shown:PAGE,list:[],tab:'find',open:null};
 
 function filtered(){
-  const q=norm($('q').value);dist.clear();
+  const qs=$('q').value.trim().split(/\s+/).map(norm).filter(Boolean),q=qs.join('');dist.clear();   // 띄어 쓴 낱말은 모두 들어간 학교만 (예: '분당 정자동')
   let m=SCHOOL_DATA.filter(s=>{
     if(!st.kinds.has(UNIV_KINDS.includes(s.kind)?'대학':s.kind))return false;   // 여러 학교급을 같이 고를 수 있어요
     if(!passCoedu(s)||!passSize(s))return false;
     if(st.status==='confirmed'&&!isOk(s))return false;
     if(st.status==='pending'&&(isOk(s)||isNQ(s)))return false;
-    if(q&&!norm(s.name+s.address).includes(q))return false;
+    if(q){const h=norm(s.name+s.address+s.dong);if(!qs.every(w=>h.includes(w)))return false}   // 이름·도로명 주소·옛 주소 동 이름
     if(!rangeOK(s))return false;
     if(LOC){   // 기준 위치가 있으면 반경 안만. 학교 이름을 검색할 때는 전국에서 찾아요
       if(!Number.isFinite(s.lat))return false;
