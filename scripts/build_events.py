@@ -60,13 +60,17 @@ def site_of(raw, st):
     return raw, st.get("fails", 0) >= 2
 
 
-def build(schools_doc, univ_doc, sources_doc, sizes, webst=None, notices=None):
+def build(schools_doc, univ_doc, sources_doc, sizes, webst=None, notices=None, hidden=None):
+    hidden = hidden or {}
     webst = webst or {}
     notices = {n["id"]: n for n in (notices or [])}
     places, events = [], []
     raw, rev = schools_doc.get("rawEvents", {}), schools_doc.get("reviewDates", {})
 
     for s in schools_doc["schools"]:
+        # 졸업식이 없는 학교는 빼요: 주소가 빈 학교(설립 코드만 있는 곳 등)·휴교 학교. 학사일정이 생기면 다시 나와요
+        if (not (s.get("address") or "").strip() or s["id"] in hidden) and s.get("status") in ("No calendar data", "not_queried", None):
+            continue
         p = {"id": s["id"], "type": "school", "name": s["name"], "kind": s["kind"], "region": s["region"],
              "address": s["address"], "gender": school_gender(s.get("coedu")), "website": site_of(s.get("website"), webst.get(s["id"]))[0],
              "lat": s.get("lat"), "lon": s.get("lon")}
@@ -151,7 +155,8 @@ def main():
     sizes = sz.get("sizes", {})
     webst = (load(D("website_status.json"), {}) or {}).get("sites", {})
     notices = (load(D("school_notices.json"), {}) or {}).get("notices", [])
-    places, events = build(schools_doc, univ_doc, sources, sizes, webst, notices)
+    hidden = (load(D("hidden_places.json"), {}) or {}).get("hidden", {})
+    places, events = build(schools_doc, univ_doc, sources, sizes, webst, notices, hidden)
     dongs = (load(D("place_dongs.json"), {}) or {}).get("dongs", {})   # 옛 주소 동 이름(검색용)
     for p in places:
         if dongs.get(p["id"]): p["dong"] = dongs[p["id"]]
