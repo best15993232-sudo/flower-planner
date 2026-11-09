@@ -659,7 +659,7 @@ const DEMO=new URLSearchParams(location.search).has('demo');
 const KEY=DEMO?'flower-planner-demo-v1':'flower-planner-preview-2026-v1', PAGE=20;
 let SCHOOL_DATA=[],RAW_EVENTS={},REVIEW_DATES={},BY=new Map(),DATA_UPDATED='';
 const $=id=>document.getElementById(id);
-const AD_FORM_URL=''; // 광고·제휴 문의 구글 폼 주소. 비어 있으면 '문의 곧 열려요'로 보여요
+const AD_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSdPG1MrcbydgPr00D7yoUhPd6-cke0PmaVKIdL3R-ZM97ZcbQ/viewform'; // 광고·제휴 문의 구글 폼 주소. 비어 있으면 '문의 곧 열려요'로 보여요
 (()=>{const el=$('adq'),u=String(AD_FORM_URL||'').trim();if(!el||!/^https:\/\//i.test(u))return;
   const a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener noreferrer';a.textContent='광고·제휴 문의 ↗';a.className='nw';
   el.replaceWith(a);})();
