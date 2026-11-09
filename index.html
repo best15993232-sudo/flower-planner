@@ -376,6 +376,7 @@ details summary::after{content:" ▾"}
 #p-plan .promo{margin-bottom:14px}
 .pricelink{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:#ffffff22;border-radius:14px;padding:6px 12px;text-decoration:none}
 .foot.contact{margin-top:-4px;font-weight:600}
+.foot .nw{white-space:nowrap}
 .rchip{height:34px;padding:0 12px;border-radius:17px;background:#fff;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--brand)}
 .sl-km{font-size:13px;font-weight:700;color:var(--brand)}
 .sl-main .name::after{display:none}
@@ -597,7 +598,7 @@ body{background:var(--bg);color:var(--ink)}
   </div>
   <div class="list" id="list"></div>
   <button class="more" id="more" hidden>더 보기</button>
-  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a></p>
+  <p class="foot">출처: 나이스 학교기본정보·학사일정, 한국교육시설안전원 학교 위치, 한국대학교육협의회 대학 정보 (<span id="upd">—</span> 기준). 학생 수: 교육부 <a href="https://www.schoolinfo.go.kr/" target="_blank" rel="noopener noreferrer">학교알리미</a> 2026년 공시 ‘학년별·학급별 학생수’. 졸업식 날짜는 학교 사정에 따라 바뀔 수 있으니 학교 공지를 꼭 확인하세요. 학교 주변 판매 가능 여부는 직접 확인해야 합니다. <a href="privacy.html">개인정보처리방침·이용약관</a> · <span id="adq" class="nw">광고·제휴 문의 곧 열려요</span></p>
   <p class="foot contact">운영 (주)베스트플라워 · 제휴·광고 문의 <a href="mailto:contact@bestflower.co.kr">contact@bestflower.co.kr</a></p>
 </section>
 <section class="panel" id="p-plan">
@@ -658,6 +659,11 @@ const DEMO=new URLSearchParams(location.search).has('demo');
 const KEY=DEMO?'flower-planner-demo-v1':'flower-planner-preview-2026-v1', PAGE=20;
 let SCHOOL_DATA=[],RAW_EVENTS={},REVIEW_DATES={},BY=new Map(),DATA_UPDATED='';
 const $=id=>document.getElementById(id);
+/* 광고·제휴 문의 폼 주소 (구글 폼). 비어 있으면 '문의 곧 열려요'로 보여요 */
+const AD_FORM_URL='';
+(()=>{const el=$('adq');if(!el||!AD_FORM_URL)return;
+  const a=document.createElement('a');a.href=AD_FORM_URL;a.target='_blank';a.rel='noopener noreferrer';a.textContent='광고·제휴 문의 ↗';a.className='nw';
+  el.replaceWith(a);})();
 /* 선 아이콘 (이모지 대신 한 가지 모양으로) */
 const IC={
  pin:'<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
