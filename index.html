@@ -291,8 +291,13 @@ details summary::after{content:" ▾"}
 .active-chips:not(:empty){margin-top:8px}
 .coach{position:relative;margin-top:10px;background:#1d2b24;color:#fff;font-size:13px;border-radius:12px;padding:9px 12px;width:max-content;max-width:100%}
 .coach::before{content:"";position:absolute;top:-6px;left:22px;border:6px solid transparent;border-top:0;border-bottom-color:#1d2b24}
-.shopask{display:flex;align-items:center;gap:10px;justify-content:space-between;margin:0 0 12px;padding:12px 12px 12px 14px;border-radius:14px;background:#fff8e6;border:1.5px solid #f2dfae;font-size:13.5px;line-height:1.45}
-.shopask small{font-size:12px;color:var(--ink2)}
+.shopask{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t x" "a a" "d s";column-gap:12px;align-items:center;margin:0 0 12px;padding:12px 10px 12px 14px;border-radius:14px;background:#fff8e6;border:1.5px solid #f2dfae;font-size:14px;line-height:1.45}
+.shopask .sa-t{grid-area:t;font-weight:600}.shopask .sa-t em{font-style:normal;font-weight:800}
+.shopask .sa-x{grid-area:x;justify-self:end;width:28px;height:28px;margin:-4px -2px 0 0;border-radius:50%;font-size:13px;line-height:1;color:var(--ink3)}
+.shopask .sa-x:hover,.shopask .sa-x:focus-visible{background:#f2dfae66;color:var(--ink)}
+.shopask .sa-a{grid-area:a;font-size:12.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.shopask .sa-d{grid-area:d;font-size:12px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}
+.shopask .sa-s{grid-area:s;width:auto;margin:6px 0 0;padding:0 16px;white-space:nowrap}
 .shop-btns{display:flex;flex-direction:column;align-items:center;gap:2px;flex:none}
 .linkbtn.muted{color:var(--ink3);font-weight:600}
 .shop-edit{display:flex;justify-content:space-between;margin:4px 4px 0}
@@ -1400,7 +1405,7 @@ function paintShopAsk(){
   const ready=saved.length>0||(+flag('fp-locdays')||0)>=2;   // 처음 위치를 정한 직후엔 묻지 않아요. 일정을 담았거나, 다른 날 다시 위치를 정했을 때
   if(!LOC||LOC.kind==='shop'||LOC.approx||SHOP||shopAskOff||DEMO||!ready){b.innerHTML='';return}   // 대략적인 위치는 가게로 저장하라고 하지 않아요
   const where=LOC.kind==='place'?LOC.label:(LOC.addr||'');
-  b.innerHTML=`<div class="shopask"><span>${ic('flower',16)} 여기를 <b>우리 가게</b>로 저장할까요?${where?` <small>(${esc(where)})</small>`:''}<br><small>다음부터 열면 가게 주변 졸업식부터 보여드려요. 대강 맞아도 괜찮아요.</small></span><span class="shop-btns"><button class="btn sm" type="button" data-ask-save>저장</button><button class="linkbtn muted" type="button" data-ask-no>괜찮아요</button></span></div>`;
+  b.innerHTML=`<div class="shopask"><b class="sa-t">여기를 <em>우리 가게</em>로 저장할까요?</b><button class="sa-x" type="button" data-ask-no aria-label="닫기">✕</button>${where?`<span class="sa-a">${esc(where)}</span>`:''}<small class="sa-d">다음에도 이 주변부터 보여드려요.</small><button class="btn sm sa-s" type="button" data-ask-save>저장</button></div>`;
 }
 $('shopAsk').addEventListener('click',e=>{
   if(e.target.closest('[data-ask-save]')&&LOC){if(saveShop(LOC)){LOC=shopLoc();paintLoc();paintShopAsk();toast('우리 가게로 저장했어요. 위쪽 위치 줄에서 언제든 고칠 수 있어요')}return}
