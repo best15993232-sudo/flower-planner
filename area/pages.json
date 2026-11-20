@@ -1,7 +1,7 @@
 {
  "about": "지역 페이지 기록(내용 지문과 마지막 변경일). scripts/build_area_pages.py 가 관리해요.",
  "total": 12504,
- "dated": 10779,
+ "dated": 10780,
  "pages": {
   "area/11.html": {
    "hash": "2b2485e4e5e2babb",
@@ -220,8 +220,8 @@
    "changed": "2026-11-20"
   },
   "area/26.html": {
-   "hash": "716a4e2bf05d2692",
-   "changed": "2026-11-20"
+   "hash": "5839d49d87e9f5b8",
+   "changed": "2026-11-21"
   },
   "area/26110.html": {
    "hash": "2aa5d01c83f06598",
@@ -240,8 +240,8 @@
    "changed": "2026-11-20"
   },
   "area/26230.html": {
-   "hash": "295d3489586d852a",
-   "changed": "2026-11-20"
+   "hash": "bb1380fcb47888aa",
+   "changed": "2026-11-21"
   },
   "area/26260.html": {
    "hash": "f571c10f60eca57b",
@@ -1088,8 +1088,8 @@
    "changed": "2026-11-20"
   },
   "area/index.html": {
-   "hash": "1a877cc58d896298",
-   "changed": "2026-11-20"
+   "hash": "58dde515a6d9c87f",
+   "changed": "2026-11-21"
   },
   "qna.html": {
    "hash": "d9b689b542548b3d",
