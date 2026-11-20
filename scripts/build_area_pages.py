@@ -101,6 +101,12 @@ def area_name(code, names):
     return f"{SIDO[sd][1]} {n}"
 
 
+def local_name(code, names):
+    """시·도 안에서 쓰는 이름. 전남광주의 광주 구는 '광주 동구'처럼 (전남 시·군과 섞여서)."""
+    n = names[code]
+    return "광주 " + n if code[:2] == "12" and n.endswith("구") else n
+
+
 def stats(rows):
     dated = [r for r in rows if r["date"]]
     days = Counter(r["date"] for r in dated)
@@ -305,9 +311,9 @@ def build(schools, names, only):
         rs = [s for c in sidos[sd] for s in by_code[c]]
         t = stats(rs)
         rows = []
-        for c in sorted(sidos[sd], key=lambda c: names[c]):
+        for c in sorted(sidos[sd], key=lambda c: local_name(c, names)):
             u = stats(by_code[c])
-            nm = esc(names[c])
+            nm = esc(local_name(c, names))
             link = f'<a href="{rel(p, f"area/{c}.html")}">{nm}</a>' if c in published else nm
             top = f"{mds(u['top'][0][0])} {num(u['top'][0][1])}곳" if u["top"] else "-"
             rows.append(f'<tr><td class="k">{link}</td><td class="n">{num(u["total"])}</td><td class="n">{num(u["dated"])}</td><td>{top}</td></tr>')
@@ -347,10 +353,10 @@ def build(schools, names, only):
         h_name = an if sd != "36" else "세종특별자치시"
         crumbs = [("전국", rel(p, "area/index.html"))]
         if sd != "36": crumbs.append((SIDO[sd][0], rel(p, sido_page[sd]) if sd in sido_page else None))
-        crumbs.append((names[c] if sd != "36" else "세종특별자치시", None))
+        crumbs.append((local_name(c, names) if sd != "36" else "세종특별자치시", None))
         days = "".join(f'<tr><td class="d">{md(d)}</td><td class="n">{n}곳</td></tr>' for d, n in t["days"])
-        sib = [o for o in sorted(sidos[sd], key=lambda o: names[o]) if o != c and o in published]
-        sib_html = " ".join(f'<a href="{rel(p, f"area/{o}.html")}">{esc(names[o])}</a>' for o in sib)
+        sib = [o for o in sorted(sidos[sd], key=lambda o: local_name(o, names)) if o != c and o in published]
+        sib_html = " ".join(f'<a href="{rel(p, f"area/{o}.html")}">{esc(local_name(o, names))}</a>' for o in sib)
         body = f"""<h1>{esc(h_name)} 졸업식 날짜 2027</h1>
 <p class="lead">{esc(h_name)} 초·중·고 {num(sum(1 for r in rs if r['kind'] != '대학'))}곳의 졸업식 날짜{'와 대학 학위수여식' if any(r['kind'] == '대학' for r in rs) else ''}를 모았어요. 학교 이름을 누르면 지도·길찾기와 함께 볼 수 있고, 내 일정에 담을 수 있어요.</p>
 {summary_box(t)}
@@ -400,6 +406,75 @@ QNA = """<h1>졸업식 날짜, 자주 묻는 질문</h1>
 
 
 # ---------------------------------------------------------------- 검사·저장
+import re
+from urllib.parse import unquote
+
+
+def url_of(path):
+    return BASE + (path[:-len("index.html")] if path.endswith("index.html") else path)
+
+
+def sitemap(state_pages):
+    urls = [(BASE, None), (BASE + "privacy.html", None)]
+    urls += [(url_of(p), v["changed"]) for p, v in sorted(state_pages.items())]
+    rows = "\n".join(f"  <url><loc>{esc(u)}</loc>{f'<lastmod>{d}</lastmod>' if d else ''}</url>" for u, d in urls)
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{rows}\n</urlset>\n'
+
+
+def verify(texts, schools, only):
+    """만든 글을 원자료와 다시 맞춰 봐요. 하나라도 틀리면 오류 목록을 돌려줘요 (그러면 아무것도 안 씀)."""
+    err = []
+    ev = {e["place"]: e for e in load(D("data", "events.json"))["events"] if e.get("type") == "graduation"}
+    pl = {p["id"]: p for p in load(D("data", "places.json"))["places"]}
+    by_code = defaultdict(list)
+    for s in schools: by_code[s["code"]].append(s["id"])
+    seen = Counter()
+    for path, t in texts.items():
+        if not path.endswith(".html"): continue
+        if "noindex" in t: err.append(f"{path}: noindex 있음")
+        m = re.search(r'<link rel="canonical" href="([^"]+)">', t)
+        if not m or m.group(1) != url_of(path): err.append(f"{path}: canonical 다름")
+        ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', t).group(1))
+        if ld["itemListElement"][-1]["item"] != url_of(path): err.append(f"{path}: 구조화 데이터 마지막 주소 다름")
+        # 링크: 우리 사이트 안 링크는 모두 있는 파일로
+        for h in re.findall(r'href="([^"]+)"', t):
+            h = html.unescape(h)
+            if re.match(r"(https?:|mailto:|#)", h): continue
+            tgt = os.path.normpath(os.path.join(os.path.dirname(path), h.split("?")[0].split("#")[0]))
+            tgt = "index.html" if tgt in (".", "") else (tgt + "/index.html" if h.split("?")[0].endswith("/") or os.path.isdir(D(tgt)) else tgt)
+            if tgt not in texts and not os.path.exists(D(tgt)): err.append(f"{path}: 없는 페이지 링크 {h}")
+        if not re.fullmatch(r"area/\d{5}\.html", path): continue
+        code = path[5:10]
+        # 학교 줄: 원자료와 날짜·표시가 같은지
+        ids = []
+        for sid, cell in re.findall(r'<tr><td><a href="\.\./\?s=([^"]+)">[^<]*</a></td><td class="d">(.*?)</td>', t):
+            sid = unquote(html.unescape(sid)); ids.append(sid); seen[sid] += 1
+            e = ev.get(sid, {}); d = e.get("date"); src = (e.get("source") or {}).get("kind")
+            txt = re.sub(r"<[^>]+>", "|", cell)
+            if d:
+                if not txt.startswith(md(d)): err.append(f"{path}: {sid} 날짜 다름 ({txt} / {d})")
+                if (src == "school_notice") != ("학교 공지 확인" in txt): err.append(f"{path}: {sid} 학교 공지 표시 다름")
+                if pl[sid]["type"] == "campus" and src != "school_page": err.append(f"{path}: {sid} 대학인데 공식 확인 날짜가 아님")
+            elif "아직 미정" not in txt: err.append(f"{path}: {sid} 미정인데 날짜가 있음")
+        if sorted(ids) != sorted(by_code[code]): err.append(f"{path}: 학교 목록이 원자료와 다름 ({len(ids)} / {len(by_code[code])})")
+        nums = [int(x.replace(",", "")) for x in re.findall(r"<div><b>([\d,]+)</b><span>", t)[:3]]
+        dated = sum(1 for i in by_code[code] if ev.get(i, {}).get("date"))
+        if nums != [len(by_code[code]), dated, len(by_code[code]) - dated]: err.append(f"{path}: 요약 숫자 다름 {nums}")
+    if only is None:
+        # 전부 만들 때: 모든 학교가 정확히 한 번씩, 사이트맵 = 실제 페이지
+        pub = {c for c in by_code if f"area/{c}.html" in texts}
+        want = {i for c in pub for i in by_code[c]}
+        if set(seen) != want or any(n != 1 for n in seen.values()): err.append("지역 페이지에 빠지거나 두 번 나온 학교가 있어요")
+        locs = re.findall(r"<loc>([^<]+)</loc>", texts["sitemap.xml"])
+        pages_urls = {url_of(p) for p in texts if p.endswith(".html")}
+        if not pages_urls <= set(locs): err.append("사이트맵에 빠진 페이지가 있어요")
+        for u in locs:
+            rel_p = u[len(BASE):] or "index.html"
+            rel_p = rel_p + "index.html" if rel_p.endswith("/") else rel_p
+            if rel_p not in texts and not os.path.exists(D(rel_p)): err.append(f"사이트맵 주소에 파일 없음: {u}")
+    return err
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", help="시안용: 만들 시·도/시·군·구 코드 (쉼표로)")
@@ -407,40 +482,56 @@ def main():
     only = None
     if a.only:
         only = {"area/index.html", "qna.html"} | {f"area/{c.strip()}.html" for c in a.only.split(",") if c.strip()}
+    for f in os.listdir(D("area")) if os.path.isdir(D("area")) else []:     # 지난번에 멈춘 찌꺼기 정리
+        if f.endswith(".tmp"): os.remove(D("area", f))
     schools, names, data_day = collect()
     if not data_day: sys.exit("events.json 에 updatedAt 이 없어요. 멈춰요.")
     state_p = D("area", "pages.json")
-    state = load(state_p) if os.path.exists(state_p) else {"total": 0, "pages": {}}
-    # 검사 1: 학교 수가 갑자기 크게 줄면 멈춤
+    state = load(state_p) if os.path.exists(state_p) else {"total": 0, "dated": 0, "pages": {}}
+    dated = sum(1 for s in schools if s["date"])
+    # 검사 1: 학교 수나 날짜 확인 학교 수가 갑자기 크게 줄면 자료 받기 문제로 보고 멈춤 (이전 페이지 유지)
     if state.get("total") and len(schools) < state["total"] * (1 - MAX_DROP):
         sys.exit(f"학교 수가 {state['total']} → {len(schools)} 로 크게 줄었어요. 자료 받기 문제일 수 있어 멈춰요.")
+    if state.get("dated") and dated < state["dated"] * (1 - MAX_DROP):
+        sys.exit(f"날짜 확인 학교가 {state['dated']} → {dated} 로 크게 줄었어요. 자료 받기 문제일 수 있어 멈춰요.")
     pages = build(schools, names, only)
     # 검사 2: 빈 페이지 금지
     for p, (title, desc, crumbs, body) in pages.items():
         if p.startswith("area/") and p != "area/index.html" and "<tbody>\n\n</tbody>" in body:
             sys.exit(f"{p} 에 빈 표가 있어요. 멈춰요.")
-    # 쓰기: 내용(마지막 변경일 빼고)이 바뀐 페이지만 날짜를 바꾸고 다시 써요
-    out, changed_n = {}, 0
+    # 글 만들기: 내용(마지막 변경일 빼고)이 바뀐 페이지만 날짜를 바꿔요
+    out, texts = {}, {}
     for p, (title, desc, crumbs, body) in sorted(pages.items()):
         h = hashlib.sha256((title + desc + json.dumps(crumbs, ensure_ascii=False) + body).encode()).hexdigest()[:16]
         old = state["pages"].get(p, {})
         day = old.get("changed") if old.get("hash") == h and os.path.exists(D(p)) else data_day
         out[p] = {"hash": h, "changed": day}
-        txt = page(p, title, desc, crumbs, body, day)
-        if not os.path.exists(D(p)) or open(D(p), encoding="utf-8").read() != txt:
-            os.makedirs(os.path.dirname(D(p)) or ROOT, exist_ok=True)
-            with open(D(p) + ".tmp", "w", encoding="utf-8") as f: f.write(txt)
-            changed_n += 1
-    for p in out:      # 모두 만든 뒤 한 번에 바꿔 끼워요
-        if os.path.exists(D(p) + ".tmp"): os.replace(D(p) + ".tmp", D(p))
+        texts[p] = page(p, title, desc, crumbs, body, day)
     keep = {k: v for k, v in state["pages"].items() if k not in out and only is not None}   # 시안 때는 다른 기록 유지
+    if only is None: texts["sitemap.xml"] = sitemap(out)
+    # 검사 3: 원자료와 다시 맞춰 보기
+    err = verify(texts, schools, only)
+    if err:
+        print("\n".join(err[:30]))
+        sys.exit(f"검사에서 {len(err)}건이 걸렸어요. 아무 파일도 바꾸지 않았어요.")
+    # 이제 없어진 지역 페이지 (기준 미달 등). 한 번에 많이 지우지 않아요
+    gone = [p for p in state["pages"] if p not in out and only is None]
+    if len(gone) > max(3, len(out) // 10): sys.exit(f"지울 페이지가 {len(gone)}개로 너무 많아요. 멈춰요.")
+    # 쓰기: 바뀐 파일만, 다 만든 뒤 한 번에 바꿔 끼워요
+    changed = [p for p, t in texts.items() if not os.path.exists(D(p)) or open(D(p), encoding="utf-8").read() != t]
+    for p in changed:
+        os.makedirs(os.path.dirname(D(p)) or ROOT, exist_ok=True)
+        with open(D(p) + ".tmp", "w", encoding="utf-8") as f: f.write(texts[p])
+    for p in changed: os.replace(D(p) + ".tmp", D(p))
+    for p in gone:
+        if os.path.exists(D(p)): os.remove(D(p))
     new_state = {"about": "지역 페이지 기록(내용 지문과 마지막 변경일). scripts/build_area_pages.py 가 관리해요.",
-                 "total": len(schools), "pages": dict(sorted({**keep, **out}.items()))}
+                 "total": len(schools), "dated": dated, "pages": dict(sorted({**keep, **out}.items()))}
     if new_state != state:
         with open(state_p, "w", encoding="utf-8") as f:
             json.dump(new_state, f, ensure_ascii=False, indent=1)
             f.write("\n")
-    print(f"페이지 {len(out)}개 중 바뀐 파일 {changed_n}개")
+    print(f"페이지 {len(out)}개, 바뀐 파일 {len(changed)}개, 지운 페이지 {len(gone)}개, 검사 통과")
 
 
 if __name__ == "__main__":

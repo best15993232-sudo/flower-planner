@@ -41,9 +41,17 @@ jobs:
           python3 scripts/update_schools.py $MODE $EXTRA
       - name: 장소·행사 파일 만들기
         run: python3 scripts/build_events.py
+      - name: 지역 졸업식 페이지 만들기 (검사 통과 시에만 바뀜)
+        id: pages
+        continue-on-error: true      # 페이지 검사에 걸려도 학사일정 자료는 저장하고, 페이지는 이전 것을 그대로 둬요
+        run: python3 scripts/build_area_pages.py
+      - name: 페이지 검사 실패 기록
+        if: steps.pages.outcome == 'failure'
+        run: echo "::warning::지역 페이지 검사에 걸려 페이지를 바꾸지 않았어요. 위 '지역 졸업식 페이지 만들기' 기록을 확인하세요."
       - name: 변경분 커밋
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
           git add data/schools.json data/places.json data/events.json
+          git add -A -- 'area/*.html' area/pages.json qna.html sitemap.xml
           git diff --cached --quiet || (git commit -m "data: 학사일정 갱신 $(date +%F)" && git pull --rebase -q && git push)
