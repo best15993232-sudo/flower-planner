@@ -1,4 +1,4 @@
-name: 옛 주소 동 이름 채우기
+name: 옛 주소 동 이름·시군구 코드 채우기
 on:
   workflow_dispatch:
   push:
@@ -28,5 +28,5 @@ jobs:
         run: |
           git config user.name "data-bot"
           git config user.email "data-bot@users.noreply.github.com"
-          git add data/place_dongs.json data/places.json data/events.json
+          git add data/place_dongs.json data/place_regions.json data/places.json data/events.json
           git diff --cached --quiet || (git commit -m "data: 옛 주소 동 이름" && git pull --rebase -q && git push)

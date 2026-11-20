@@ -966,7 +966,7 @@ function manualBlock(primary){
 }
 function closeSheet(){
   $('sheet').classList.remove('on');$('scrim').classList.remove('on');document.body.style.overflow='';
-  const had=st.open;st.open=null;
+  const had=st.open;st.open=null;dropUrlSchool();
   if(st.tab==='find')refreshCards();
   if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true})}catch{}
 }
@@ -1246,7 +1246,16 @@ async function boot(){
   if(st.tab==='plan')renderPlan();
   const n=alertCount();
   if(n>0)toast(`담아둔 학교 ${n}곳의 날짜가 바뀌었어요`,'확인하기',()=>setTab('plan'));
+  openFromUrl();
 }
+/* 주소로 학교 열기 (?s=학교id): 지역 페이지에서 학교 이름을 누르면 그 학교 상세 창이 바로 열려요.
+   없는·오래된 id면 조용히 기본 화면. 창을 닫으면 주소에서 s를 지워 새로 고침 때 다시 안 열려요. */
+function urlSchool(){try{return new URLSearchParams(location.search).get('s')||''}catch{return ''}}
+function dropUrlSchool(){
+  if(!urlSchool())return;
+  try{const u=new URL(location.href);u.searchParams.delete('s');history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch{}
+}
+function openFromUrl(){const id=urlSchool();if(!id)return;if(BY.has(id))openSheet(id);else dropUrlSchool()}
 /* 길찾기: 카카오맵 자동차 길찾기로 연결. 출발지는 내 위치(알면) 또는 카카오맵이 현재 위치로 잡아요 */
 function wayUrl(s){
   const nm=encodeURIComponent(s.name);
