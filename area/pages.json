@@ -1,11 +1,11 @@
 {
  "about": "지역 페이지 기록(내용 지문과 마지막 변경일). scripts/build_area_pages.py 가 관리해요.",
  "total": 12504,
- "dated": 10780,
+ "dated": 10787,
  "pages": {
   "area/11.html": {
-   "hash": "3f3b4b4ee8c3d548",
-   "changed": "2026-11-23"
+   "hash": "b0587daae2f8116a",
+   "changed": "2026-11-24"
   },
   "area/11110.html": {
    "hash": "fd78bc1f5cd4ac8e",
@@ -64,8 +64,8 @@
    "changed": "2026-11-20"
   },
   "area/11470.html": {
-   "hash": "38ce6efda0155c56",
-   "changed": "2026-11-20"
+   "hash": "b5219c5b069e5820",
+   "changed": "2026-11-24"
   },
   "area/11500.html": {
    "hash": "85690620ae4d2c37",
@@ -108,12 +108,12 @@
    "changed": "2026-11-20"
   },
   "area/12.html": {
-   "hash": "0e5122dabaa46409",
-   "changed": "2026-11-20"
+   "hash": "b3a872ae76a59bc0",
+   "changed": "2026-11-24"
   },
   "area/12110.html": {
-   "hash": "91da9b958d04c344",
-   "changed": "2026-11-20"
+   "hash": "d15ae32db4e325c6",
+   "changed": "2026-11-24"
   },
   "area/12130.html": {
    "hash": "34ba522bed26e778",
@@ -204,8 +204,8 @@
    "changed": "2026-11-20"
   },
   "area/12840.html": {
-   "hash": "6fbc5531fc2e40a3",
-   "changed": "2026-11-20"
+   "hash": "28fe42a3c988e341",
+   "changed": "2026-11-24"
   },
   "area/12850.html": {
    "hash": "d91709b9d4300518",
@@ -428,8 +428,8 @@
    "changed": "2026-11-20"
   },
   "area/41.html": {
-   "hash": "1b5aeae35d12920d",
-   "changed": "2026-11-20"
+   "hash": "383040a9476d7649",
+   "changed": "2026-11-24"
   },
   "area/41111.html": {
    "hash": "5939f4cc70d6f3b9",
@@ -548,8 +548,8 @@
    "changed": "2026-11-20"
   },
   "area/41461.html": {
-   "hash": "7c629a2f30f93924",
-   "changed": "2026-11-20"
+   "hash": "2e67f51be13d57a1",
+   "changed": "2026-11-24"
   },
   "area/41463.html": {
    "hash": "59bd6c21da215f97",
@@ -844,8 +844,8 @@
    "changed": "2026-11-20"
   },
   "area/48.html": {
-   "hash": "bd400860e2a70dd2",
-   "changed": "2026-11-20"
+   "hash": "0ff62104b944056d",
+   "changed": "2026-11-24"
   },
   "area/48121.html": {
    "hash": "91d2744a4a0e32fd",
@@ -876,8 +876,8 @@
    "changed": "2026-11-20"
   },
   "area/48240.html": {
-   "hash": "878487cffe585941",
-   "changed": "2026-11-20"
+   "hash": "a9c6f0d89affa3a4",
+   "changed": "2026-11-24"
   },
   "area/48250.html": {
    "hash": "33f68d9c0aff9d76",
@@ -948,8 +948,8 @@
    "changed": "2026-11-20"
   },
   "area/51.html": {
-   "hash": "7009e710e9454f7c",
-   "changed": "2026-11-20"
+   "hash": "438d5560232578d9",
+   "changed": "2026-11-24"
   },
   "area/51110.html": {
    "hash": "f07e0d6c70808894",
@@ -960,8 +960,8 @@
    "changed": "2026-11-20"
   },
   "area/51150.html": {
-   "hash": "6f62afdf6f1b8905",
-   "changed": "2026-11-20"
+   "hash": "d710da6feb9c41db",
+   "changed": "2026-11-24"
   },
   "area/51170.html": {
    "hash": "65e4c4cb85ab66e0",
@@ -992,8 +992,8 @@
    "changed": "2026-11-20"
   },
   "area/51760.html": {
-   "hash": "9d2026dbf4ac1ef2",
-   "changed": "2026-11-20"
+   "hash": "b1d9d1f38116263d",
+   "changed": "2026-11-24"
   },
   "area/51770.html": {
    "hash": "ad6f7ac360ba13bc",
@@ -1088,8 +1088,8 @@
    "changed": "2026-11-20"
   },
   "area/index.html": {
-   "hash": "d9407de90b5cdedb",
-   "changed": "2026-11-23"
+   "hash": "cc8154df6d49ec3b",
+   "changed": "2026-11-24"
   },
   "qna.html": {
    "hash": "d9b689b542548b3d",
