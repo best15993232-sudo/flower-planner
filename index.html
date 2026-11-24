@@ -381,7 +381,6 @@ details summary::after{content:" ▾"}
 .promo b{font-size:15px}.promo span{color:var(--ink2)}.promo u{color:var(--brand);font-weight:700;text-decoration:none;margin-top:2px}
 .promo .promo-l{position:absolute;top:12px;right:14px;font-size:11px;color:var(--ink3)}
 #p-plan .promo{margin-bottom:14px}
-.pricelink{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:#ffffff22;border-radius:14px;padding:6px 12px;text-decoration:none}
 .foot.contact{margin-top:-4px;font-weight:600}
 .foot .nw{white-space:nowrap}
 .foot.intro{font-size:12.5px;color:var(--ink2)}.foot.intro+.foot{margin-top:10px}
@@ -406,7 +405,7 @@ details summary::after{content:" ▾"}
 /* 둥글기: 큰 덩어리 16 / 버튼·입력 12 / 알약 끝까지 */
 .card,.scard,.plansum,.need,.backup,.sum div,#map,.kview,.promo,.locbar,.shopask,.shop,.warnbox,.chg{border-radius:var(--r)}
 .btn,.add,.search input,.placebox input,.dinput,.memo,.links a,.links button,.qty,.stepper button,.event-row,.placelist button,.sl-acts .btn,.coach,.more{border-radius:var(--rs)}
-.chip,.chip-select select,.fbtn,.pillrow button,.range-pills button,.achip,.viewseg,.viewseg button,.seg,.seg button,.need .pills button,.badge,.tag,.sus,.pill,.loc-ch,.evl,.same,.pricelink{border-radius:999px}
+.chip,.chip-select select,.fbtn,.pillrow button,.range-pills button,.achip,.viewseg,.viewseg button,.seg,.seg button,.need .pills button,.badge,.tag,.sus,.pill,.loc-ch,.evl,.same{border-radius:999px}
 /* 높이: 큰 버튼·입력 50 / 작은 버튼·알약 44 */
 .btn,.search input,.placebox input,.placebox .btn,.dinput,.more{height:var(--h)}
 .btn.sm,.add,.chip,.chip-select select,.fbtn,.toolbar .fbtn,.pillrow button,.range-pills button,.achip,.viewseg,.seg,.need .pills button,.links a,.links button,.stepper button,.stepper input,.stepper.sm button,.stepper.sm input,.sl-acts .btn{height:var(--hs)}
@@ -452,7 +451,6 @@ details.other summary{padding:8px 0}
 .warnbox b,.chg b{display:flex;align-items:center;gap:6px}
 .sus{display:inline-flex;align-items:center;gap:3px}
 .promo u{display:inline-flex;align-items:center;gap:4px}
-.pricelink{display:inline-flex;align-items:center;gap:4px}
 #locIc{color:var(--ink);display:flex}
 .shop span .ic,.shopask span .ic{vertical-align:-3px}
 .memo-dot{color:var(--ink3)}
@@ -497,7 +495,7 @@ body{background:var(--bg);color:var(--ink)}
 .search input,.placebox input,.dinput,.memo{background:#fff;border-color:var(--line);border-radius:10px}
 .sticky{background:var(--bg)}
 /* 칩·알약: 둥글기 8px */
-.chip,.chip-select select,.fbtn,.pillrow button,.range-pills button,.achip,.viewseg,.viewseg button,.seg,.seg button,.need .pills button,.badge,.tag,.pill,.sus,.evl,.same,.rchip,.pricelink{border-radius:8px}
+.chip,.chip-select select,.fbtn,.pillrow button,.range-pills button,.achip,.viewseg,.viewseg button,.seg,.seg button,.need .pills button,.badge,.tag,.pill,.sus,.evl,.same,.rchip{border-radius:8px}
 .fbtn,.pillrow button,.range-pills button,.chip-select select{background:#fff;border-color:var(--line)}
 .viewseg,.seg{background:var(--beige)}
 .achip,.pill,.tag,.badge,.loc-ch{background:var(--beige);color:var(--ink)}
@@ -829,7 +827,6 @@ const shortAddr=a=>String(a||'').split(' ').slice(1).join(' ');   // 시·도는
 const kmText=km=>km<1?Math.round(km*1000)+'m':km.toFixed(1)+'km';
 /* 자사몰 배너: 주소(url)를 넣으면 목록 6번째 자리와 내 일정 요약 아래에 나와요. 비워 두면 안 보여요 */
 const PROMO={url:'https://m.site.naver.com/2k46q',title:'졸업식 꽃다발 부자재 준비하기',sub:'포장지·리본·꽃다발 소모품을 한곳에서 확인해 보세요.',cta:'졸업식 특별전 보기',label:'베스트꽃자재연구소'};   // 졸업식 특별전 (네이버 단축링크, 클릭 수 확인용)
-const PRICE_URL='https://m.site.naver.com/2k3wW';   // 양재 꽃 경매 시세 (단축링크)
 const promoHtml=where=>safeUrl(PROMO.url)?`<a class="promo" href="${esc(safeUrl(PROMO.url))}" target="_blank" rel="noopener sponsored" data-promo="${where}"><span class="promo-l">${esc(PROMO.label)}</span><b>${esc(PROMO.title)}</b><span>${esc(PROMO.sub)}</span><u>${esc(PROMO.cta)} ${ic('ext',14)}</u></a>`:'';
 const topGrade=s=>s.kind==='초등학교'?'6학년':/중학교|고등학교/.test(s.kind)?'3학년':'최종학년';   // 졸업생 수 대신 정확한 '최종학년 학생 수'
 const sizeShort=s=>s.size&&s.size.students?`${s.size.grads?`${topGrade(s)} <b>${s.size.grads.toLocaleString('ko-KR')}명</b> · `:''}전체 ${s.size.students.toLocaleString('ko-KR')}명`:'';
@@ -1015,7 +1012,6 @@ function planSummary(g,keys,total){
       <div>${NEED_DAYS===1?'내일까지':`앞으로 ${label} 안에`} 만들 꽃다발</div>
       <div class="big2">${needQty.toLocaleString('ko-KR')}개</div>
       <p>${needSchools?`${needSchools}곳 졸업식 기준이에요.`:'이 기간에 담은 졸업식이 없어요.'}${noQty?` 수량을 아직 안 적은 학교가 ${noQty}곳 있어요.`:''} 장 보는 주기에 맞춰 기간을 골라 보세요.</p>
-      <a class="pricelink" href="${PRICE_URL}" target="_blank" rel="noopener">요즘 꽃값은? 양재 꽃 경매 시세 ${ic('ext',13)}</a>
     </div>
     <div class="sum"><div><b>${saved.length}곳</b><span>담은 학교</span></div><div><b>${total.toLocaleString('ko-KR')}개</b><span>전체 꽃다발 수량</span></div></div>
     ${up.length?`<div class="plansum"><h4>일정 한눈에<small>${busy.length?`같은 날 여러 곳: ${busy.length}일`:'날짜를 누르면 이동해요'}</small></h4>${rows}${past?`<p class="hint" style="margin:8px 0 0">지난 일정 ${past}일은 아래에 있어요.</p>`:''}</div>`:''}`;
