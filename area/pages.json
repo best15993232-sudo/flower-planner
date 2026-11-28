@@ -1,7 +1,7 @@
 {
  "about": "지역 페이지 기록(내용 지문과 마지막 변경일). scripts/build_area_pages.py 가 관리해요.",
  "total": 12504,
- "dated": 10803,
+ "dated": 10806,
  "pages": {
   "area/11.html": {
    "hash": "b0587daae2f8116a",
@@ -108,8 +108,8 @@
    "changed": "2026-11-20"
   },
   "area/12.html": {
-   "hash": "e4b50528e4a885c1",
-   "changed": "2026-11-27"
+   "hash": "294344f3f24d51be",
+   "changed": "2026-11-28"
   },
   "area/12110.html": {
    "hash": "d15ae32db4e325c6",
@@ -180,8 +180,8 @@
    "changed": "2026-11-20"
   },
   "area/12780.html": {
-   "hash": "7671f6e30fa4495a",
-   "changed": "2026-11-20"
+   "hash": "20224fb51c0f5210",
+   "changed": "2026-11-28"
   },
   "area/12790.html": {
    "hash": "6daddd1779d5c415",
@@ -192,8 +192,8 @@
    "changed": "2026-11-20"
   },
   "area/12810.html": {
-   "hash": "cb6bd75401aba6a2",
-   "changed": "2026-11-20"
+   "hash": "457544b1248df45a",
+   "changed": "2026-11-28"
   },
   "area/12820.html": {
    "hash": "204452edef57f30a",
@@ -216,8 +216,8 @@
    "changed": "2026-11-20"
   },
   "area/12870.html": {
-   "hash": "e59a76f1897c9e47",
-   "changed": "2026-11-20"
+   "hash": "676e22a3297929f5",
+   "changed": "2026-11-28"
   },
   "area/26.html": {
    "hash": "6ff4b3e8e47c3c63",
@@ -1088,8 +1088,8 @@
    "changed": "2026-11-20"
   },
   "area/index.html": {
-   "hash": "29cce6d6108e3a73",
-   "changed": "2026-11-27"
+   "hash": "0fe4bb29fc0d59bc",
+   "changed": "2026-11-28"
   },
   "qna.html": {
    "hash": "d9b689b542548b3d",
